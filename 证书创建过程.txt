@@ -1,0 +1,25 @@
+
+//创建服务器keystore  创建秘钥  （证书也可以放在这里面）
+keytool -genkey -v -alias financeServer -keyalg RSA -keystore financeServer.keystore
+
+
+
+
+//创建客户端的秘钥（秘钥p12和证书jks分离）
+keytool -genkey -keystore financeClientCert.p12 -alias financeClient -storepass icephone_4321 -keyalg RSA -storetype PKCS12
+
+
+//转出客户端自签名证书   用于服务器对客户端的信任时候使用
+keytool -export -file financeClientCert.cer -keystore financeClientCert.p12  -alias financeClient -storepass icephone_4321 -storetype PKCS12 -rfc
+
+//将客户端的自签名证书 导入到 服务器端的 信任证书列表中
+keytool -import -v -file financeClientCert.cer -keystore financeServer.keystore
+
+//查看server信任证书里面有几个证书
+keytool -list -keystore financeServer.keystore
+
+//到处客服务端的自签名证书加入到 客户端的信任证书中  因为是双向认证
+keytool -export -alias financeServer -keystore financeServer.keystore -rfc -file financeServerSelf.cer
+
+//生成客户端的信任证书
+keytool -import -alias financeServer -file financeServerSelf.cer -keystore truststore.jks
