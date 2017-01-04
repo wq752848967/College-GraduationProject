@@ -1,0 +1,12 @@
+package com.icephone.dao;
+
+
+import com.icephone.pojo.Users;
+
+
+public interface UserDao
+{
+	public Users getUserById(String userId);
+	
+	public Object getUserByPhone(String userPhone);
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="stylesheet" href="../css/commonCss.css"/>
+        <link rel="stylesheet" href="../css/font-common.css">
+        <style>
+
+
+
+        /* header  css    */
+        #header_body {
+        	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+        	background-color: #0C9;
+        	height: 55px;
+        	font-weight: 200;
+        	font-size: 22px;
+        	color: #FFF;
+        	text-align: center;
+        }
+        #header_body a {
+        	float: left;
+        	height: 55px;
+        	width: 50px;
+        	z-index: 100;
+        }
+        #header_body a img {
+          height: 23px;
+          width: 14px;
+        	margin-top: 15px;
+        }
+        #header_title {
+        	position: absolute;
+        	float: left;
+        	display: block;
+        	line-height: 55px;
+        	width: 100%;
+        	text-align: center;
+        }
+        /*   list css  */
+
+
+
+        .order-list-body{
+          width: 100%;
+          margin-top: 20px;
+
+        }
+        .order-list-body li{
+          margin-top: 8px;
+          padding-left: 3%;
+          height: 100px;
+          border-top: 1px solid #E9E9E9;
+          border-bottom: 1px solid #E9E9E9;
+          background-color: white;
+        }
+        .order-list-body li div{
+          height: 100px;
+          display: inline-block;
+        }
+
+        .order-list-body .li-img{
+          width: 25%;
+          height: 100px;
+          line-height: 100px;
+          text-align: center;
+
+
+
+        }
+        .order-list-body .li-img img{
+
+          display: table-cell;
+          margin-top: 10px;
+          margin-left: auto;
+          margin-right: auto;
+          height:80px;
+          width: 80%;
+        }
+        .order-list-body .li-info{
+
+          width: 39%;
+          vertical-align:top;
+          padding-left: 6%;
+        }
+        .order-list-body .li-info span{
+          display: block;
+          letter-spacing: 1px;
+        }
+        .order-list-body .li-info .title{
+          margin-top: 10px;
+          font-size: 18px;
+          font-weight: 500;
+        }
+        .order-list-body .li-info .type{
+          margin-top:5px;
+          font-size: 15px;
+          font-weight: 500;
+
+        }
+        .order-list-body .li-info .date{
+          margin-top: 8px;
+          font-size: 15px;
+          font-weight: 500;
+
+        }
+        .order-list-body .li-op{
+
+          height: 100px;
+          width: 25%;
+          line-height: 100px;
+          vertical-align: top;
+        }
+        .order-list-body .li-op span{
+          font-size: 15px;
+        }
+        .order-list-body .li-op img{
+              width: 15px;
+              height: 25px;
+              margin-left: 15px;
+              vertical-align: middle;
+            }
+        </style>
+
+    </head>
+    <body class="bg-gray" ng-app="hkeep_user" ng-controller="RepairOrderListController as orderListCon">
+      <script>
+      function changeBack()
+      {
+         document.location="../index.html";
+      }
+      </script>
+        <div  class="cheader">
+          <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" d
+            ata-rel="back"><img src="../images/common/back_white.png"/></a>
+            <span id="header_title">历史订单</span> </div>
+        </div>
+        <div class="order-list-body ">
+          <ul>
+            <li ng-repeat="order in orderListCon.orders">
+              <div class="li-img">
+                <img src="../images/hkeep/w_order_test_png.png" alt="">
+              </div>
+              <div class="li-info">
+                <span class="title yahei" ng-bind="order.rtitle"></span>
+                <span class="type color-gray yahei" ng-bind="order.rtypeCode"></span>
+                <span class="date color-gray yahei" >{{order.rdate|date:'yyyy-MM-dd h:mm'}}</span>
+              </div>
+              <div class="li-op">
+                <span class="color-green yahei" ng-bind="order.rstatusCode"></span>
+                <img src="../images/common/next.png" alt="">
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+
+
+
+
+    </body>
+    <script type="text/javascript">
+
+    </script>
+    <script type="text/javascript" src="../js/angular.min.js" ></script>
+    <script type="text/javascript" src="../app.js"></script>
+    <script type="text/javascript" src="service/repair_service.js"></script>
+    <script type="text/javascript" src="controller/repair_controller.js"></script>
+</html>

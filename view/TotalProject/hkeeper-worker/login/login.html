@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/font-common.css">
+    <title>登录</title>
+    <style media="screen">
+        div{
+          margin: 0px;
+          padding: 0px;
+        }
+       .body{
+         width: 100%;
+         background-color: white;
+       }
+       .div-logo{
+          width: 100%;
+          margin-top: 80px;
+          text-align: center;
+       }
+       .div-logo img{
+         width: 100px;
+         height: 100px;
+         border: 6px solid #C4D3FD;
+         border-radius: 53px;
+       }
+
+       /*  login-panel    */
+     .login-panel{
+         height: 200px;
+         margin-top: 60px;
+
+       }
+       .input-bg{
+         height: 50px;
+         margin-left: 10%;
+         margin-right: 10%;
+         line-height: 50px;
+         padding-bottom: 5px;
+         border-bottom: 1px solid #C3C3C3;
+       }
+       .input-bg img{
+         width: 26px;
+         height: auto;
+
+         vertical-align: middle;
+       }
+       .input-bg input{
+         height:23px;
+         padding-left: 55px;
+         width: 60%;
+
+         border: none;
+         outline: none;
+         font-size: 16px;
+         font-family:"STHeiti", "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+       }
+       .submit-panel{
+         width: 100%;
+         margin-top: 20px;
+         text-align: center;
+       }
+       .submit-button{
+         height: 50px;
+         width: 80%;
+
+         color: white;
+         font-size: 20px;
+         border-radius: 25px;
+         border: none;
+         outline: none;
+         background-color: #6583FB;
+       }
+
+       /*  结果面板   */
+       .result-panel{
+         display: none;
+         position: absolute;
+         z-index: 1003;
+         width: 180px;
+         height: 100px;
+         padding-top: 20px;
+
+
+         text-align: center;
+         border: 1px solid #C3C3C3;
+         border-radius: 10px;
+         background-color: white;
+       }
+       .result-panel span{
+         display: inline-block;
+         margin-top: 15px;
+       }
+    </style>
+  </head>
+  <body ng-app="hkeep_worker" ng-controller="LoginController as loginCon">
+
+    <div class="body">
+      <div class="div-logo">
+          <img src="../images/login/login_logo.png"/>
+      </div>
+      <div class="login-panel yahei">
+        <div class="input-bg">
+          <img src="../images/login/login_user.png"/>
+          <input name="username"  placeholder="用户名/帐号" ng-model="loginCon.username"/>
+        </div>
+        <div class="input-bg">
+          <img src="../images/login/login_psw.png"/>
+          <input name="username"  type="password" placeholder="密码" ng-model="loginCon.userpsw"/>
+        </div>
+        <div class="submit-panel">
+            <button class="submit-button yahei" ng-click="loginCon.login()">登录</button>
+        </div>
+
+      </div>
+      <div class="login-add-panel">
+
+      </div>
+    </div>
+
+
+
+
+
+    <div class="result-panel">
+        <img src="../images/per/set.png" alt=""/></br>
+        <span>正在登录...</span>
+    </div>
+  </body>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/angular.min.js" ></script>
+  <script type="text/javascript" src="../app.js"></script>
+  <script type="text/javascript" src="service/LoginService.js"></script>
+  <script type="text/javascript" src="controller/LoginController.js"></script>
+</html>

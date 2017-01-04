@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>历史订单</title>
+
+</head>
+
+<body ng-app="hkeep_user" ng-controller="HworksHistoryController as historyCon">
+<div data-role="page" style="background-color:#F5F5F5;">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css" >
+<link rel="stylesheet" href="../css/font-common.css" >
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+<style>
+div
+{
+	padding:0px;
+	margin:0px;
+}
+ul
+{
+	list-style:none;
+
+}
+#header_body {
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+	background-color: #0C9;
+	height: 55px;
+	font-weight: 200;
+	font-size: 20px;
+	color: #FFF;
+	text-align: center;
+}
+#header_body a {
+	float: left;
+	height: 55px;
+	width: 50px;
+	z-index: 100;
+}
+#header_body a img {
+	margin-top: 13px;
+}
+#header_title {
+	position: absolute;
+	float: left;
+	display: block;
+	line-height: 55px;
+	width: 100%;
+	text-align: center;
+}
+
+
+/*   list li  */
+.list-li
+{
+	width:92%;
+	height:194px;
+	margin-left:4%;
+	margin-right:4%;
+	margin-top:20px;
+	border-radius:8px;
+	border:1px solid #D1D1D1;
+	background-color:#FFF;
+}
+.list-li-header
+{
+	height:40px;
+	line-height:40px;
+	margin-left:15px;
+	overflow:hidden;
+
+
+
+	font-size:15px;
+}
+.list-li-header img
+{
+	height:13px;
+	vertical-align:middle;
+}
+.ll-h-stype
+{
+	font-weight:bold;
+	letter-spacing:1px;
+	margin-left:10px;
+	vertical-align:middle;
+}
+.ll-h-status
+{
+	float:right;
+	margin-right:20px;
+	font-weight:normal;
+	letter-spacing:1px;
+	color:#00B7F0;
+
+}
+.list-li-body
+{
+	height:85px;
+	margin-left:15px;
+	margin-right:15px;
+	padding-top:10px;
+	border-top:2px solid #D9D9D9;
+}
+
+
+
+
+.list-li-body  img
+{
+	float:left;
+	width:85px;
+	height:85px;
+}
+.order_info
+{
+	float:left;
+	margin-left:20px;
+	margin-top:8px;
+}
+.order_info_title
+{
+	font-size:inherit;
+	font-weight:bold;
+}
+.order_info_01
+{
+	color:#999;
+	font-size:15px;
+	margin-top:8px;
+
+}
+.order_info_02
+{
+	margin-top:8px;
+	color:#999;
+	font-size:15px;
+}
+.order_info_02 .money
+{
+	color:red;
+}
+.order_info_02 .pNum
+{
+	margin-left:50px;
+	color:red;
+}
+
+
+
+/*  footer */
+.list-li-footer
+{
+	height:42px;
+	border-bottom-left-radius:8px;
+	border-bottom-right-radius:8px;
+	margin-top:15px;
+
+	background-color:#F9F9F9;
+}
+.list-li-footer button
+{
+	width:70px;
+	height:20px;
+	float:right;
+	margin-right:20px;
+	margin-top:10px;
+	border:none;
+	outline:none;
+	color:#FFF;
+	font-size:15px;
+	border-radius:5px;
+	background-color:#E85C5B;
+}
+
+</style>
+<script type="text/javascript">
+function changeBack()
+{
+  document.location="./hkIndex.html";
+}
+</script>
+  <div data-role="header" class="cheader">
+    <div id="header_body"onclick="changeBack()"><a href="http://www.baidu.com" ><img src="../images/common/back_white.png"/></a><span id="header_title">填写订单信息</span></div>
+  </div>
+  <div data-role="content" style="padding:0px;margin:0px;">
+    <ul>
+        <li class="list-li yahei" ng-repeat="item in historyCon.dataList" ng-click="historyCon.historyDetial(item.hwId)">
+        	<div class="list-li-header"><img src="../images/hkeep/w_file.png" /><span class="ll-h-stype" ng-bind="item.hwDTypeCode"></span><span class="ll-h-status" ng-bind="item.hwStatusCode"></span></div>
+            <div class="list-li-body">
+            <img src="../images/hkeep/w_order_test_png.png"/>
+            	<div class="order_info">
+                	<div class="order_info_title" ng-bind="item.hwTitle"></div>
+                    <div class="order_info_01">时间:&nbsp;<span ng-bind="item.hwTime"></span>小时</div>
+                    <div class="order_info_02">金额:&nbsp; <span class="money" ng-bind="item.hwMoney"></span>元 <span class="pNum" ng-bind="item.hwApplyAmount"></span>人&nbsp;申请</div>
+                </div>
+            </div>
+
+
+           <div class="list-li-footer">
+           		<button data-role="none" ng-if="item.hwStatusCode==212 ">评价订单</button><button data-role="none">取消</button>
+           </div>
+        </li>
+
+    </ul>
+
+  </div><!-- content end -->
+</div>
+<div id="datePlugin"></div>
+</body>
+<script type="text/javascript" src="../js/angular.min.js" ></script>
+<script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript" src="service/hk_service.js"></script>
+<script type="text/javascript" src="controller/hk_controller.js"></script>
+</html>

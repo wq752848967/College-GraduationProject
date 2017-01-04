@@ -1,0 +1,28 @@
+body{
+  padding: 0px;
+  margin: 0px;
+}
+div{
+  padding: 0px;
+  margin: 0px;
+}
+ul{
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+a{
+
+}
+.bg-green{
+  background-color: #0C9;
+}
+.bg-gray{
+  background-color: #F5F5F5;
+}
+.color-green{
+  color:#0C9;
+}
+.color-gray{
+  color: #A9A9A9;
+}

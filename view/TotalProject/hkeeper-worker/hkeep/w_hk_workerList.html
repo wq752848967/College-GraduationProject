@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页</title>
+</head>
+<body ng-app="hkeep_worker" ng-controller="HworksListController as hworksListCon">
+<div data-role="page" class="pageDiv">
+  <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css" >
+  <link rel="stylesheet" href="../css/font-common.css" >
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+
+body div {
+	padding: 0px;
+	margin: 0px;
+	border:none;
+
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+}
+ul {
+	padding: 0px;
+	margin: 0px;
+	list-style:none;
+}
+img {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* header */
+#header_body {
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+	background-color: #0C9;
+	height: 50px;
+	font-weight: 200;
+	font-size: 20px;
+	color: #FFF;
+	text-align: center;
+}
+#header_body a {
+	float: left;
+	height: 50px;
+	width: 50px;
+	z-index: 100;
+}
+#header_body a img {
+	margin-top: 10px;
+}
+#header_title {
+	position: absolute;
+	float: left;
+	display: block;
+	line-height: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+
+/* list filter   */
+#div_list_filter
+{
+	height:40px;
+	width:100%;
+	background-color:#0C9;
+	padding-top:10px;
+	margin-top:-5px;
+}
+#div_list_filter ul
+{
+	height:40px;
+	float:none;
+	width:100%;
+	background-color:#0c9;
+}
+#div_list_filter ul li
+{
+	float:left;
+	width:33%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+}
+#div_list_filter ul li a
+{
+	height:40px;
+	width:100%;
+	font-size:18px;
+	font-weight:200;
+	line-height:40px;
+	text-align:center;
+	text-decoration:none;
+	color:white;
+}
+#div_list_filter ul li a img
+{
+	width:20px;
+	height:10px;
+	margin-left:5px;
+}
+
+
+/*   popup panel   */
+#work_kind_panel
+{
+	border:none !important;
+	width:200px;;
+	text-align:center;
+}
+.popup_header
+{
+
+	height:25px;
+	padding-top:6px;
+	padding-bottom:6px;
+	color:#FFF;
+	font-size:20px;
+	font-weight:300;
+	background-color:#0c9;
+}
+.popup_ul_list
+{
+	margin-top:5px;
+	padding-bottom:15px;
+}
+.popup_ul_list li
+{
+	height:35px;
+	line-height:35px;
+	margin-left:10px;
+	margin-right:10px;
+	border-bottom:1px solid #CCC;
+
+}
+
+
+
+/*  list  css  */
+#div_order_list li
+{
+	height:85px;
+	margin-bottom:2px;
+	background-color:#FFF;
+}
+#div_order_list li img
+{
+	float:left;
+	width:85px;
+	height:85px;
+}
+.order_info
+{
+	float:left;
+	margin-left:20px;
+	margin-top:8px;
+}
+.order_info_title
+{
+	font-size:inherit;
+	font-weight:600;
+}
+.order_info_01
+{
+	color:#999;
+	font-size:15px;
+	margin-top:8px;
+
+}
+.order_info_02
+{
+	margin-top:8px;
+	color:#999;
+	font-size:15px;
+}
+.order_info_02 .money
+{
+	color:red;
+}
+.order_info_02 .pNum
+{
+	margin-left:50px;
+	color:red;
+}
+</style>
+  <script>
+function changeBack()
+{
+   document.location="../index.html";
+}
+</script>
+  <div data-role="header">
+    <div id="header_body"onclick="changeBack()"><a href="http://www.baidu.com" ><img src="../images/common/back_white.png"/></a><span id="header_title">家政信息</span></div>
+
+  </div>
+
+  <div data-role="content" class="div_content" style="padding:0px;margin:0px; background-color:#F4F5F9;">
+  	 <div id="div_list_filter">
+     	<ul>
+        	<li><a href="#work_kind_panel" data-rel="popup" data-position-to="window">类型<img src="../images/hkeep/drop_down.png"/></a></li>
+           <li><a href="#work_kind_panel" data-rel="popup" data-position-to="window">细分<img src="../images/hkeep/drop_down.png"/></a></li>
+           <li><a href="#work_kind_panel" data-rel="popup" data-position-to="window">位置<img src="../images/hkeep/drop_down.png"/></a></li>
+        </ul>
+     </div>
+
+   <div id="work_kind_panel" data-role="popup" >
+  	<div >
+        <div class="popup_header">选项</div>
+        <ul class="popup_ul_list">
+          <li ng-click="hworksListCon.chengeType(0)">全部</li>
+        	<li ng-click="hworksListCon.chengeType(1)">清洁</li>
+          <li ng-click="hworksListCon.chengeType(2)">报修</li>
+        </ul>
+    </div>
+  </div>
+
+  <!--order list-->
+    <div id="div_order_list">
+    	<ul>
+        	<li ng-repeat="hw in hworksListCon.hwList" ng-click="hworksListCon.showDetial(hw.hwId)" ng-if="(hw.hwDTypeCode==hworksListCon.type) || (hworksListCon.typeAll)">
+             <img src="../images/hkeep/w_order_test_png.png"/>
+            	<div class="order_info">
+                	<div class="order_info_title" ng-bind="hw.hwTitle"></div>
+                    <div class="order_info_01">时间:&nbsp;<span ng-bind="hw.hwTime"></span></div>
+                    <div class="order_info_02">金额:&nbsp; <span class="money" ng-bind="hw.hwMoney"></span> <span class="pNum" ng-bind="hw.hwApplyAmount"></span>&nbsp;预约</div>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+
+
+  </div><!--content end-->
+
+  </div><!--page end-->
+ <script>
+ 
+ </script>
+
+
+
+
+
+</body>
+<script type="text/javascript" src="../js/angular.min.js" ></script>
+<script src="http://cdn.bootcss.com/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script>
+<script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript" src="service/hk_service.js"></script>
+<script type="text/javascript" src="controller/hk_controller.js"></script>
+</html>

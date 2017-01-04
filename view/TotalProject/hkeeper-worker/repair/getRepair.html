@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="stylesheet" href="../css/commonCss.css"/>
+        <link rel="stylesheet" href="../css/font-common.css">
+        <style>
+
+
+
+        /* header  css    */
+        #header_body {
+        	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+        	background-color: #0C9;
+        	height: 55px;
+        	font-weight: 200;
+        	font-size: 22px;
+        	color: #FFF;
+        	text-align: center;
+        }
+        #header_body a {
+        	float: left;
+        	height: 55px;
+        	width: 50px;
+        	z-index: 100;
+        }
+        #header_body a img {
+          height: 23px;
+          width: 14px;
+        	margin-top: 13px;
+        }
+        #header_title {
+        	position: absolute;
+        	float: left;
+        	display: block;
+        	line-height: 55px;
+        	width: 100%;
+        	text-align: center;
+        }
+
+
+
+        /*        圆环   css样式              */
+
+
+
+            .circle {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                margin-top: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;
+                background: #88AEFF;
+
+            }
+
+            .clip_left,.clip_right{
+                width:200px;
+                height:200px;
+                position: absolute;
+                top: 0px;left: 0px;
+            }
+            .circle_left, .circle_right{
+                width:200px;
+                height:200px;
+                position: absolute;
+                border-radius: 50%;
+                top: 0px;left: 0px;
+                background: #C3C3C3;
+            }
+            /*出于展示用的改变背景色*/
+            /*.circle_left{
+                background: green;
+            }
+            .circle_right{
+                background: lightblue;
+            }*/
+            .circle_right,.clip_right {
+                clip:rect(0,auto,auto,100px);
+            }
+            .circle_left , .clip_left{
+                clip:rect(0,100px,auto,0);
+            }
+
+            /*
+            *当top和left取值为auto时，相当于0
+            *当bottom和right取值为auto时，相当于100%
+            */
+            .mask {
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                left: 36px;
+                top: 36px;
+                background: #FFF;
+                position: absolute;
+                text-align: center;
+                line-height: 130px;
+                font-size: 25px;
+                font-weight: 900;
+                color:#88AEFF;
+            }
+
+
+            /*    信息面板      */
+            .info-panel{
+              margin-top: 20px;
+              margin-left: 10px;
+              margin-right: 10px;
+              border-top: 2px solid #D1D1D1;
+            }
+              .info-panel ul{
+                margin-top: 20px;
+                font-weight: lighter;
+                font-size: 15px;
+              }
+              .info-panel ul li img{
+                height: 40px;
+                width: 40px;
+                vertical-align: middle;
+              }
+            .info-panel ul li{
+              height: 50px;
+              line-height: 50px;
+            }
+            .li-right-info{
+              float: right;
+              display: inline-block;
+            }
+            .info-percentage{
+              margin-left: 10px;
+            }
+            /*  获取按钮   */
+            .get-btn-panel{
+              width: 100%;
+              margin-top: 50px;
+              text-align: center;
+            }
+            .get-btn-panel button{
+              height: 50px;
+              width: 70%;
+              border-radius: 25px;
+              font-size: 18px;
+              color: white;
+              border: none;
+              outline: none;
+              letter-spacing:3px;
+              background-color: #00CC99;
+            }
+            /*    弹出信息框选择    */
+            .pop-panel{
+              display: none;
+
+              width: 70%;
+              height: 120px;
+              margin-left: auto;
+              margin-right: auto;
+
+              padding-top: 15px;
+              padding-bottom: 15px;
+              text-align: center;
+              border: 1px solid #D1D1D1;
+              border-radius: 10px;
+              background-color: white;
+            }
+            .pop-panel button{
+              width: 30%;
+              height: 40px;
+              margin: 8px;
+
+              border: none;
+              outline: none;
+              color: white;
+              font-size: 17px;
+              letter-spacing: 3px;
+              background-color: #00CC99;
+            }
+            .pop-panel .info-head{
+              margin-top: 20px;
+              margin-bottom: 18px;
+            }
+        </style>
+
+    </head>
+    <body ng-app="hkeep_worker" ng-controller="GetRepairController as getRepairCon">
+      <script>
+      function changeBack()
+      {
+         document.location="../index.html";
+      }
+      </script>
+        <div  class="cheader">
+          <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
+        </div>
+        <!--背景圆-->
+        <div class="circle">
+            <!--左半边圆-->
+            <div class="circle_left">
+                <div class="clip_left">
+
+                </div>
+            </div>
+            <!--右半边圆-->
+            <div class="circle_right">
+                <div class="clip_right"></div>
+            </div>
+            <div class="mask">
+                <span ng-bind="getRepairCon.totalPerc"></span>
+            </div>
+        </div>
+        <script src="../js/jquery.min.js"></script>
+        <script>
+            $(function(){
+                if( $('.mask span').text() <= 50 ){
+                    $('.circle_right').css('transform','rotate('+($('.mask span').text()*3.6)+'deg)');
+                }else{
+                    $('.circle_right').css({
+                        'transform':'rotate(0deg)',
+                        "background":"red"
+                    });
+                    $('.circle_left').css('transform','rotate('+(($('.mask span').text()-50)*3.6)+'deg)');
+                }
+            })
+        </script>
+        <div class="info-panel yahei">
+          <ul>
+            <li>
+              <img src="../images/hkeep/hk_type31.png" alt=""><span ng-bind="getRepairCon.type_01"></span><span class="info-percentage" ng-bind="getRepairCon.perc_01"></span>
+              <div class="li-right-info">
+                  剩余<span ng-bind="getRepairCon.leftCount_01"></span> 任务
+              </div>
+            </li>
+            <li>
+              <img src="../images/hkeep/hk_type13.png" alt=""><span ng-bind="getRepairCon.type_02"></span><span class="info-percentage" ng-bind="getRepairCon.perc_02"></span>
+              <div class="li-right-info">
+                    剩余<span ng-bind="getRepairCon.leftCount_02"></span> 任务
+              </div>
+            </li>
+            <li>
+              <img src="../images/hkeep/hk_type22.png" alt=""><span ng-bind="getRepairCon.type_03"></span><span class="info-percentage" ng-bind="getRepairCon.perc_03"></span>
+              <div class="li-right-info">
+                    剩余<span ng-bind="getRepairCon.leftCount_03"></span> 任务
+              </div>
+            </li>
+
+          </ul>
+        </div>
+        <div class="get-btn-panel">
+          <button class="yahei" type="button" name="button" ng-click="getRepairCon.showInfo()">获取任务</button>
+        </div>
+
+        <div class="pop-panel">
+            <div class="info-head">
+              <span>当前获取任务类型为：</span><span ng-bind="getRepairCon.workType"></span>
+            </div>
+            <div class="op-btns">
+              <button class="yahei" type="button" name="button" ng-click="getRepairCon.moveGetPage()">获取</button>
+              <button class="yahei" type="button" name="button" ng-click="getRepairCon.hiddenInfo()">取消</button>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+
+    </script>
+    <script type="text/javascript" src="../js/angular.min.js" ></script>
+    <script type="text/javascript" src="../app.js"></script>
+    <script type="text/javascript" src="service/repairService.js"></script>
+    <script type="text/javascript" src="controller/repairController.js"></script>
+</html>

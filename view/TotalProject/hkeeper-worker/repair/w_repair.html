@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>首页</title>
+<link rel="stylesheet" href="../hkeep/css/jquery.mobile-1.4.5.min.css" >
+<link rel="stylesheet" href="../hkeep/css/font-common.css" >
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(document).bind('mobileinit',function(){
+        $.mobile.changePage.defaults.changeHash = false;
+        $.mobile.hashListeningEnabled = false;
+        $.mobile.pushStateEnabled = false;
+    });
+</script>
+<script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../hkeep/js/yxMobileSlider.js"></script>
+<style>
+body div {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+}
+ul {
+	padding: 0px;
+	margin: 0px;
+}
+img {
+	padding: 0px;
+	margin: 0px;
+}
+.selector {
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+}
+#home.ui-btn-icon-top:after {
+	background: url(../hkeep/images/index/w_index_01.png) 50% 50% no-repeat;
+	background-size: 24px 24px;
+	-webkit-border-radius: 0em;
+	border-radius: 0em;
+}
+#home2.ui-btn-icon-top:after {
+	background: url(../hkeep/images/index/menu.png) 50% 50% no-repeat;
+	background-size: 24px 24px;
+	-webkit-border-radius: 0em;
+	border-radius: 0em;
+}
+#home3.ui-btn-icon-top:after {
+	background: url(../hkeep/nav-home2.png) 50% 50% no-repeat;
+	background-size: 22px 24px;
+}
+#home4.ui-btn-icon-top:after {
+	background: url(../hkeep/images/index/per.png) 50% 50% no-repeat;
+	background-size: 24px 24px;
+	-webkit-border-radius: 0em;
+	border-radius: 0em;
+}
+.ui-btn-icon-left:after, .ui-btn-icon-right:after, .ui-btn-icon-top:after, .ui-btn-icon-bottom:after, .ui-btn-icon-notext:after {
+	background-color: #F0F0F0;
+}
+.nav-footer.ui-btn-icon-top {
+	padding-top: 3em;
+}
+.nav-footer.ui-btn {
+	font-weight: normal !important;
+	color : #BBC1CD;
+}
+.ui-btn-active
+{
+	background-color:#f6f6f6 !important;
+	border:none !important;
+	color:#00b194 !important;
+}
+
+
+/* 搜索框 */
+.header_search {
+	
+	color: white;
+	height: 50px;
+	width:100%;
+	font-size: 18px;
+	font-weight: normal;
+}
+#div_hk_logo
+{
+	height:50px;
+	display:inline-block;
+	vertical-align:middle;
+}
+#div_input
+{
+	height:35px;
+	width:70%;
+	display:inline-block;
+	vertical-align:middle;
+	border-radius:5px;
+	background-color:#008E78;
+}
+#img_hk_logo
+{
+	height:30px;
+	width:70px;
+	padding-top:10px;
+	margin-left:10px;
+	
+}
+#img_search_logo
+{
+	
+	height:20px;
+	width:20px;
+	padding-top:8px;
+	margin-left:10px;
+	vertical-align:middle;
+}
+#div_input input
+{
+	height:20px;
+	line-height:20px;
+	width:70%;
+	background-color:inherit;
+	border:none;
+	outline:none;
+	color:white;
+	vertical-align:middle;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-top:7px;
+	margin-bottom:0px;
+	margin-left:10px;
+}
+
+
+
+
+
+
+/* 图片轮播 */
+#content_pic_turn {
+	width: 100%;
+	background-color: #F00
+}
+/*  基本功能选择按钮 */
+#content_select_fun
+{
+	background-color:white;
+}
+#content_select_fun ul {
+	width: 100%;
+	height: 100px;
+	padding-top: 10px;
+	margin-left:6%;
+	list-style: none;
+}
+#content_select_fun ul li {
+	float: left;
+	width: 22%;
+	height: 130px;
+}
+#content_select_fun ul li div {
+	width: 80%;
+	height: 60px;
+	margin: auto;
+	margin-top: 10px;
+	border-radius: 15px;
+}
+#content_select_fun ul li div img {
+	display: block;
+	margin: auto;
+	width: 50px;
+	height: 50px;
+}
+#content_select_fun ul li span {
+	display: block;
+	margin-top: 0px;
+	text-align: center;
+	font-size: 14px;
+	font-weight:500;
+}
+/*  广告  */
+#content_ad_title {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+#content_ad_title a {
+	display: block;
+}
+#content_ad_title img {
+	width: 100%;
+	border-radius: 20px;
+}
+</style>
+</head>
+<div data-role="page">
+  <div data-role="header" data-position="fixed" >
+    <!-- 搜索框 -->
+    <div  class="header_search bg_green">
+       <div id="div_hk_logo"><img id="img_hk_logo" src="../hkeep/images/index/hk_logo.png"/></div>
+       <div id="div_input"><img id="img_search_logo" src="../hkeep/images/index/search_logo.png"/><input class="yahei" data-role="none" type="text"/></div>
+    </div>
+  </div>
+  <div data-role="content" style="padding:0px;margin:0px; background-color:#F4F5F9">
+    <!--图片轮播 -->
+    <div id="content_pic_turn" class="slider" data-role="none">
+      <ul>
+        <li><a href=""><img src="../hkeep/images/test/1.png"></a></li>
+        <li><a href=""><img src="../hkeep/images/test/2.jpg">测试标题一</a></li>
+        <li><a href=""><img src="../hkeep/images/test/3.jpg">测试标题一</a></li>
+        <li><a href=""><img src="../hkeep/images/test/4.jpg">测试标题一</a></li>
+        <li><a href=""><img src="../hkeep/images/test/5.jpg">测试标题一</a></li>
+      </ul>
+    </div>
+    
+    <script>
+	var screen_width = document.body.scrollWidth;
+	var screen_height = screen_width/550*300;
+	
+    $("#content_pic_turn").yxMobileSlider({width:screen_width,height:screen_height,during:3000})
+    </script>
+    
+    <!-- 基础功能选项 -->
+    <div id="content_select_fun">
+      <ul>
+        <li>
+          <div><a href="../hkeep/repair/repair.html" data-transition="slide"><img src="../hkeep/images/index/w_repair.png" /></a></div>
+          <span>报修任务</span></li>
+        <li>
+          <div><a href="../hkeep/hkeep/hkIndex.html"  data-transition="slide"><img src="../hkeep/images/index/w_hkorker.png" /></a></div>
+          <span>家政接单</span></li>
+        <li>
+          <div><a href="../hkeep/per/per.html"><img src="../hkeep/images/index/w_collection.png" /></a></div>
+          <span>收藏</span></li>
+        <li>
+          <div><img src="../hkeep/images/index/w_shop.png" /></div>
+          <span>社区家政</span></li>
+      </ul>
+    </div>
+    
+    <!--  广告区域 -->
+    <div id="content_ad">
+      <div id="content_ad_title"><a href="http://www.baidu.com"><img src="../hkeep/images/index/ad_title.png" /></a></div>
+      <!-- 信息区域 -->
+      <div id="content_info">
+        <ul data-role="listview" data-inset="true" style="margin-left:20px;margin-right:20px;">
+          <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a id="home"   class="nav-footer ui-btn-active" data-icon="star" href="#">首页</a></li>
+        <li><a id="home2"  class="nav-footer" data-icon="star" href="#">首页</a></li>
+        <li><a id="home3"  class="nav-footer" data-icon="custom" href="#">首页</a></li>
+        <li><a id="home4"  class="nav-footer" data-icon="custom" href="../hkeep/per/per.html">首页</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<body>
+</body>
+</html>
