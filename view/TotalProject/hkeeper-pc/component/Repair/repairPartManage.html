@@ -88,6 +88,60 @@
 	background-color: #478DE4;
 }
 
+
+
+/*  add panel  style   */
+
+#addPartPanel ul,li{
+	background-color: white;
+}
+#addPartPanel .modal-body{
+	padding-left: 145px;
+	padding-right: 145px;
+}
+#addPartPanel .ap-name-span{
+
+	font-size: 20px;
+}
+#addPartPanel  .ap-name-input{
+	width: 200px;
+	margin-left: 10px;
+}
+#addPartPanel .ap-part-title{
+	padding-top: 20px;
+
+	font-size: 20px;
+}
+#addPartPanel .ap-parts-list{
+	list-style: circle;
+	margin-left: 130px;
+	margin-top: 5px;
+}
+#addPartPanel .ap-parts-list li{
+	height: 30px;
+}
+#addPartPanel .ap-add-div{
+	width: 100%;
+
+	text-align: center;
+}
+#addPartPanel .ap-add-btn{
+	height: 25px;
+	width: 60px;
+	color: white;
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+#addPartPanel .new-part{
+	width: 100%;
+	display: none;
+	text-align: center;
+}
+#addPartPanel .new-part button{
+	color: white;
+	border-radius: 3px;
+}
 </style>
 
 
@@ -106,13 +160,15 @@
       </tr>
     </thead>
     <tbody>
-      <td>1</td>
-      <td>管道维修</td>
-      <td>下水道、卫生间、厨房</td>
-      <td>
-        <button class="modify-part-btn bg-blue yahei" type="button" name="button">修改</button>
-        <button class="delete-part-btn bg-red yahei" type="button" name="button">删除</button>
-      </td>
+      <tr ng-repeat="part  in  repairPartCon.partList">
+				<td ng-bind="part.rpId"></td>
+	      <td ng-bind="part.rpName"></td>
+	      <td ng-bind="part.rpParts"></td>
+	      <td>
+	        <button class="modify-part-btn bg-blue yahei" type="button" name="button" ng-click="repairPartCon.editPartProject($index)">修改</button>
+	        <button class="delete-part-btn bg-red yahei" type="button" name="button" ng-click="repairPartCon.deletePartProject($index)">删除</button>
+	      </td>
+      </tr>
 
     </tbody>
   </table>
@@ -121,35 +177,36 @@
 
 
   <!-- 弹出详情面板  -->
-  <div class="modal fade" id="repairDetialPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addPartPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-          <h4 class="modal-title" id="myModalLabel" ng-bind="repairListCon.curOrder.hwTitle"></h4>
+          <h4 class="modal-title" id="myModalLabel" >保修项目显示</h4>
         </div>
         <div class="modal-body yahei">
-						<ul>
-							<li>编号：<span ng-bind="repairListCon.curOrder.hwId"></span></li>
-							<li>类型：<span ng-bind="repairListCon.curOrder.hwTypeCode"></span></li>
-							<li>种类：<span ng-bind="repairListCon.curOrder.hwDTypeCode"></span></li>
-							<li>状态：<span ng-bind="repairListCon.curOrder.hwStatusCode"></span></li>
-							<li>发布时间：<span >{{repairListCon.curOrder.hwPubDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
-							<li>服务时间：<span ng-bind="repairListCon.curOrder.hwDate"></span></li>
-							<li>服务时长：<span ng-bind="repairListCon.curOrder.hwTime"></span> 小时</li>
-							<li>服务费用： 合计 ￥<span ng-bind="repairListCon.curOrder.hwMoney"></span></li>
-							<li>地址：<span ng-bind="repairListCon.curOrder.hwAddr"></span></li>
-							<li>申请次数：<span ng-bind="repairListCon.curOrder.hwApplyAmount"></span> 次</li>
-							<li>浏览次数：<span ng-bind="repairListCon.curOrder.hwVisitTime"> </span> 次</li>
-							<li>描述：<span ng-bind="repairListCon.curOrder.hwDesc"></span><br></li>
+						<span class="ap-name-span">名称: </span><input class="ap-name-input" type="text" name="" value="" ng-model="repairPartCon.pName"/>
+						<div class="">
+								<span class="ap-part-title">部位:</span>
 
+								<ul class="ap-parts-list">
+									<li ng-repeat="curpart in repairPartCon.curParts">
+										<span class="perPart">{{curpart}}</span>
+									</li>
+								</ul>
+								<div class="new-part">
+									<input type="text" name="" value="" placeholder="请输入报修部位" ng-model="repairPartCon.addPartValue">
+									<button class="bg-blue" type="button" name="button" ng-click="repairPartCon.addPerPart()">确定</button>
+								</div>
+								<div class="ap-add-div">
+										<button class="ap-add-btn bg-blue" type="button" name="button" ng-click="repairPartCon.addPartInputShow()">添加</button>
+								</div>
 
-
-						</ul>
+						</div>
 				</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
-          <button type="button" class="btn btn-primary"> 提交更改 </button>
+          <button type="button" class="btn btn-primary" ng-click="repairPartCon.saveAddPart()"> 提交更改 </button>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -164,7 +221,10 @@
 
 
 <div class="addPartPanel">
-  <button class="bg-blue yahei" type="button" name="button"><i class="fa fa-plus-square" style="margin-right:15px;"></i>添加</button>
+  <button class="bg-blue yahei" type="button" name="button" ng-click="repairPartCon.addPanelShow()">
+		<i class="fa fa-plus-square" style="margin-right:15px;"></i>
+		添加
+	</button>
 </div>
 
 

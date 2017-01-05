@@ -18,6 +18,6 @@ app.config(function($stateProvider,$urlRouterProvider){
         .state("repairPartManage",{
           url:"/repairPartManage",
           templateUrl:"component/Repair/repairPartManage.html",
-          controller:"RepairListController as repairListCon"
+          controller:"RepairPartManageController as repairPartCon"
         })
 });
