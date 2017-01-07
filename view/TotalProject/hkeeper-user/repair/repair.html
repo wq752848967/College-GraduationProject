@@ -129,7 +129,9 @@ function changeBack()
     <div id="repair_info_body" class="mydiv">
       <p>报修项目:</p>
       <div class="div_input_border"><input data-role="none" placeholder="请输入报修项目" ng-model="submitRCon.title"/></div>
-      <p>报修地址:</p>
+			<p>报修类型:</p>
+      <div ><u ng-bind="submitRCon.rpName"></u></div>
+			<p>报修地址:</p>
       <div class="div_input_border"><input data-role="none" placeholder="请输入报修地址" ng-model="submitRCon.addr"/></div>
       <p>简要描述:</p>
       <textarea class="text_area" data-role="none" ng-model="submitRCon.desc"></textarea>

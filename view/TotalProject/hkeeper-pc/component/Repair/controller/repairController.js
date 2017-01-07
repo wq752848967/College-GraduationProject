@@ -8,6 +8,7 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
   self.maxPage  = 1;
   self.pageSize = 10;
   self.pageNum =  [];
+
  //init data
 getAllRepairByDate(self.pageNow,self.pageSize);
 
@@ -32,7 +33,7 @@ getAllRepairByDate(self.pageNow,self.pageSize);
     var promise = RepairListService.getAllRepairByDate(pageNow,pageSize);
     promise.success(function(data,status,config,headers){
       console.log("RepairListController.getAllRepairByDate() success");
-      console.log(data.data);
+
       self.repairList = data.data;
       self.PageNow = data.pageNow;
       self.maxPage = data.pageMax;
@@ -61,8 +62,8 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
   self.pPart="";
   self.addPartValue="";
   self.curParts = [];
-
-
+  self.addFlag =  false;
+  self.curIndex  = 0;
 
   //init data
   getAllParts();
@@ -77,7 +78,7 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     //self.curOrder =  self.workList[index];
     self.pName="";
     self.pPart="";
-
+    self.addFlag = true;
     self.curParts = [];
     $('#addPartPanel').modal('show');
 
@@ -102,10 +103,13 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
   //编辑 partProject
   self.editPartProject = function(index){
     self.pName=self.partList[index].rpName;
-    self.pPart=self.partList[index].rpParts;
+    self.addFlag = false;
+    self.curIndex = index;
 
     //划分part
     self.curParts = [];
+    var partArr = self.partList[index].rpParts.split("、");
+    self.curParts = partArr;
     $('#addPartPanel').modal('show');
   }
 
@@ -127,8 +131,16 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
 
       });
 
-      //提交数据
-      saveRepairProject(self.pName,addPartList);
+      if(self.addFlag){
+        //提交数据
+        saveRepairProject(self.pName,addPartList);
+
+      }
+      else{
+        //更新数据
+        updatePartProject(self.curIndex,self.partList[self.curIndex].rpId,self.pName,addPartList,1);
+      }
+
   }
 
 
@@ -139,7 +151,7 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     var  promise = RepairPartManageService.getAllParts();
     promise.success(function(data,status,config,headers){
       console.log("RepairPartManageService.getAllParts success");
-      console.log(data.data);
+
       self.partList = data.data;
 
     });
@@ -155,16 +167,17 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
       console.log("RepairPartManageService.addPart success");
       //判断 是否成功
       var result = data.success;
-      $(".new-part").toggle();
+      $('#addPartPanel').modal('hide');
       if(result){
         alert("添加成功");
       }
       else{
         alert("添加失败");
       }
-
+      getAllParts();
     });
     promise.error(function(data,status,config,headers){
+      $('#addPartPanel').modal('hide');
       alert("internet error,get data fail!");
     });
   };
@@ -175,20 +188,20 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
       console.log("RepairPartManageService.updatePartProject success");
       //判断 是否成功
       var result = data.success;
-
+      $('#addPartPanel').modal('hide');
       if(result){
-        alert("删除成功");
+        alert("修改成功");
 
         //更新数据
         self.partList.splice(index,1);
       }
       else{
-        alert("删除失败");
+        alert("修改失败");
       }
-
+      getAllParts();
     });
     promise.error(function(data,status,config,headers){
-      alert("internet error,get data fail!");
+      alert("修改失败，网络错误!");
     });
   }
 

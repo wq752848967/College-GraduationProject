@@ -36,9 +36,9 @@ app.service("RepairPartManageService",["$http",function($http){
   };
 
 
-  
-  this.updatePartProject = function(pId,pName,pParts,pStatus){
 
+  this.updatePartProject = function(pId,pName,pParts,pStatus){
+  
     var data = {'pId':pId,'pName':pName,'pParts':pParts,'pStatus':pStatus};
     var transFn = function(data) {
         return $.param(data);
