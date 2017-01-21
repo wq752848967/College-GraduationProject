@@ -1,4 +1,9 @@
 app.service("RepairListService",["$http",function($http){
+
+
+
+  //Repair
+
   this.getAllRepairByDate = function(pageNow,pageSize){
     return   $http({url:serverAddress+'/repair/getAllRepairByDate',
      method: 'post',
@@ -8,10 +13,45 @@ app.service("RepairListService",["$http",function($http){
                 'pageSize':pageSize
              }});
   }
+
+
+  this.allow = function(rId){
+    return   $http({url:serverAddress+'/repair/allowRepairApplication',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+                'rId':rId
+             }});
+  }
+  this.refuse = function(rId){
+    return   $http({url:serverAddress+'/repair/refuseRepairApplication',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+                'rId':rId
+             }});
+  }
+
+this.getRepairServiceInfo = function(rId,uId){
+  return   $http({url:serverAddress+'/repair/getRepairServiceInfo',
+   method: 'post',
+   headers: {'Content-Type': 'multipart/form-data'},
+    params:{
+              'rId':rId,
+              'uId':uId
+           }});
+}
+
 }]);
 
 
 
+
+
+
+
+
+//Repair  Part
 
 
 app.service("RepairPartManageService",["$http",function($http){
@@ -38,7 +78,7 @@ app.service("RepairPartManageService",["$http",function($http){
 
 
   this.updatePartProject = function(pId,pName,pParts,pStatus){
-  
+
     var data = {'pId':pId,'pName':pName,'pParts':pParts,'pStatus':pStatus};
     var transFn = function(data) {
         return $.param(data);

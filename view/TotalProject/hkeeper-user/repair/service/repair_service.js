@@ -16,9 +16,16 @@ angular.module('hkeep_user')
 
 
     //define out interface
+    this.getRepairServiceInfo  = function(rId){
+      return $http({ url:serverAddress+'/repair/getRepairServiceInfo',
+            method: 'post',
+            headers: {'Content-Type': 'multipart/form-data'},
+            params:{ 'rId':rId}
+            });
+      }
     this.submit = function(title,addr,desc,userId,level,rpId,rpName){
       //返回可级联调用方法体promise
-      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'UId':userId,'RLevel':level,'rpId':rpId,'rpName':rpName};
+      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'UId':userId,'rpId':rpId,'rpName':rpName};
       var transFn = function(data) {
           return $.param(data);
       };
@@ -26,7 +33,8 @@ angular.module('hkeep_user')
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
                 transformRequest: transFn
             };
-      return $http({url:serverAddress+'/repair/submitRepair',method: 'post',data,postCfg});
+    //  return $http({url:serverAddress+'/repair/submitRepair',method: 'post',data,postCfg});
+      return  $http.post(serverAddress+'/repair/submitRepair', data, postCfg);
     };
     //获取历史订单
     this.getOrderHistory = function(){

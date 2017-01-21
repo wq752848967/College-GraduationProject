@@ -1,5 +1,20 @@
 app.service("RepairService",["$http",function($http){
 
+  this.getRepairById  = function(rId){
+    return $http({ url:serverAddress+'/repair/getRepairById',
+          method: 'post',
+          headers: {'Content-Type': 'multipart/form-data'},
+          params:{ 'rId':rId}
+          });
+    }
+    this.getRepairServiceInfo  = function(rId){
+      return $http({ url:serverAddress+'/repair/getRepairServiceInfo',
+            method: 'post',
+            headers: {'Content-Type': 'multipart/form-data'},
+            params:{ 'rId':rId}
+            });
+      }
+
   this.getRepairWorkInfo = function(){
     return $http({ url:serverAddress+'/repairInfo/getAll',
             method: 'post',
@@ -18,6 +33,21 @@ app.service("RepairService",["$http",function($http){
     return $http({ url:serverAddress+'/user/getUserType',
             method: 'post',
             headers: {'Content-Type': 'multipart/form-data'}
+            });
+  }
+  //更新repair status
+  this.finishRepair  =function(rId){
+    return $http({ url:serverAddress+'/repair/finishRepair',
+            method: 'post',
+            headers: {'Content-Type': 'multipart/form-data'},
+            params:{ 'rId':rId}
+            });
+  }
+  this.canNotRepair  =function(rId){
+    return $http({ url:serverAddress+'/repair/canNotRepair',
+            method: 'post',
+            headers: {'Content-Type': 'multipart/form-data'},
+            params:{ 'rId':rId}
             });
   }
   //获取历史订单

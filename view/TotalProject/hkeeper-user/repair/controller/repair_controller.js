@@ -32,7 +32,7 @@ angular.module('hkeep_user').controller('SubmitRepairController',['RepairService
      }
 }]);
 //   work  订单历史
-app.controller("RepairOrderListController",["RepairService",function(RepairService){
+app.controller("RepairOrderListController",["RepairService","$window",function(RepairService,$window){
   var self = this;
   self.orders = [];
 
@@ -41,7 +41,9 @@ app.controller("RepairOrderListController",["RepairService",function(RepairServi
   //调用方法进行初始化
   initData();
 
-
+  self.gotoDetial = function(rId){
+    $window.location =  "./repairDetial.html?rId="+rId;
+  }
 
 
   //声明内部方法
@@ -105,5 +107,48 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
       console.log("error RepairService.getAllRepairParts");
     });
   }
+
+}]);
+
+//  repair  详情 controller
+app.controller("RepairDetialController",["RepairService","$window",function(RepairService,$window){
+  var self = this;
+  self.repair;
+  self.status;
+  var repairType;
+  var rId;
+  //获取类型
+
+    var reg = new RegExp("(^|&)" + "rId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    rId  =  unescape(r[2]);
+
+    var promise  =  RepairService.getRepairServiceInfo(rId);
+    promise.success(function(data,status,config,headers){
+        console.log("success RepairService.getRepairServiceInfo");
+        self.repair  = data.data;
+        console.log(data);
+        //判断当前状态对按钮进行禁用
+        var rStatus  = data.data.repair.rstatusCode;
+        console.log(rStatus);
+        self.status = rStatus;
+        if(rStatus==314||rStatus==316){
+            $(".mik-comment").attr('disabled',true);
+        }
+    });
+    promise.error(function(data,status,config,headers){
+      console.log("error RepairService.getRepairById");
+    });
+
+
+
+
+
+
+
+
+
+  //define out interface
+
 
 }]);

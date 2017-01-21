@@ -139,7 +139,7 @@
         </div>
         <div class="order-list-body ">
           <ul>
-            <li ng-repeat="order in orderListCon.orders">
+            <li ng-repeat="order in orderListCon.orders" ng-click="orderListCon.gotoDetial(order.rid)">
               <div class="li-img">
                 <img src="../images/hkeep/w_order_test_png.png" alt="">
               </div>

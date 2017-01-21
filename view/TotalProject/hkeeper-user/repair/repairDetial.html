@@ -49,7 +49,7 @@
       border-bottom: 2px solid #0c9;
     }
     .bhead-date{
-        margin-left: 18px;
+        margin-left: 32px;
     }
     .bhead-status {
       float: right;
@@ -57,11 +57,13 @@
     }
     .body-content{
       padding-top: 20px;
+      padding-bottom:100px;
       padding-left: 32px;
       padding-right: 32px;
     }
     .content-head{
       font-size: 18px;
+      padding-bottom: 20px;
 
     }
     .content-line{
@@ -94,68 +96,91 @@
       background-color: #0c9;
       width: 60%;
     }
+
+    .publisher-info{
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top:1px dashed #7F7F7F;
+    }
+    .finisher-info{
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top:1px dashed #7F7F7F;
+    }
     </style>
   </head>
-  <body ng-app="hkeep_worker" ng-controller="RepairDetialController as repairDetialCon" class="bg-gray">
+  <body ng-app="hkeep_user" ng-controller="RepairDetialController as repairDetialCon" class="bg-gray">
     <div  class="cheader yahei">
       <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
 
     </div>
     <div class="detial-body yahei">
       <div class="detial-bhead">
-          <span class="bhead-date" ng-bind="repairDetialCon.repair.rdate"></span><span class="bhead-status color-green" ng-bind="repairDetialCon.repair.rstatusCode">待维修</span>
+          <span class="bhead-date" ng-bind="repairDetialCon.repair.repair.rdate|date"></span><span class="bhead-status color-green" ng-bind="repairDetialCon.status"></span>
       </div>
       <div class="body-content color-gray">
         <div class="content-head" ng-bind="repairDetialCon.repair.repair.rtitle">
 
         </div>
         <div class="content-line">
-          编号： <span ng-bind="repairDetialCon.repair.repair.rid"></span>
+          编&nbsp &nbsp号： <span ng-bind="repairDetialCon.repair.repair.rid"></span>
         </div>
         <div class="content-line">
-          类型： <span ng-bind="repairDetialCon.repair.repair.rtypeCode"></span>
+          类&nbsp &nbsp型： <span ng-bind="repairDetialCon.repair.repair.rtypeCode"></span>
         </div>
         <div class="content-line">
-          地址： <span ng-bind="repairDetialCon.repair.repair.raddr"></span>
+          地&nbsp &nbsp址： <span ng-bind="repairDetialCon.repair.repair.raddr"></span>
         </div>
         <div class="content-line">
-          描述:</br></br>
+          描&nbsp &nbsp述:</br></br>
           <span ng-bind="repairDetialCon.repair.repair.rdes"></span>
         </div>
 
-        <div class="publisher-info">
+        <div class="publisher-info" ng-if="(repairDetialCon.status==314)||(repairDetialCon.status== 313)">
           <div class="content-line">
-            发布者:</br></br>
-            <span ng-bind="repairDetialCon.repair.user.uName"></span>
+            维修人员:
+            <span ng-bind="repairDetialCon.repair.worker.uname"></span>
           </div>
           <div class="content-line">
-            联系方式:</br></br>
-            <span ng-bind="repairDetialCon.repair.user.uPhone"></span>
+            联系方式:
+            <span ng-bind="repairDetialCon.repair.user.uphone"></span>
           </div>
           <div class="content-line">
-            接单时间:</br></br>
-            <span ng-bind="repairDetialCon.repair.rServce.rsDate"></span>
+            接单时间:
+            <span ng-bind="repairDetialCon.repair.rServce.rsDate| date"></span>
           </div>
         </div>
-        <div class="finisher-info" ng-if="(repairDetialCon.repair.repair.rstatusCode=314)||(repairDetialCon.repair.repair.rstatusCode=316)">
+        <div class="finisher-info" ng-if="repairDetialCon.status==314">
           <div class="content-line">
-            完成时间:</br></br>
-            <span  ng-bind="repairDetialCon.repair.rService.rsFinishDate"></span>
+            完成时间:
+            <span  ng-bind="repairDetialCon.repair.rServce.rsFinishDate|date"></span>
           </div>
           <div class="content-line">
-             完成人员:</br></br>
-            <span ng-bind="repairDetialCon.repair.worker.nName"></span>
+             完成人员:
+            <span ng-bind="repairDetialCon.repair.worker.uname"></span>
           </div>
+        </div>
+        <div class="finisher-info" ng-if="(repairDetialCon.status==315)||(repairDetialCon.status==316)">
+          <div class="content-line">
+            拒绝维修
+
+          </div>
+          <div class="content-line">
+            拒绝时间:
+            <span  ng-bind="repairDetialCon.repair.rServce.rsFinishDate|date"></span>
+          </div>
+
         </div>
       </div>
       <div class="operate-panel">
-        <button class="cannot-repair" type="button" name="button" ng-click="repairDetialCon.cantNotRepair()">无法维修</button>
-        <button class="repair-complete" type="button" name="button" ng-click="repairDetialCon.finishRepair()">维修完毕</button>
+        <button class="mik-comment" type="button" name="button">评价</button>
       </div>
     </div>
   </body>
+  <script type="text/javascript" src="../js/jquery.min.js">
+  </script>
   <script type="text/javascript" src="../js/angular.min.js" ></script>
   <script type="text/javascript" src="../app.js"></script>
-  <script type="text/javascript" src="service/repairService.js"></script>
-  <script type="text/javascript" src="controller/repairController.js"></script>
+  <script type="text/javascript" src="service/repair_service.js"></script>
+  <script type="text/javascript" src="controller/repair_controller.js"></script>
 </html>

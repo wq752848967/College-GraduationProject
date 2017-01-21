@@ -60,7 +60,11 @@
 .footer-pages .active{
 	background-color: #478DE4;
 }
-
+.repair-work-info{
+	border-top: 1px solid #E5E5E5;
+	margin-top: 10px;
+	padding-top: 20px;
+}
 </style>
 
 
@@ -101,30 +105,41 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-          <h4 class="modal-title" id="myModalLabel" ng-bind="repairListCon.curOrder.hwTitle"></h4>
+          <h4 class="modal-title" id="myModalLabel" ng-bind="repairListCon.curRepair.rtitle"></h4>
+
         </div>
         <div class="modal-body yahei">
 						<ul>
-							<li>编号：<span ng-bind="repairListCon.curOrder.hwId"></span></li>
-							<li>类型：<span ng-bind="repairListCon.curOrder.hwTypeCode"></span></li>
-							<li>种类：<span ng-bind="repairListCon.curOrder.hwDTypeCode"></span></li>
-							<li>状态：<span ng-bind="repairListCon.curOrder.hwStatusCode"></span></li>
-							<li>发布时间：<span >{{repairListCon.curOrder.hwPubDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
-							<li>服务时间：<span ng-bind="repairListCon.curOrder.hwDate"></span></li>
-							<li>服务时长：<span ng-bind="repairListCon.curOrder.hwTime"></span> 小时</li>
-							<li>服务费用： 合计 ￥<span ng-bind="repairListCon.curOrder.hwMoney"></span></li>
-							<li>地址：<span ng-bind="repairListCon.curOrder.hwAddr"></span></li>
-							<li>申请次数：<span ng-bind="repairListCon.curOrder.hwApplyAmount"></span> 次</li>
-							<li>浏览次数：<span ng-bind="repairListCon.curOrder.hwVisitTime"> </span> 次</li>
-							<li>描述：<span ng-bind="repairListCon.curOrder.hwDesc"></span><br></li>
-
-
-
+							<li>编  &nbsp&nbsp号：<span ng-bind="repairListCon.curRepair.rid"></span></li>
+							<li>发布者：<span ng-bind="repairListCon.curRepair.uid"USER12345678121212""> </span></li>
+							<li>类  &nbsp&nbsp型：<span ng-bind="repairListCon.curRepair.rtypeCode"></span></li>
+							<li>种  &nbsp&nbsp类：<span ng-bind="repairListCon.curRepair.rpName"></span></li>
+							<li>状  &nbsp&nbsp态：<span ng-bind="repairListCon.curRepair.rstatusCode"></span></li>
+							<li>发布时间：<span >{{repairListCon.curRepair.rdate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+							<li>地  &nbsp&nbsp址：<span ng-bind="repairListCon.curRepair.raddr"></span></li>
+							<li>调度等级：<span ng-bind="repairListCon.curRepair.rlevel"></span> 级</li>
+							<li>描  &nbsp&nbsp述：<span ng-bind="repairListCon.curRepair.rdes"></span><br></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="(repairListCon.curRepair.rstatusCode>=313)||(repairListCon.curRepair.rstatusCode==314)">
+							<li>维修人员姓名：<span ng-bind="repairListCon.curRepairService.worker.uname"></span></li>
+							<li>维修人员编号：<span ng-bind="repairListCon.curRepairService.worker.uid"></span></li>
+							<li>维修人员评分：<span ng-bind="repairListCon.curRepairService.worker.upoints"></span></li>
+							<li>接手订单时间：<span >{{repairListCon.curRepairService.rServce.rsDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==314">
+							<li>维修完毕</li>
+							<li>维修完成时间：<span ng-bind="repairListCon.curRepairService.rService.rsFinishDate"></span></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==315">
+							<li>维修完毕   (拒绝维修)</li>
+							<li>维修拒绝时间：<span >{{repairListCon.curRepairService.rServce.rsFinishDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
 						</ul>
 				</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
-          <button type="button" class="btn btn-primary"> 提交更改 </button>
+					<div class="allow-panel" ng-if="repairListCon.curRepair.rstatusCode==311">
+						<button class="btn btn-default" type="button" name="button" ng-click="repairListCon.refuse()">拒绝维修</button>
+						<button class="btn btn-primary" type="button" name="button" ng-click="repairListCon.allow()">同意维修</button>
+					</div>
         </div>
       </div>
       <!-- /.modal-content -->

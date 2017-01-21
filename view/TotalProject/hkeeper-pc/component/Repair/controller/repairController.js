@@ -8,7 +8,7 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
   self.maxPage  = 1;
   self.pageSize = 10;
   self.pageNum =  [];
-
+  self.curRepairService;
  //init data
 getAllRepairByDate(self.pageNow,self.pageSize);
 
@@ -20,11 +20,20 @@ getAllRepairByDate(self.pageNow,self.pageSize);
   }
   self.repairDetialShow = function(index)
 	{
-    //self.curOrder =  self.workList[index];
-
-		$('#repairDetialPanel').modal('show')
+    self.curRepair =  self.repairList[index];
+    if(self.curRepair.rstatusCode>=313){
+      //请求其他数据
+      getRepairServiceInfo(self.curRepair.rid,self.curRepair.uid);
+    }
+		$('#repairDetialPanel').modal('show');
 
 	}
+  self.allow = function(){
+    allow(self.curRepair.rid);
+  }
+  self.refuse = function(){
+    refuse(self.curRepair.rid);
+  }
 
 
 
@@ -46,8 +55,53 @@ getAllRepairByDate(self.pageNow,self.pageSize);
     promise.error(function(data,status,config,headers){
       alert("internet error,get data fail!");
     });
-
   }
+
+  function allow(rId){
+    var promise = RepairListService.allow(rId);
+    promise.success(function(data,status,config,headers){
+      console.log("RepairListController.allow() success");
+      alert("更改成功");
+      $('#repairDetialPanel').modal('hide');
+      getAllRepairByDate(self.pageNow,self.pageSize);
+    });
+    promise.error(function(data,status,config,headers){
+      $('#repairDetialPanel').modal('hide');
+      alert("internet error,get data fail!");
+
+    });
+  }
+
+  function refuse(rId){
+    var promise = RepairListService.refuse(rId);
+    promise.success(function(data,status,config,headers){
+      console.log("RepairListController.allow() success");
+      alert("更改成功");
+      $('#repairDetialPanel').modal('hide');
+      getAllRepairByDate(self.pageNow,self.pageSize);
+    });
+    promise.error(function(data,status,config,headers){
+      $('#repairDetialPanel').modal('hide');
+      alert("internet error,get data fail!");
+
+    });
+  }
+  function getRepairServiceInfo(rId,uId){
+    var promise = RepairListService.getRepairServiceInfo(rId,uId);
+    promise.success(function(data,status,config,headers){
+      console.log("RepairListController.getRepairServiceInfo() success");
+      self.curRepairService = data.data;
+      console.log(data.data);
+
+    });
+    promise.error(function(data,status,config,headers){
+
+      alert("internet error,get data fail!");
+
+    });
+  }
+
+
 }]);
 
 

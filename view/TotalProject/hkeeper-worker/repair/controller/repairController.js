@@ -47,7 +47,7 @@ app.controller("GetRepairController",["RepairService","$window",function(RepairS
 //定义方法
   self.moveGetPage = function(repairType){
 
-    $window.location =  "./repairDetial.html?repairType="+self.workType.toString();
+    $window.location =  "./repairDetial.html?repairType="+self.workType.toString()+"&deType=1";
   }
 
   self.showInfo = function(){
@@ -80,23 +80,84 @@ app.controller("GetRepairController",["RepairService","$window",function(RepairS
 app.controller("RepairDetialController",["RepairService",function(RepairService){
   var self = this;
   self.repair;
-
+  var repairType;
+  var rId;
   //获取类型
-  var reg = new RegExp("(^|&)" + "repairType" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-  var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-  var repairType  =  unescape(r[2]);
+  deType
+  var dreg = new RegExp("(^|&)" + "repairType" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+  var dr = window.location.search.substr(1).match(dreg);  //匹配目标参数
+  var deType  =  unescape(dr[2]);
+  if(deType==1){
+    var reg = new RegExp("(^|&)" + "repairType" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    repairType  =  unescape(r[2]);
+    // 调用service 获取任务
+    var promise  =  RepairService.getRepair(repairType);
+    promise.success(function(data,status,config,headers){
+        console.log("success RepairService.getRepair");
+        self.repair  = data.data;
+        console.log(data);
+    });
+    promise.error(function(data,status,config,headers){
+      console.log("error RepairService.getRepair");
+    });
+  }else{
+    var reg = new RegExp("(^|&)" + "rId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    rId  =  unescape(r[2]);
+
+    var promise  =  RepairService.getRepairServiceInfo(rId);
+    promise.success(function(data,status,config,headers){
+        console.log("success RepairService.getRepairById");
+        self.repair  = data.data;
+        console.log(data);
+        //判断当前状态对按钮进行禁用
+        var rStatus  = data.data.repair.rstatusCode;
+        if(rstatusCode==314||rstatusCode==316){
+            $(".cannot-repair").attr('disabled',true);
+            $(".repair-complete").attr('disabled',true);
+        }
+    });
+    promise.error(function(data,status,config,headers){
+      console.log("error RepairService.getRepairById");
+    });
+  }
 
 
-  // 调用service 获取任务
-  var promise  =  RepairService.getRepair(repairType);
-  promise.success(function(data,status,config,headers){
-      console.log("success RepairService.getRepair");
-      self.repair  = data.data;
-      console.log(data);
-  });
-  promise.error(function(data,status,config,headers){
-    console.log("error RepairService.getRepair");
-  });
+
+
+
+
+
+
+  //define out interface
+  self.finishRepair = function() {
+    var promise  =  RepairService.finishRepair(rId);
+    promise.success(function(data,status,config,headers){
+        console.log("success RepairService.cantNotRepair");
+          alert("修改成功");
+          $(".cannot-repair").attr('disabled',true);
+          $(".repair-complete").attr('disabled',true);
+
+    });
+    promise.error(function(data,status,config,headers){
+      console.log("error RepairService.cantNotRepair");
+        alert("修改失败");
+    });
+  }
+  self.cantNotRepair = function(){
+    var promise  =  RepairService.cantNotRepair(rId);
+    promise.success(function(data,status,config,headers){
+        console.log("success RepairService.cantNotRepair");
+        alert("修改成功");
+        $(".cannot-repair").attr('disabled',true);
+        $(".repair-complete").attr('disabled',true);
+    });
+    promise.error(function(data,status,config,headers){
+      console.log("error RepairService.cantNotRepair");
+      alert("修改失败");
+    });
+  }
 
 }]);
 
@@ -113,7 +174,12 @@ app.controller("RepairOrderListController",["RepairService",function(RepairServi
   initData();
 
 
+  //声明外部方法
 
+
+  self.gotoDetial = function(rId){
+    $window.location =  "./repairDetial.html?rId="+rId+"&deType=2";
+  }
 
   //声明内部方法
   function initData(){

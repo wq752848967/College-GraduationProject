@@ -5,7 +5,7 @@ app.controller("LoginController",["LoginService","$window",function(LoginService
     self.userpsw;
 
 
-});
+
 
 
 
@@ -24,8 +24,10 @@ app.controller("LoginController",["LoginService","$window",function(LoginService
             //登录成功
             $window.location.href="../index.html";
           }else{
+            self.hideWaiting();
             //登陆失败
             alert("登录失败");
+
           }
       })
       promise.error(function(data,status,config,headers){
@@ -39,6 +41,10 @@ app.controller("LoginController",["LoginService","$window",function(LoginService
       var scrollTop = $(document).scrollTop();
       var scrollLeft = $(document).scrollLeft();
       $(".result-panel").css( { position : 'absolute', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
+    }
+    self.hideWaiting = function(){
+
+      $(".result-panel").hide();
     }
 
 }])
