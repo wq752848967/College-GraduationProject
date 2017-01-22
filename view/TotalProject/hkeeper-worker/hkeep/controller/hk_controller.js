@@ -43,7 +43,7 @@ app.controller('HworksListController',['HworksService','$window',function(Hworks
 
 
 }]);
-app.controller('HworksDetialController',['HworksService',function(HworksService){
+app.controller('HworksDetialController',['HworksService','$window',function(HworksService,$window){
 
       var self = this;
 
@@ -102,21 +102,24 @@ app.controller('HworksDetialController',['HworksService',function(HworksService)
         }
         if (viewType==2) {
             //完成订单
-            self.completeHwork();
+            completeHwork();
         }
 
       }
 
       //完成订单
-      self.completeHwork()   = function(){
-        var promise = HworksService.completeHwork();
-        promise.success(function(){
-            alert("完成订单成功");
-            $window.location.href="w_hk_workerList";
-        });
-        promise.error(function(){
-            alert("网络错误，完成订单失败");
-        });
+      function completeHwork() {
+    	  var promise = HworksService.completeHwork();
+          promise.success(function(){
+              alert("完成订单成功");
+              $window.location.href="w_hk_workerList";
+          });
+          promise.error(function(){
+              alert("网络错误，完成订单失败");
+          });
+      }
+      self.completeHwork   = function(){
+    	  completeHwork();
       }
 
 }]);
@@ -125,7 +128,7 @@ app.controller('HworksDetialController',['HworksService',function(HworksService)
 
 
 //历史订单controller
-app.controller("OrderListController",['HworksService',function(HworksService){
+app.controller("OrderListController",['HworksService','$window',function(HworksService,$window){
   var self = this;
   //定义数据
   self.dataList;
@@ -134,6 +137,7 @@ app.controller("OrderListController",['HworksService',function(HworksService){
    var promise = HworksService.getOrderList();
    promise.success(function(data,status,config,headers){
       console.log("success HworksService.getOrderList");
+      console.log(data.data);
       self.dataList = data.data;
 
    });

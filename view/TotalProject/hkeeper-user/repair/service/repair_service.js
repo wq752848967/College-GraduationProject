@@ -25,7 +25,7 @@ angular.module('hkeep_user')
       }
     this.submit = function(title,addr,desc,userId,level,rpId,rpName){
       //返回可级联调用方法体promise
-      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'UId':userId,'rpId':rpId,'rpName':rpName};
+      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'UId':userId,'RLevel':level,'rpId':rpId,'rpName':rpName};
       var transFn = function(data) {
           return $.param(data);
       };

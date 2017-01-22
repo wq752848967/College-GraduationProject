@@ -8,7 +8,7 @@ app.service('HKeepService',['$http',function($http){
     this.submit = function(userId,title,money,date,time,add,desc,typeCode,dTypeCode)
     {
 
-      
+
        //返回可级联调用方法体promise
        var data = { 'hwPubUId':userId,
          'hwTitle':title,
@@ -26,8 +26,8 @@ app.service('HKeepService',['$http',function($http){
                  headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
                  transformRequest: transFn
              };
-       return $http({url:serverAddress+'/hwork/submitHwork',method: 'post',data,postCfg});
-
+       //return $http({url:serverAddress+'/hwork/submitHwork',method: 'post',data,postCfg});
+       return  $http.post(serverAddress+'/hwork/submitHwork', data, postCfg);
 
 
 
@@ -58,5 +58,22 @@ app.service('HKeepApplyService',['$http',function($http){
       method: 'post',
       headers: {'Content-Type': 'multipart/form-data'},
       params:{ 'hwId':hwId}});
+   }
+   this.submitComment = function(hwId,cContent,cPoint){
+     //返回可级联调用方法体promise
+     var data = {
+       'hwId':hwId,
+       'cContent':cContent,
+       'cPoint':cPoint
+      };
+     var transFn = function(data) {
+         return $.param(data);
+     };
+     var postCfg = {
+               headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+               transformRequest: transFn
+           };
+
+     return  $http.post(serverAddress+'/comment/addComment', data, postCfg);
    }
 }]);

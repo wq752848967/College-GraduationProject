@@ -71,6 +71,7 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
   var curPartClass="";
   var curPartId = "";
   var curPartName = "";
+  
   // init data
   getAllRepairParts();
 
@@ -99,11 +100,13 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
   function getAllRepairParts(){
     var promise = RepairService.getAllRepairParts();
     promise.success(function(data,status,config,headers){
+     
       console.log("success RepairService.getAllRepairParts");
       console.log(data.data);
       self.partList = data.data;
     });
     promise.error(function(data,status,config,headers){
+    	
       console.log("error RepairService.getAllRepairParts");
     });
   }

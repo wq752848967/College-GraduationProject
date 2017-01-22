@@ -189,7 +189,7 @@ function changeBack()
   </div>
   <div data-role="content" style="padding:0px;margin:0px;">
     <ul>
-        <li class="list-li yahei" ng-repeat="item in historyCon.dataList" ng-click="historyCon.historyDetial(item.hwId)">
+        <li class="list-li yahei" ng-repeat="item in orderListCon.dataList" ng-click="orderListCon.historyDetial(item.hwId)">
         	<div class="list-li-header"><img src="../images/hkeep/w_file.png" /><span class="ll-h-stype" ng-bind="item.hwDTypeCode"></span><span class="ll-h-status" ng-bind="item.hwStatusCode"></span></div>
             <div class="list-li-body">
             <img src="../images/hkeep/w_order_test_png.png"/>
@@ -202,7 +202,7 @@ function changeBack()
 
 
            <div class="list-li-footer">
-           			<button data-role="none" ng-if="item.hwStatusCode==211" ng-click="historyCon.completeHwork()">完成订单</button>  <button data-role="none">取消</button>
+           			<button data-role="none" ng-if="item.hwStatusCode==211" ng-click="orderListCon.completeHwork()">完成订单</button>  <button data-role="none">取消</button>
            </div>
         </li>
 
