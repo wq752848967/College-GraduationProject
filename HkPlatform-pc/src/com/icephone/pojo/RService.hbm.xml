@@ -8,7 +8,7 @@
     <class name="com.icephone.pojo.RService" table="r_service" schema="dbo" catalog="HKData">
         <id name="rsId" type="java.lang.Integer">
             <column name="rs_id" />
-            <generator class="increment" />
+            <generator class="identity" />
         </id>
         <property name="RId" type="java.lang.String">
             <column name="r_id" not-null="true" />
@@ -21,6 +21,9 @@
         </property>
         <property name="rsStatusCode" type="java.lang.Integer">
             <column name="rs_status_code" not-null="true" />
+        </property>
+        <property name="rsFinishDate" type="java.sql.Timestamp">
+            <column name="rs_finish_date" length="23" />
         </property>
     </class>
 </hibernate-mapping>

@@ -8,7 +8,7 @@
     <class name="com.icephone.pojo.Users" table="users" schema="dbo" catalog="HKData">
         <id name="UId" type="java.lang.String">
             <column name="u_id" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="UPhone" type="java.lang.String">
             <column name="u_phone" not-null="true" />

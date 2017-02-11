@@ -17,6 +17,7 @@ public class Comments implements java.io.Serializable {
 	private Timestamp wcDate;
 	private String WUName;
 	private String WWId;
+	private String WHwId;
 
 	// Constructors
 
@@ -25,8 +26,9 @@ public class Comments implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Comments(String WUId, Double wcPoints, Timestamp wcDate,
+	public Comments(String WUId, String wcContent, Double wcPoints, Timestamp wcDate,
 			String WUName, String WWId) {
+		this.wcContent = wcContent;
 		this.WUId = WUId;
 		this.wcPoints = wcPoints;
 		this.wcDate = wcDate;
@@ -36,13 +38,14 @@ public class Comments implements java.io.Serializable {
 
 	/** full constructor */
 	public Comments(String WUId, String wcContent, Double wcPoints,
-			Timestamp wcDate, String WUName, String WWId) {
+			Timestamp wcDate, String WUName, String WWId, String WHwId) {
 		this.WUId = WUId;
 		this.wcContent = wcContent;
 		this.wcPoints = wcPoints;
 		this.wcDate = wcDate;
 		this.WUName = WUName;
 		this.WWId = WWId;
+		this.WHwId = WHwId;
 	}
 
 	// Property accessors
@@ -101,6 +104,14 @@ public class Comments implements java.io.Serializable {
 
 	public void setWWId(String WWId) {
 		this.WWId = WWId;
+	}
+
+	public String getWHwId() {
+		return this.WHwId;
+	}
+
+	public void setWHwId(String WHwId) {
+		this.WHwId = WHwId;
 	}
 
 }

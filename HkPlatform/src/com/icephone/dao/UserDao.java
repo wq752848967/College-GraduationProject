@@ -4,7 +4,7 @@ package com.icephone.dao;
 import com.icephone.pojo.Users;
 
 
-public interface UserDao
+public interface UserDao extends BaseDao
 {
 	public Users getUserById(String userId);
 	

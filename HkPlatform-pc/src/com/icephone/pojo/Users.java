@@ -26,7 +26,9 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Users(String UPhone, String UPsw, Timestamp UDate, String UName) {
+	public Users(String UId, String UPhone, String UPsw, Timestamp UDate,
+			String UName) {
+		this.UId = UId;
 		this.UPhone = UPhone;
 		this.UPsw = UPsw;
 		this.UDate = UDate;
@@ -34,8 +36,9 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Users(String UPhone, String UPsw, Timestamp UDate, Double UPoints,
-			Integer UStatusCode, Integer UTypeCode, String UName) {
+	public Users(String UId, String UPhone, String UPsw, Timestamp UDate,
+			Double UPoints, Integer UStatusCode, Integer UTypeCode, String UName) {
+		this.UId = UId;
 		this.UPhone = UPhone;
 		this.UPsw = UPsw;
 		this.UDate = UDate;

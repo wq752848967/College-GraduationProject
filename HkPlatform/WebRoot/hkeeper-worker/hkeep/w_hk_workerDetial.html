@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页</title>
+</head>
+<body ng-app="hkeep_worker" ng-controller="HworksDetialController as hworksDetialCon">
+<div data-role="page" class="pageDiv">
+  <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css" >
+  <link rel="stylesheet" href="../css/font-common.css" >
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+
+body div {
+	padding: 0px;
+	margin: 0px;
+	border:none;
+
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+}
+ul {
+	padding: 0px;
+	margin: 0px;
+	list-style:none;
+}
+img {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* header */
+#header_body {
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+	background-color: #0C9;
+	height: 50px;
+	font-weight: 200;
+	font-size: 20px;
+	color: #FFF;
+	text-align: center;
+}
+#header_body a {
+	float: left;
+	height: 50px;
+	width: 50px;
+	z-index: 100;
+}
+#header_body a img {
+	margin-top: 10px;
+}
+#header_title {
+	position: absolute;
+	float: left;
+	display: block;
+	line-height: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+
+/*  content header */
+.content-header
+{
+	height:100px;
+	margin-top:10px;
+	background-color:#FFF;
+}
+.content-header img
+{
+	height:80px;
+	width:80px;
+	float:left;
+	margin-top:10px;
+	border-radius:15px;
+	margin-left:10px;
+}
+.content-header-info
+{
+	float:left;
+	margin-left:15px;
+}
+
+.content-header-info-01
+{
+	font-size:17px;
+	font-weight:bold;
+}
+.content-header-info-02
+{
+	color:#999;
+	font-size:14px;
+	font-weight:normal;
+}
+.content-header-flag
+{
+	height:35px;
+	width:80px;
+	margin-top:30px;
+	padding-left:20px;
+	line-height:35px;
+	float:right;
+	color:#FFF;
+	border-top-left-radius:17px;
+	border-bottom-left-radius:17px;
+	background-color:red;
+}
+
+
+
+
+
+
+/* content body  */
+.content-info
+{
+	margin-top:10px;
+	padding-top:15px;
+	padding-bottom:15px;
+	padding-left:35px;
+	padding-right:35px;
+	font-size:14px;
+	letter-spacing:1px;
+	background-color:#FFF;
+}
+.c-i-header
+{
+	display:inline-block;
+	color:#999;
+	height:25px;
+}
+.c-i-content
+{
+	height:25px;
+	letter-spacing:0px;
+	margin-left:5px;
+	display:inline-block;
+
+}
+
+
+
+
+
+
+/* content footer */
+.content-desc
+{
+	clear:both;
+	margin-top:10px;
+	background-color:#FFF;
+}
+.c-d-header
+{
+	height:30px;
+	font-size:15px;
+	letter-spacing:2px;
+	line-height:30px;
+	border-bottom:1px solid #D9D9D9;
+}
+.c-d-header img
+{
+	height:13px;
+	margin-left:20px;
+	vertical-align:middle;
+}
+
+.c-d-body
+{
+	color:#999;
+	font-size:15px;
+	text-indent:20px;
+	line-height:25px;
+	letter-spacing:1px;
+	padding-top:35px;
+	padding-bottom:40px;
+	padding-left:40px;
+	padding-right:40px;
+}
+
+
+
+/*   底部  */
+
+.footer
+{
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+	text-align:center;
+	font-size:20px;
+}
+#w_collect
+{
+
+	width:40%;
+	height:50px;
+	color:#FFF;
+	font-weight:normal;
+	line-height:50px;
+	display:inline-block;
+	vertical-align:middle;
+	background-color:#FF9C00;
+}
+#w_apply
+{
+	width:60%;
+	height:50px;
+	color:#FFF;
+	line-height:50px;
+	font-weight:normal;
+	display:inline-block;
+	background-color:#25cc5a;
+	vertical-align:middle;
+}
+</style>
+<script>
+function changeBack()
+{
+   document.location="../index.html";
+}
+</script>
+  <div data-role="header">
+    <div id="header_body"onclick="changeBack()"><a href="http://www.baidu.com" ><img src="../images/common/back_white.png"/></a><span id="header_title">家政信息</span></div>
+
+  </div>
+
+  <div data-role="content" class="div_content" style="padding:0px;margin:0px; background-color:#F4F5F9;">
+  	 <div class="content-header">
+     	<img src="../images/hkeep/w_order_test_png.png"/>
+        <div class="content-header-info">
+        	<p class="content-header-info-01" ng-bind="hworksDetialCon.title"></p>
+            <p class="content-header-info-02">浏览量：<span ng-bind="hworksDetialCon.visitTimes"></span></p>
+        </div>
+        <div class="content-header-flag"><span ng-bind="hworksDetialCon.money"></span>元</div>
+     </div>
+    <div class="content-info">
+    	<span class="c-i-header">发布时间：</span><span class="c-i-content" ng-bind="hworksDetialCon.pubDate"></span><br>
+        <span class="c-i-header">家政地点：</span><span  class="c-i-content" ng-bind="hworksDetialCon.addr"></span><br>
+        <span class="c-i-header">家政细分：</span><span  class="c-i-content" ng-bind="hworksDetialCon.type"></span><br>
+        <span class="c-i-header">家政日期：</span><span  class="c-i-content" ng-bind="hworksDetialCon.date"></span><br>
+        <span class="c-i-header">服务时间：</span><span  class="c-i-content"><span ng-bind="hworksDetialCon.time"></span>小时</span>
+    </div>
+    <div class="content-desc">
+    	<div class="c-d-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;家政描述</div>
+        <div class="c-d-body" ng-bind="hworksDetialCon.desc"></div>
+    </div>
+
+
+  </div><!--content end-->
+
+
+  <div data-role="footer" class="footer">
+     <div id="w_collect" class="yahei" >收藏</div><div id="w_apply" class="yahei" ng-click="hworksDetialCon.applyHwork()" ng-bind="hworksDetialCon.submitText"></div>
+  </div>
+  </div><!--page end-->
+ <script>
+ 	function test()
+	{
+		 $("#work_kind_panel").popup("close");
+	}
+ </script>
+
+
+ <script type="text/javascript" src="../js/angular.min.js" ></script>
+ <script type="text/javascript" src="../app.js"></script>
+ <script type="text/javascript" src="service/hk_service.js"></script>
+ <script type="text/javascript" src="controller/hk_controller.js"></script>
+
+
+</body>
+</html>

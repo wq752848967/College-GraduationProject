@@ -17,4 +17,10 @@ public class CommentsDaoImpl extends BaseDaoImpl implements CommentsDao {
 		
 	}
 
+	@Override
+	public List getCommentByHwId(String hwId) {
+		String queryString = "from Comments where WHwId=?";
+		return this.getHibernateTemplate().find(queryString,hwId);
+	}
+
 }

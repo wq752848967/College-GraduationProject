@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+.yahei
+{
+	font-family:"STHeiti", "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+}
+.bg_green
+{
+	background-color: #00b194;
+}

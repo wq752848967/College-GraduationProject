@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService
 		 
 		Object obj = userDao.getUserByPhone(username);
 		//用户是否存在
-		if(obj==null){
+		if((obj==null)||(((List)obj).size()==0)){
 			result.put("result", Constants.LOGIN_FAIL_NO_USER) ;
 			return result;
 		}

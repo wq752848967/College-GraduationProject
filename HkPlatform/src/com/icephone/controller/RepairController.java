@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.icephone.dao.UserDao;
+import com.icephone.model.RepairServiceModel;
 import com.icephone.pojo.RService;
 import com.icephone.pojo.Repairs;
 import com.icephone.pojo.Users;
@@ -47,13 +50,22 @@ public class RepairController {
 	
 	@ResponseBody
 	@RequestMapping(value="/submitRepair",method=RequestMethod.POST)
-	public Map<String,Object> submitRepair(@RequestBody String body)
+	public Map<String,Object> submitRepair(@RequestParam String RTitle,@RequestParam String RAddr,
+			@RequestParam String RDes,@RequestParam String rpId,@RequestParam String rpName)
 	{
+		String UId = session.getAttribute("userId").toString();
 		
-		Map<String, Object> mapParams = MapConvertUtils.getMapFromString(body);
 		int repairType  =  1;
 		Timestamp RDate = TimeUtil.getTimeNow();
-		Repairs repair = new Repairs(IdProviderUtils.getRepairId(),mapParams.get("RTitle").toString(), mapParams.get("RAddr").toString(),mapParams.get("RDes").toString(), RDate,Constants.USER_STATUS_NOMAL,mapParams.get("UId").toString(),1,repairType);
+		int i_rpId = 0;
+		
+		try {
+			i_rpId = Integer.parseInt(rpId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			i_rpId = 0;
+		}
+		Repairs repair = new Repairs(IdProviderUtils.getRepairId(),RTitle, RAddr,RDes, RDate,Constants.REPAIR_WAITE_CHECK,UId,1,repairType,i_rpId,rpName);
 		String result = repairService.addRepair(repair);
 		if(repair.equals("success"))
 		{
@@ -108,7 +120,14 @@ public class RepairController {
 		repairService.updateRepaie(repair.getRId(), Constants.REPAIR_REPAIRING);
 		
 		
-		return ResponseMapUtil.responseSuccess("success", repair);
+		RepairServiceModel model = new RepairServiceModel();
+		Users user = userService.getUserById(repair.getUId());
+		
+		model.setRepair(repair);
+		model.setrServce(service);
+		model.setUser(user);
+		
+		return ResponseMapUtil.responseSuccess("success", model);
 	}
 	
 	@ResponseBody
@@ -132,6 +151,44 @@ public class RepairController {
 			
 		}
 		
+	}
+	@ResponseBody
+	@RequestMapping(value="/finishRepair",method=RequestMethod.POST)
+	public Map<String,Object> finishRepair(@RequestParam String rId){
+		//update repair status
+		repairService.updateRepairAndService(rId, Constants.REPAIR_COMPLETE);
+		return ResponseMapUtil.responseSuccess("success", null);
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="/canNotRepair",method=RequestMethod.POST)
+	public Map<String,Object> canNotRepair(@RequestParam String rId){
+		//update repair status
+		repairService.updateRepairAndService(rId, Constants.REPAIR_WORK_REFUSE);
+		return ResponseMapUtil.responseSuccess("success", null);
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="/getRepairById",method=RequestMethod.POST)
+	public Map<String,Object> getRepairById(@RequestParam String rId){
+		//update repair status
+		Repairs repair = repairService.getRepairById(rId);
+		return ResponseMapUtil.responseSuccess("success", repair);
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="/getRepairServiceInfo",method=RequestMethod.POST)
+	public Map<String,Object> getRepairServiceInfo(@RequestParam String rId){
+		RepairServiceModel rsModel =  repairService.getRepairServiceInfo(rId);
+		if(rsModel==null){
+			return ResponseMapUtil.responseError("error", null);
+		}
+		else{
+			System.out.println("info:"+rsModel.getRepair().getRStatusCode());
+			return ResponseMapUtil.responseSuccess("success", rsModel);
+			
+			 
+		}
 	}
 	
 }

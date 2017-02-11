@@ -22,6 +22,7 @@ public class Constants {
 	public static final int HWORK_STATUS_USEFUL = 210;
 	public static final int HWORK_STATUS_WORKING = 211;
 	public static final int HWORK_STATUS_COMMENTS = 212;
+	public static final int HWORK_STATUS_COMPLETE = 213;
 	
 	//hworks apply status
 	public static final int HWORK_APPLY_STATUS_USEFUL = 220;
@@ -31,9 +32,12 @@ public class Constants {
 	public static final int HWORK_COLLECTION_STATUS_USEFUL = 230;
 	
 	//repair Ststus
-	public static final int REPAIR_WAITE_REPAIR = 311;
-	public static final int REPAIR_REPAIRING = 312;
-	public static final int REPAIR_COMPLETE = 313;
+	public static final int REPAIR_WAITE_CHECK= 311;
+	public static final int REPAIR_WAITE_REPAIR = 312;
+	public static final int REPAIR_REPAIRING = 313;
+	public static final int REPAIR_COMPLETE = 314;
+	public static final int REPAIR_REFUSE = 315;
+	public static final int REPAIR_WORK_REFUSE = 316;
 	
 	//login result 
 	public static final String LOGIN_FAIL_NO_USER = "11";

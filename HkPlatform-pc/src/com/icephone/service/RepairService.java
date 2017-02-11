@@ -2,6 +2,7 @@ package com.icephone.service;
 
 import java.util.List;
 
+import com.icephone.model.RepairServiceModel;
 import com.icephone.pojo.Repairs;
 
 public interface RepairService {
@@ -12,9 +13,13 @@ public interface RepairService {
 	
 	public Repairs getRepair(int repairType);
 	
+	public Repairs getRepairById(String rId);
+	
 	public List getByUserId(String userId);
 	
 	public List getByWorkId(String workId);
 	
 	public List getAllRepairByDate();
+	
+	public RepairServiceModel getRepairServiceInfo(String rId,String uId);
 }

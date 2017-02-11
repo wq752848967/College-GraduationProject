@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>报修具体信息</title>
+    <link rel="stylesheet" href="../css/commonCss.css"/>
+    <link rel="stylesheet" href="../css/font-common.css">
+    <style media="screen">
+    /* header  css    */
+    #header_body {
+      font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+      background-color: #0C9;
+      height: 55px;
+      font-weight: 200;
+      font-size: 22px;
+      color: #FFF;
+      text-align: center;
+    }
+    #header_body a {
+      float: left;
+      height: 55px;
+      width: 50px;
+      z-index: 100;
+    }
+    #header_body a img {
+      height: 23px;
+      width: 14px;
+      margin-top: 15px;
+    }
+    #header_title {
+      position: absolute;
+      float: left;
+      display: block;
+      line-height: 55px;
+      width: 100%;
+      text-align: center;
+    }
+
+
+    /*  主体描述部分   */
+    .detial-body{
+
+    }
+    .detial-bhead{
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 2px solid #0c9;
+    }
+    .bhead-date{
+        margin-left: 18px;
+    }
+    .bhead-status {
+      float: right;
+      margin-right: 20px;
+    }
+    .body-content{
+      padding-top: 20px;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    .content-head{
+      font-size: 18px;
+
+    }
+    .content-line{
+      margin-top: 8px;
+
+    }
+
+
+
+    /*  button panel   */
+    .operate-panel{
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+    }
+    .operate-panel button{
+      float: left;
+      height: 45px;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 15px;
+    }
+    .cannot-repair{
+      background-color: #FFD700;
+       width: 40%;
+    }
+    .repair-complete{
+
+      background-color: #0c9;
+      width: 60%;
+    }
+    </style>
+  </head>
+  <body ng-app="hkeep_worker" ng-controller="RepairDetialController as repairDetialCon" class="bg-gray">
+    <div  class="cheader yahei">
+      <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
+
+    </div>
+    <div class="detial-body yahei">
+      <div class="detial-bhead">
+          <span class="bhead-date" ng-bind="repairDetialCon.repair.rdate"></span><span class="bhead-status color-green" ng-bind="repairDetialCon.repair.rstatusCode">待维修</span>
+      </div>
+      <div class="body-content color-gray">
+        <div class="content-head" ng-bind="repairDetialCon.repair.repair.rtitle">
+
+        </div>
+        <div class="content-line">
+          编号： <span ng-bind="repairDetialCon.repair.repair.rid"></span>
+        </div>
+        <div class="content-line">
+          类型： <span ng-bind="repairDetialCon.repair.repair.rtypeCode"></span>
+        </div>
+        <div class="content-line">
+          地址： <span ng-bind="repairDetialCon.repair.repair.raddr"></span>
+        </div>
+        <div class="content-line">
+          描述:</br></br>
+          <span ng-bind="repairDetialCon.repair.repair.rdes"></span>
+        </div>
+
+        <div class="publisher-info">
+          <div class="content-line">
+            发布者:</br></br>
+            <span ng-bind="repairDetialCon.repair.user.uName"></span>
+          </div>
+          <div class="content-line">
+            联系方式:</br></br>
+            <span ng-bind="repairDetialCon.repair.user.uPhone"></span>
+          </div>
+          <div class="content-line">
+            接单时间:</br></br>
+            <span ng-bind="repairDetialCon.repair.rServce.rsDate"></span>
+          </div>
+        </div>
+        <div class="finisher-info" ng-if="(repairDetialCon.repair.repair.rstatusCode=314)||(repairDetialCon.repair.repair.rstatusCode=316)">
+          <div class="content-line">
+            完成时间:</br></br>
+            <span  ng-bind="repairDetialCon.repair.rService.rsFinishDate"></span>
+          </div>
+          <div class="content-line">
+             完成人员:</br></br>
+            <span ng-bind="repairDetialCon.repair.worker.nName"></span>
+          </div>
+        </div>
+      </div>
+      <div class="operate-panel">
+        <button class="cannot-repair" type="button" name="button" ng-click="repairDetialCon.cantNotRepair()">无法维修</button>
+        <button class="repair-complete" type="button" name="button" ng-click="repairDetialCon.finishRepair()">维修完毕</button>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../js/angular.min.js" ></script>
+  <script type="text/javascript" src="../app.js"></script>
+  <script type="text/javascript" src="service/repairService.js"></script>
+  <script type="text/javascript" src="controller/repairController.js"></script>
+</html>

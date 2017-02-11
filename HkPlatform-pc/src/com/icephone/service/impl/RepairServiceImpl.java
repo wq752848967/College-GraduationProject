@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.icephone.dao.RepairDao;
 import com.icephone.dao.RserviceDao;
 import com.icephone.dao.UserDao;
+import com.icephone.model.RepairServiceModel;
 import com.icephone.pojo.RService;
 import com.icephone.pojo.Repairs;
 import com.icephone.pojo.Users;
@@ -91,5 +92,27 @@ public class RepairServiceImpl implements RepairService {
 		List list  = repairDao.getAllByDate();
 		
 		return list;
+	}
+	@Override
+	public RepairServiceModel getRepairServiceInfo(String rId,String uId) {
+		RepairServiceModel repairModel = new RepairServiceModel();
+		Users user = userDao.getUserById(uId); //
+		List rsList = rserviceDao.getByRepairId(rId);
+		if((rsList==null)||(rsList.size()==0)){
+			return null;
+		}
+		RService rService = (RService)rsList.get(0);//
+		Users worker = userDao.getUserById(rService.getWorkId());
+		repairModel.setrServce(rService);
+		repairModel.setUser(user);
+		repairModel.setWorker(worker);
+		
+		
+		return repairModel;
+	}
+	@Override
+	public Repairs getRepairById(String rId) {
+		repairDao.getById(Repairs.class, rId);
+		return null;
 	}
 }

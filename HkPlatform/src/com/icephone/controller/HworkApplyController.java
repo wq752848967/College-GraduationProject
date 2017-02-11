@@ -3,6 +3,8 @@ package com.icephone.controller;
 import java.sql.Timestamp;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +29,14 @@ public class HworkApplyController {
 	@Autowired
 	private HworkApplyService hwApplyService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@ResponseBody
 	@RequestMapping(value="/applyHwork",method=RequestMethod.POST)
 	public Map<String, Object> applyHwork(@RequestParam String hwId,@RequestParam String UId)
 	{
-		
+		UId = session.getAttribute("userId").toString();
 		int haStatusCode  = Constants.HWORK_APPLY_STATUS_USEFUL;
 		Timestamp haDate = TimeUtil.getTimeNow();
 		HkApply hkApply = new HkApply(hwId,UId,haDate,haStatusCode);

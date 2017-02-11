@@ -15,6 +15,7 @@ public class RService implements java.io.Serializable {
 	private String workId;
 	private Timestamp rsDate;
 	private Integer rsStatusCode;
+	private Timestamp rsFinishDate;
 
 	// Constructors
 
@@ -22,13 +23,23 @@ public class RService implements java.io.Serializable {
 	public RService() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public RService(String RId, String workId, Timestamp rsDate,
 			Integer rsStatusCode) {
 		this.RId = RId;
 		this.workId = workId;
 		this.rsDate = rsDate;
 		this.rsStatusCode = rsStatusCode;
+	}
+
+	/** full constructor */
+	public RService(String RId, String workId, Timestamp rsDate,
+			Integer rsStatusCode, Timestamp rsFinishDate) {
+		this.RId = RId;
+		this.workId = workId;
+		this.rsDate = rsDate;
+		this.rsStatusCode = rsStatusCode;
+		this.rsFinishDate = rsFinishDate;
 	}
 
 	// Property accessors
@@ -71,6 +82,14 @@ public class RService implements java.io.Serializable {
 
 	public void setRsStatusCode(Integer rsStatusCode) {
 		this.rsStatusCode = rsStatusCode;
+	}
+
+	public Timestamp getRsFinishDate() {
+		return this.rsFinishDate;
+	}
+
+	public void setRsFinishDate(Timestamp rsFinishDate) {
+		this.rsFinishDate = rsFinishDate;
 	}
 
 }

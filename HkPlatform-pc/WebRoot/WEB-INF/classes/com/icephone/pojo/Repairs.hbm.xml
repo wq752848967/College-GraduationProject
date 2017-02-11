@@ -34,5 +34,11 @@
         <property name="RTypeCode" type="java.lang.Integer">
             <column name="r_type_code" />
         </property>
+        <property name="rpId" type="java.lang.Integer">
+            <column name="rp_id" />
+        </property>
+        <property name="rpName" type="java.lang.String">
+            <column name="rp_name" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -63,4 +63,17 @@ public class UserController
 		
 		return ResponseMapUtil.responseSuccess("success", user.getUTypeCode());
 	}
+	@ResponseBody
+	@RequestMapping(value="/getUserInfo",method=RequestMethod.POST)
+	public Map<String,Object> getUserInfo(){
+		
+		String userId = session.getAttribute("userId").toString();
+		//String userId = "USER12345678121212";
+		
+		
+		Users user = userService.getUserById(userId);
+		
+		
+		return ResponseMapUtil.responseSuccess("success", user);
+	}
 }

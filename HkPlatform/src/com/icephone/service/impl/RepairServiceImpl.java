@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.icephone.dao.RepairDao;
 import com.icephone.dao.RserviceDao;
 import com.icephone.dao.UserDao;
+import com.icephone.model.RepairServiceModel;
 import com.icephone.pojo.RService;
 import com.icephone.pojo.Repairs;
 import com.icephone.pojo.Users;
 import com.icephone.service.RepairService;
 import com.icephone.util.Constants;
+import com.icephone.util.TimeUtil;
 
 
 @Service
@@ -40,6 +42,12 @@ public class RepairServiceImpl implements RepairService {
 		}
 		//save repairs
 		repairDao.add(repairs);
+		
+		
+		//update repair count  info
+		
+				//need
+		
 		return "success";
 	}
 	@Override
@@ -85,5 +93,56 @@ public class RepairServiceImpl implements RepairService {
 			resultList.add(repair);
 		}
 		return resultList;
+	}
+	@Override
+	public Repairs getRepairById(String rId) {
+		return repairDao.getById(Repairs.class, rId);
+		
+		
+	}
+	@Override
+	public RepairServiceModel getRepairServiceInfo(String rId) {
+		RepairServiceModel repairModel = new RepairServiceModel();
+		Repairs repair = repairDao.getById(Repairs.class, rId);
+		System.out.println("status:"+repair.getRStatusCode());
+		
+		Users user = userDao.getUserById(repair.getUId()); //
+		List rsList = rserviceDao.getByRepairId(rId);
+		if((rsList==null)||(rsList.size()==0)){
+			repairModel.setrServce(null);
+			repairModel.setUser(user);
+			repairModel.setWorker(null);
+			repairModel.setRepair(repair);
+		}
+		else{
+			RService rService = (RService)rsList.get(0);//
+			Users worker = userDao.getUserById(rService.getWorkId());
+			repairModel.setrServce(rService);
+			repairModel.setUser(user);
+			repairModel.setWorker(worker);
+			repairModel.setRepair(repair);
+		}
+		
+		
+		
+		return repairModel;
+	}
+	@Override
+	public boolean updateRepairAndService(String rid, int statusCode) {
+		Repairs repairs  = repairDao.getById(Repairs.class, rid);
+		if(repairs==null){
+			return false;
+		}
+		repairs.setRStatusCode(statusCode);
+		repairDao.update(repairs);
+		
+		List list = rserviceDao.getByRepairId(rid);
+		if((list==null)||(list.size()==0)){
+			return true;
+		}
+		RService rservice = (RService)list.get(0);
+		rservice.setRsFinishDate(TimeUtil.getTimeNow());
+		rserviceDao.update(rservice);
+		return true;
 	}
 }

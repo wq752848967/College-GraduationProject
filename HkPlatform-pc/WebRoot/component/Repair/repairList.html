@@ -1,0 +1,162 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+.table th, .table td {
+	text-align: center;
+}
+.table button {
+	height: 25px;
+	line-height: 25px;
+	padding: 0px;
+	width: 55px;
+}
+
+
+
+
+#myModalLabel{
+	margin-left: 30px;
+}
+#repairDetialPanel ul li{
+	height: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color: white !important;
+}
+
+
+
+
+/*  page  样式    */
+.footer-pages{
+
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+}
+.footer-pages ul{
+
+
+	text-align: center;
+}
+.footer-pages li{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin: 3px;
+
+	border-radius: 3px;
+	border: 1px solid #DDDDDD;
+	display: inline-block;
+
+}
+.footer-pages li:hover{
+		background-color: #478DE4;
+}
+.footer-pages .active{
+	background-color: #478DE4;
+}
+.repair-work-info{
+	border-top: 1px solid #E5E5E5;
+	margin-top: 10px;
+	padding-top: 20px;
+}
+</style>
+
+
+
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">报修订单显示</div>
+  <table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+      <tr>
+        <th>订单号</th>
+        <th>类型</th>
+        <th>发布用户</th>
+        <th>时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="repair in repairListCon.repairList">
+        <td ng-bind="repair.rid"></td>
+        <td ng-bind="repair.rtypeCode"></td>
+        <td ng-bind="repair.uid"></td>
+        <td ng-bind="repair.rdate|date"></td>
+        <td ng-bind="repair.rstatusCode"> </td>
+        <th ><button class="btn btn-primary" ng-click="repairListCon.repairDetialShow($index)">详情</button></th>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+  <!-- 弹出详情面板  -->
+  <div class="modal fade" id="repairDetialPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+          <h4 class="modal-title" id="myModalLabel" ng-bind="repairListCon.curRepair.rtitle"></h4>
+
+        </div>
+        <div class="modal-body yahei">
+						<ul>
+							<li>编  &nbsp&nbsp号：<span ng-bind="repairListCon.curRepair.rid"></span></li>
+							<li>发布者：<span ng-bind="repairListCon.curRepair.uid"USER12345678121212""> </span></li>
+							<li>类  &nbsp&nbsp型：<span ng-bind="repairListCon.curRepair.rtypeCode"></span></li>
+							<li>种  &nbsp&nbsp类：<span ng-bind="repairListCon.curRepair.rpName"></span></li>
+							<li>状  &nbsp&nbsp态：<span ng-bind="repairListCon.curRepair.rstatusCode"></span></li>
+							<li>发布时间：<span >{{repairListCon.curRepair.rdate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+							<li>地  &nbsp&nbsp址：<span ng-bind="repairListCon.curRepair.raddr"></span></li>
+							<li>调度等级：<span ng-bind="repairListCon.curRepair.rlevel"></span> 级</li>
+							<li>描  &nbsp&nbsp述：<span ng-bind="repairListCon.curRepair.rdes"></span><br></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="(repairListCon.curRepair.rstatusCode>=313)||(repairListCon.curRepair.rstatusCode==314)">
+							<li>维修人员姓名：<span ng-bind="repairListCon.curRepairService.worker.uname"></span></li>
+							<li>维修人员编号：<span ng-bind="repairListCon.curRepairService.worker.uid"></span></li>
+							<li>维修人员评分：<span ng-bind="repairListCon.curRepairService.worker.upoints"></span></li>
+							<li>接手订单时间：<span >{{repairListCon.curRepairService.rServce.rsDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==314">
+							<li>维修完毕</li>
+							<li>维修完成时间：<span ng-bind="repairListCon.curRepairService.rService.rsFinishDate"></span></li>
+						</ul>
+						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==315">
+							<li>维修完毕   (拒绝维修)</li>
+							<li>维修拒绝时间：<span >{{repairListCon.curRepairService.rServce.rsFinishDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+						</ul>
+				</div>
+        <div class="modal-footer">
+					<div class="allow-panel" ng-if="repairListCon.curRepair.rstatusCode==311">
+						<button class="btn btn-default" type="button" name="button" ng-click="repairListCon.refuse()">拒绝维修</button>
+						<button class="btn btn-primary" type="button" name="button" ng-click="repairListCon.allow()">同意维修</button>
+					</div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- panel end -->
+
+
+</div>
+
+</div>
+<div class="footer-pages">
+	<ul>
+		<li  ng-if="repairListCon.pageNow!=1" ng-click="repairListCon.changePage(1)">《</li>
+		<li ng-class="{true:'active',false:'step'}[(num+1)==repairListCon.pageNow]" ng-repeat="num in repairListCon.pageNum"
+				ng-click="repairListCon.changePage(num+1)">{{num+1}}</li>
+		<li ng-if="repairListCon.maxPage!=repairListCon.pageNow" ng-click="repairListCon.changePage(repairListCon.maxPage)">》</li>
+	</ul>
+</div>

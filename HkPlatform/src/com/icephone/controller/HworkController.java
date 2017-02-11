@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.icephone.pojo.Hworks;
 import com.icephone.service.HworkService;
+import com.icephone.util.Constants;
 import com.icephone.util.IdProviderUtils;
 import com.icephone.util.MapConvertUtils;
 import com.icephone.util.ResponseMapUtil;
@@ -36,16 +37,16 @@ public class HworkController {
 	
 	@ResponseBody
 	@RequestMapping(value="/submitHwork",method=RequestMethod.POST)
-	public Map<String,Object> submitHwork(@RequestBody String body)
-	//public Map<String,Object> submitHwork(@RequestParam String hwPubUId,@RequestParam String hwTitle
-			//,@RequestParam Double hwMoney,@RequestParam String hwDate,@RequestParam int hwTime,
-		//	@RequestParam String hwAddr,@RequestParam String hwDesc,@RequestParam Integer hwTypeCode,@RequestParam Integer hwDTypeCode)
+	//public Map<String,Object> submitHwork(@RequestBody String body)
+	public Map<String,Object> submitHwork(@RequestParam String hwPubUId,@RequestParam String hwTitle
+		,@RequestParam Double hwMoney,@RequestParam String hwDate,@RequestParam int hwTime,
+		@RequestParam String hwAddr,@RequestParam String hwDesc,@RequestParam Integer hwTypeCode,
+		@RequestParam Integer hwDTypeCode)
 	{
 		System.out.println("in submit:");	
-		Map<String, Object> mapParams = MapConvertUtils.getMapFromString(body);
-		
-		
-		
+		/*
+		 Map<String, Object> mapParams = MapConvertUtils.getMapFromString(body);
+
 		String hwTitle = mapParams.get("hwTitle").toString();
 		Double hwMoney = Double.valueOf(mapParams.get("hwMoney").toString());
 		String hwDate = mapParams.get("hwDate").toString();
@@ -56,16 +57,16 @@ public class HworkController {
 		String hwDesc = mapParams.get("hwDesc").toString();
 		int hwTypeCode = Integer.parseInt(mapParams.get("hwTypeCode").toString());
 		int hwDTypeCode = Integer.parseInt(mapParams.get("hwDTypeCode").toString());
-		
+		 */
 		//获取Session id;
-		String hwPubUId = session.getAttribute("userId").toString();
-		System.out.println("test:submit userId:"+hwPubUId+"  "+hwTitle);
+		hwPubUId = session.getAttribute("userId").toString();
+		
 		Timestamp hwPubDate = TimeUtil.getTimeNow();
 		String hwId = IdProviderUtils.getHworkId();
 		int hwVisitTime = 0;
 		int hwApplyAmount = 0;
 		String hwStatusCode = "1";
-		Hworks hwork = new Hworks(hwId, hwPubUId, hwTitle, hwMoney, hwDate, hwTime, hwPubDate, hwVisitTime, hwApplyAmount, hwAddr, hwTypeCode, hwDTypeCode, hwDesc, Integer.parseInt(hwStatusCode));
+		Hworks hwork = new Hworks(hwId, hwPubUId, hwTitle, hwMoney, hwDate, hwTime, hwPubDate, hwVisitTime, hwApplyAmount, hwAddr, hwTypeCode, hwDTypeCode, hwDesc, Constants.HWORK_STATUS_USEFUL);
 		String result = hworkService.addHwork(hwork);
 		if(result.equals("success"))
 		{

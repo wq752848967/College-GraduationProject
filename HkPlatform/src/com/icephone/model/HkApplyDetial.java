@@ -3,7 +3,10 @@ package com.icephone.model;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import com.icephone.pojo.Comments;
 import com.icephone.pojo.Hworks;
+import com.icephone.pojo.Orders;
+import com.icephone.pojo.Users;
 
 public class HkApplyDetial {
 
@@ -22,6 +25,9 @@ public class HkApplyDetial {
 	private String hwDesc;
 	private Integer hwStatusCode;
 	private ArrayList<GenApplyer> applyers;
+	private Users worker;
+	private Orders order;
+	private Comments comments;
 	public HkApplyDetial(String hwId, String hwPubUId, String hwTitle,
 			Double hwMoney, String hwDate, Integer hwTime, Timestamp hwPubDate,
 			Integer hwVisitTime, Integer hwApplyAmount, String hwAddr,
@@ -45,6 +51,20 @@ public class HkApplyDetial {
 		this.applyers = applyers;
 	}
 	
+	
+
+	public Comments getComments() {
+		return comments;
+	}
+
+
+
+	public void setComments(Comments comments) {
+		this.comments = comments;
+	}
+
+
+
 	public HkApplyDetial() {
 		super();
 	}
@@ -64,6 +84,22 @@ public class HkApplyDetial {
 		this.hwDTypeCode = work.getHwDTypeCode();
 		this.hwDesc = work.getHwDesc();
 		this.hwStatusCode = work.getHwStatusCode();
+	}
+    
+	public Users getWorker() {
+		return worker;
+	}
+
+	public void setWorker(Users worker) {
+		this.worker = worker;
+	}
+
+	public Orders getOrder() {
+		return order;
+	}
+
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 
 	public String getHwId() {

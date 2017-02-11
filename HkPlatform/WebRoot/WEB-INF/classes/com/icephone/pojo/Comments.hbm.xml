@@ -28,5 +28,8 @@
         <property name="WWId" type="java.lang.String">
             <column name="w_w_id" not-null="true" />
         </property>
+        <property name="WHwId" type="java.lang.String">
+            <column name="`w_ hw_id`" />
+        </property>
     </class>
 </hibernate-mapping>

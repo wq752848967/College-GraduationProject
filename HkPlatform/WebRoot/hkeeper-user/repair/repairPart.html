@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>选择报修项目</title>
+
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/commonCss.css">
+<link rel="stylesheet" href="../css/font-common.css">
+
+</head>
+<body ng-app="hkeep_user" ng-controller="RepairPartController as partCon">
+<div data-role="page" class="page_body" data-add-back-btn="true">
+<style>
+body
+{
+	  background-color: #E6E6E6;
+}
+#header_body {
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+	background-color: #0C9;
+	height: 55px;
+	font-weight: 200;
+	font-size: 22px;
+	color: #FFF;
+	text-align: center;
+}
+#header_body a {
+	float: left;
+	height: 55px;
+	width: 50px;
+	z-index: 100;
+}
+#header_body a img {
+	width: 16px;
+	height:25px;
+	
+	margin-top: 15px;
+}
+#header_title {
+	position: absolute;
+	float: left;
+	display: block;
+	line-height: 55px;
+	width: 100%;
+	text-align: center;
+}
+
+/*  尾部 提交 确定按钮 */
+.footer{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+#footer_submit
+{
+	height:55px;
+	text-align:center;
+	background-color: #0C9;
+	color:#FFFFFF;
+	font-size:20px;
+	line-height:55px;
+	font-weight:100;
+}
+
+
+/*  part select part   */
+  .content_body{
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 96%;
+
+  }
+  .select-list{
+    margin-top: 10px;
+  }
+  .select-title{
+
+    color: black !important;
+    height: 90px;
+    width: 100%;
+    padding-left: 20px;
+    line-height: 45px;
+    font-size: 20px;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: white;
+  }
+  .select-title .list-logo{
+    margin-top: 15px;
+    float: left;
+    width: 60px;
+    height: 60px;
+  }
+  .list-down{
+
+    height: 16px;
+    width: 28px;
+    float: right;
+    margin-top: 37px;
+    margin-right: 25px;
+  }
+  .list-title-info {
+    float: left;
+  }
+  .list-title-info li{
+    height: 30px;
+  }
+  .list-title-name{
+    font-size: 18px;
+    display: block;
+    margin-top: 6px;
+    margin-left: 35px;
+
+  }
+  .list-title-des{
+     font-size: 14px;
+     margin-left: 35px;
+  }
+  .select-body{
+
+    border: 1px solid #E6E6E6;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    display: none;
+    border-radius: 5px;
+    background-color: white;
+  }
+  .select-body li{
+    height: 45px;
+    line-height: 45px;
+    color: black;
+    font-size: 16px;
+    padding-left: 40px;
+    border-bottom:  1px solid #AFAFAF;
+
+  }
+  .select-body li span{
+    height: 25px;
+    width: 25px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 18px;
+
+    display: inline-block;
+
+    border: 2px solid #AFAFAF;
+    border-radius: 15px;
+  }
+  .select-body li div{
+    display: inline-block;
+  }
+
+</style>
+<script>
+function changeBack()
+{
+   document.location="../index.html";
+}
+</script>
+  <div data-role="header" class="cheader">
+    <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">填写保修信息</span> </div>
+  </div>
+  <div data-role="content" class="content_body">
+    <div class="select-list" ng-repeat="part in  partCon.partList">
+         <a class="select-title bg-green" data-toggle="collapse" href="#{{part.part.rpId}}">
+           <img class="list-logo" src="../images/repair/part_logo.png" alt="">
+            <ul class="list-title-info">
+              <li>
+                <span class="list-title-name yahei" ng-bind="part.part.rpName"></span>
+              </li>
+              <li>
+                  <span class="list-title-des color-gray" ng-bind="part.part.rpName"></span>
+              </li>
+            </ul>
+           <img class="list-down" src="../images/repair/green_down.png" alt="">
+         </a>
+
+
+       <div id="{{part.part.rpId}}" class="select-body yahei">
+         <ul>
+           <li ng-repeat="name in part.partNames" class="part-li-{{part.part.rpId}}-{{$index}}" ng-click="partCon.selectPart(part.part.rpId,$index)">
+
+                <div class="li-partName" ng-bind="name"></div>  <span></span>
+
+           </li>
+         </ul>
+       </div>
+    </div>
+  </div>
+
+<div class="footer">
+  <div id="footer_submit" ng-click="partCon.submitPart()">
+    选择
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+
+
+
+
+</script>
+<script type="text/javascript" src="../js/angular.min.js" ></script>
+<script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./service/repair_service.js"></script>
+<script type="text/javascript" src="./controller/repair_controller.js"></script>
+</html>

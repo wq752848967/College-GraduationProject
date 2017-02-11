@@ -3,12 +3,15 @@ package com.icephone.util;
 public class Constants {
 
 	//usertype
+	public static final int USER_TYPE_ADMIN= 0;
 	public static final int USER_TYPE_USER = 1;
 	public static final int USER_TYPE_WORK = 2;
+	public static final int USER_TYPE_HK_WORK = 3;
 	
 	//user status
 	public static final int USER_STATUS_NOMAL = 11;
 	public static final int USER_STATUS_PROHIBIT = 12;
+	public static final int USER_STATUS_DELETE = 13;
 	
 	
 	
@@ -31,10 +34,11 @@ public class Constants {
 	public static final int HWORK_COLLECTION_STATUS_USEFUL = 230;
 	
 	//repair Ststus
-	public static final int REPAIR_WAITE_REPAIR = 311;
-	public static final int REPAIR_REPAIRING = 312;
-	public static final int REPAIR_COMPLETE = 313;
-	
+	public static final int REPAIR_WAITE_CHECK= 311;
+	public static final int REPAIR_WAITE_REPAIR = 312;
+	public static final int REPAIR_REPAIRING = 313;
+	public static final int REPAIR_COMPLETE = 314;
+	public static final int REPAIR_REFUSE = 315;
 	//login result 
 	public static final String LOGIN_FAIL_NO_USER = "11";
 	public static final String LOGIN_FAIL_USER_STATUS_ERROR = "12";

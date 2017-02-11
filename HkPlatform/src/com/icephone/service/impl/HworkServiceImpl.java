@@ -10,6 +10,7 @@ import com.icephone.dao.HworkDao;
 import com.icephone.dao.OrdersDao;
 import com.icephone.dao.UserDao;
 import com.icephone.pojo.Hworks;
+import com.icephone.pojo.Orders;
 import com.icephone.pojo.Users;
 import com.icephone.service.HworkService;
 import com.icephone.util.Constants;
@@ -100,7 +101,7 @@ public class HworkServiceImpl implements HworkService {
 			return resultList;
 		}
 		for(int i=0;i<orderList.size();i++){
-			String hwId = ((Hworks)orderList.get(i)).getHwId();
+			String hwId = ((Orders)orderList.get(i)).getUHworkId();
 			Hworks work = hwDao.getById(Hworks.class, hwId);
 			resultList.add(work);
 		}

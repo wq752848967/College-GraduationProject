@@ -31,6 +31,12 @@ public class IdProviderUtils {
 		repairId = repairId+getIdNumber();
 		return repairId;
 	}
+	public static String getUSERId()
+	{
+		String repairId = "USER";
+		repairId = repairId+getIdNumber();
+		return repairId;
+	}
 	
 	private static String getIdNumber()
 	{

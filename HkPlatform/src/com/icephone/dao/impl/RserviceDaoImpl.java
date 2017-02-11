@@ -16,4 +16,11 @@ public class RserviceDaoImpl extends BaseDaoImpl implements RserviceDao {
 		
 	}
 
+	@Override
+	public List getByRepairId(String repairId) {
+		
+		String hql = "from RService where RId = ?";
+		return this.getHibernateTemplate().find(hql,repairId);
+	}
+
 }

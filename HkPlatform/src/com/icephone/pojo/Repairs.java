@@ -19,6 +19,8 @@ public class Repairs implements java.io.Serializable {
 	private String UId;
 	private Integer RLevel;
 	private Integer RTypeCode;
+	private Integer rpId;
+	private String rpName;
 
 	// Constructors
 
@@ -41,7 +43,7 @@ public class Repairs implements java.io.Serializable {
 	/** full constructor */
 	public Repairs(String RId, String RTitle, String RAddr, String RDes,
 			Timestamp RDate, Integer RStatusCode, String UId, Integer RLevel,
-			Integer RTypeCode) {
+			Integer RTypeCode, Integer rpId, String rpName) {
 		this.RId = RId;
 		this.RTitle = RTitle;
 		this.RAddr = RAddr;
@@ -51,6 +53,8 @@ public class Repairs implements java.io.Serializable {
 		this.UId = UId;
 		this.RLevel = RLevel;
 		this.RTypeCode = RTypeCode;
+		this.rpId = rpId;
+		this.rpName = rpName;
 	}
 
 	// Property accessors
@@ -125,6 +129,22 @@ public class Repairs implements java.io.Serializable {
 
 	public void setRTypeCode(Integer RTypeCode) {
 		this.RTypeCode = RTypeCode;
+	}
+
+	public Integer getRpId() {
+		return this.rpId;
+	}
+
+	public void setRpId(Integer rpId) {
+		this.rpId = rpId;
+	}
+
+	public String getRpName() {
+		return this.rpName;
+	}
+
+	public void setRpName(String rpName) {
+		this.rpName = rpName;
 	}
 
 }
