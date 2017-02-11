@@ -142,6 +142,7 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 
 	var self = this;
 	self.detial;
+	self.curOrderId;
 	//获取wid
 	var reg = new RegExp("(^|&)" + "hwId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
 	var r = window.location.search.substr(1).match(reg);  //匹配目标参数
@@ -154,11 +155,27 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 	promise.success(function(data,status,config,headers){
 			console.log("HKeepApplyService.getdetial success");
 			self.detial = data.data;
+			console.log(data.data);
 	});
 	promise.error(function(data,status,config,headers){
 			console.log("HKeepApplyService.getdetial error");
 	});
+	//初始化评论面板
+	var num=finalnum = tempnum= 0;
+	var lis = $('.star-ul').children();
 
+	for (var i = 1; i <= lis.length; i++) {
+	 lis[i - 1].index = i;
+	 lis[i - 1].onmouseover = function() { //鼠标经过点亮星星。
+	  fnShow(this.index);//传入的值为正，就是finalnum
+	 }
+	 lis[i - 1].onmouseout = function() { //鼠标离开时星星变暗
+	  fnShow(0);//传入值为0，finalnum为tempnum,初始为0
+	 }
+	 lis[i - 1].onclick = function() { //鼠标点击,同时会调用onmouseout,改变tempnum值点亮星星
+	  tempnum= this.index;
+	 }
+	}
 
 
 
@@ -171,7 +188,33 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 	self.workDetial  = function(wId){
 		$window.location.href="../per/works.html?wId="+wId+"&hwId="+hwId;
 	}
+	self.showCommentPanel = function(orderId){
+		self.curOrderId = orderId;
+		showCommentPanel(1);
+	}
+	self.submitComment = function(){
+		//finalnum self.curOrderId self.commentContent
+		var promise = HKeepApplyService.submitComment(self.curOrderId,self.commentContent,finalnum);
+		promise.success(function(data,status,config,headers){
+			showCommentPanel(1);
+			finalnum = 0;
+			fnShow(0);
+			self.commentContent = "";
+			var result = data.success;
+			if(result){
+					alert("提交成功");
+			}
+			else{
+					alert("数据错误，提交失败");
+			}
 
+		});
+		promise.error(function(data,status,config,headers){
+			showCommentPanel(1);
+			alert("网络错误，提交失败");
+		});
+
+	}
 
 
 
@@ -179,5 +222,18 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 
 	//定义内部方法
 
+	function showCommentPanel(flag){
+		$('.commentPanel').toggleClass('showComment');
+		$('#commentBtn').toggle();
+	}
+	//num:传入点亮星星的个数
+	//finalnum:最终点亮星星的个数
+	//tempnum:一个中间值
+	function fnShow(num) {
+	 finalnum= num || tempnum;//如果传入的num为0，则finalnum取tempnum的值
+	 for (var i = 0; i < lis.length; i++) {
+		lis[i].className = i < finalnum? "light" : "";//点亮星星就是加class为light的样式
+	 }
+	}
 
 }]);

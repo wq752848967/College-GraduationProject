@@ -4,14 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>主页</title>
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/metisMenu.css"/>
 <link rel="stylesheet" href="css/commonCss.css">
 <link rel="stylesheet" href="css/demo.css"/>
 <link rel="stylesheet" href="css/mini.css"/>
 
 <link rel="stylesheet" href="css/font-common.css">
-<link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" >
+<link rel="stylesheet" href="css/font-awesome.css" >
 <style>
 div {
 	margin: 0px;
@@ -52,23 +53,41 @@ div {
             <button type="submit" id="update" class="btn btn-primary">更新  2015-01-10 19:22</button>
           </center>
         </li>
-        <li> <a href="#" aria-expanded="false"><i class="fa fa-male fw" style="padding-right:8px;"></i> 家政管理<span class="fa arrow"></span></a>
+        <li> <a href="#" aria-expanded="false"><i class="fa fa-briefcase fw" style="padding-right:8px;"></i> 家政管理<span class="fa arrow"></span></a>
           <ul aria-expanded="false">
-            <li class="pl8"  ui-sref="hkOrderList"><a  href="#">订单查看</a></li>
+            <li class="pl8"  ui-sref="hkOrderList"><a  href="#">· 订单查看</a></li>
+						<li class="pl8"  ui-sref="workerAuthentication"><a  href="#">· 员工认证</a></li>
+						<li class="pl8"  ui-sref="workKind"><a  href="#">· 家政分类</a></li>
+						<li class="pl8"  ui-sref="workerAuthentication"><a  href="#">· 员工管理</a></li>
           </ul>
         </li>
         <li> <a href="#" aria-expanded="false"><i class="fa fa-gavel fw" style="padding-right:6px;"></i>报修管理<span class="fa arrow"></a>
           <ul aria-expanded="false">
-            <li><a ui-sref="repairList">报修查看</a></li>
-            <li><a ui-sref="repairPartManage">维修部位</a></li>
-            <li><a href="#">item 0.3</a></li>
+            <li><a ui-sref="repairList">· 报修查看</a></li>
+            <li><a ui-sref="repairPartManage">· 维修部位</a></li>
+            <li><a ui-sref="repairKind">· 维修类别</a></li>
+						<li><a ui-sref="repairDispatcher">· 维修调度</a></li>
+						<li><a ui-sref="repairWork">· 维修人员</a></li>
           </ul>
         </li>
-        <li> <a href="#" aria-expanded="false"> Menu 2<span class="fa arrow"></span></a>
+        <li> <a href="#" aria-expanded="false"><i class="fa fa-male fw" style="padding-right:8px;"></i>人员管理<span class="fa arrow"></span></a>
           <ul aria-expanded="false">
-            <li><a href="#">item 0.1</a></li>
-            <li><a href="#">item 0.2</a></li>
-            <li><a href="#">item 0.3</a></li>
+            <li><a href="#">· item 0.1</a></li>
+            <li><a href="#">· item 0.2</a></li>
+            <li><a href="#">· item 0.3</a></li>
+          </ul>
+        </li>
+				<li> <a href="#" aria-expanded="false"><i class="fa fa-user fw" style="padding-right:8px;"></i>用户管理<span class="fa arrow"></span></a>
+					<ul aria-expanded="false">
+						<li><a ui-sref="adminManage">· Admin操作</a></li>
+						<li><a ui-sref="adminManage">· 用户操作</a></li>
+					</ul>
+				</li>
+				<li> <a href="#" aria-expanded="false"><i class="fa fa-cog fw" style="padding-right:8px;"></i>系统设置<span class="fa arrow"></span></a>
+          <ul aria-expanded="false">
+            <li><a href="#">· item 0.1</a></li>
+            <li><a href="#">· item 0.2</a></li>
+            <li><a href="#">· item 0.3</a></li>
           </ul>
         </li>
       </ul>
@@ -84,11 +103,12 @@ div {
 
 
 
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/metisMenu.js"></script>
 <script src="js/angular.min.js"></script>
-<script src="http://cdn.bootcss.com/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script>
+<!-- <script src="http://cdn.bootcss.com/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script> -->
+<script src="js/angular-ui-router.js"></script>
 
 
 <script>
@@ -107,6 +127,10 @@ $(function () {
 
 </script>
 <script src="app.js"></script>
+
+<script src="component/Admin/Service/AdminService.js"></script>
+<script src="component/Admin/Controller/AdminController.js"></script>
+
 <script src="component/Hwork/service/orderService.js"></script>
 <script src="component/Hwork/controller/orderController.js"></script>
 

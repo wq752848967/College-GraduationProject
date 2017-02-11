@@ -1,0 +1,299 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+.table th, .table td {
+	text-align: center;
+}
+.table button {
+	height: 25px;
+	line-height: 25px;
+	padding: 0px;
+	width: 55px;
+}
+
+
+
+
+#myModalLabel{
+	margin-left: 30px;
+}
+#orderDetialPanel ul li{
+	height: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color: white !important;
+}
+.contentPanel{
+  margin-top: 100px;
+}
+
+
+
+
+/* NOTE:
+  filter panel
+ */
+#addAminBtn{
+  margin: 20px;
+  margin-top: 35px;
+  margin-left: 30px;
+  float: left;
+  vertical-align: middle;
+}
+.input-div{
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  float: left;
+  vertical-align: middle;
+}
+#filterTab{
+	width: 100%;
+}
+#filterTab .inputfilter{
+	display: inline-block;
+  margin-left: 20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+#filterTab button{
+	margin-left: 20px;
+}
+
+
+/* NOTE: worker detial pop panel */
+.recent-service-ul{
+	border-top: 1px dashed #A9A9A9;
+	height: 250px;
+	overflow-y:scroll;
+	padding-top: 20px;
+	margin-top: 5px;
+
+}
+
+
+
+/*  page  样式    */
+.footer-pages{
+
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+}
+.footer-pages ul{
+
+
+	text-align: center;
+}
+.footer-pages li{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin: 3px;
+
+	border-radius: 3px;
+	border: 1px solid #DDDDDD;
+	display: inline-block;
+
+}
+.footer-pages li:hover{
+		background-color: #478DE4;
+}
+.footer-pages .active{
+	background-color: #478DE4;
+}
+
+
+
+
+
+/* NOTE:
+
+    pop add work panel
+
+ */
+ .work-input-body{
+   padding-left: 0px;
+ }
+ .work-input-ul{
+
+    padding-left:180px;
+ }
+ .work-input-ul li{
+   background-color: white;
+   margin-top: 10px;
+ }
+ .work-input-ul li select{
+   width: 150px;
+   height: 25px;
+ }
+
+
+</style>
+
+
+
+<div class="container">
+<!-- NOTE:
+  filter panel
+
+ -->
+ <div class="filterPanel panel panel-default">
+   <div class="panel-heading">
+      用户操作
+   </div>
+   <div class="panel-body ">
+     <ul id="myTab" class="nav nav-tabs">
+	      <li class="active">
+	     	<a href="#addTab" data-toggle="tab">操作</a>
+	     </li>
+
+     </ul>
+     <div class="filter-content tab-content">
+
+       <!-- NOTE:   addTab    -->
+
+       <div class="tab-pane fade in active" id="addTab">
+         <button id="addAminBtn" type="button" class="btn btn-primary" name="button" ng-click="repairWorkCon.showAddPanel()">添加人员</button>
+       </div>
+
+
+
+   </div>
+ </div>
+ </div>
+<div class="contentPanel panel panel-default">
+  <div class="panel-heading">订单显示</div>
+  <table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>帐号</th>
+        <th>类型</th>
+				<th>服务类型</th>
+        <th>创建时间</th>
+        <th>状态</th>
+				<th>今日工作量</th>
+				<th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="worker in repairWorkCon.workerList">
+        <td ng-bind="worker.user.uid"></td>
+        <td ng-bind="worker.user.uname"></td>
+        <td ng-bind="worker.user.uphone"></td>
+        <td ng-bind="worker.user.utypeCode"></td>
+				<td ng-bind="worker.worker.rwType"></td>
+				<td ng-bind="worker.user.udate|date"></td>
+        <td ng-bind="worker.user.ustatusCode"> </td>
+				<td ng-bind="worker.worker.tdWorkCount"></td>
+        <th ><button class="btn btn-primary" ng-click="repairWorkCon.showWorkPanel($index)">详情</button></th>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+  <!-- 弹出详情面板  -->
+  <div class="modal fade" id="orderDetialPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+          <h4 class="modal-title" id="myModalLabel" ng-bind="repairWorkCon.curworker.user.uname"></h4>
+        </div>
+        <div class="modal-body yahei">
+						<ul>
+							<li>编号：<span ng-bind="repairWorkCon.curworker.user.uid"></span></li>
+							<li>姓名：<span ng-bind="repairWorkCon.curworker.user.uname"></span></li>
+							<li>帐号：<span ng-bind="repairWorkCon.curworker.user.uphone"></span></li>
+							<li>密码：<span ng-bind="repairWorkCon.curworker.user.upsw"></span></li>
+							<li>创建时间：<span >{{repairWorkCon.curworker.user.udate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+							<li>状态：<span ng-bind="repairWorkCon.curworker.user.ustatusCode"> </span></li>
+							<li>类型：<span ng-bind="repairWorkCon.curworker.user.utypeCode"></span><br></li>
+
+
+
+						</ul>
+
+						<ul class="recent-service-ul">
+								<li ng-repeat="service in repairWorkCon.recentService">
+									<label for="">订单编号：</label>{{service.rService.rid}} <br>
+									<span>发布时间：</span>{{service.repairs.rdate|date}} <br>
+									<span>完成时间：</span>{{service.rService.rsFinishDate|date}} <br>
+									<span>名称：</span>{{service.repairs.rpName}} <br>
+									<span>类型：</span>{{service.repairs.rtypeCode}} <br>
+									<span>状态：</span>{{service.rService.rsStatusCode}} <br>
+									<span>地址：</span>{{service.repairs.raddr}} <br>
+								</li>
+						</ul>
+				</div>
+        <div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="repairWorkCon.updateworker(1)">恢复 </button>
+					<button type="button" class="btn btn-warning" ng-click="repairWorkCon.updateworker(2)">冻结 </button>
+					<button type="button" class="btn btn-danger" ng-click="repairWorkCon.updateworker(3)">删除 </button>
+					<button type="button" class="btn btn-primary" >修改密码 </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- panel end -->
+
+
+
+  <!-- NOTE:
+
+        添加新工人帐号 弹出面板
+
+   -->
+   <!-- 弹出详情面板  -->
+
+   <div class="modal fade" id="addWorkPanel" tabindex="-1" role="dialog"  aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+           <h4 class="modal-title" id="myModalLabel" >添加工人</h4>
+         </div>
+         <div class="modal-body work-input-body">
+            <ul class="work-input-ul">
+              <li><label>帐号：</label><input type="text"></input></li>
+              <li><label>密码：</label><input type="text"></input></li>
+              <li><label>姓名：</label><input type="text"></input></li>
+              <li>
+                <label>类型：</label>
+                <select class="" name="" ng-model="repairWorkCon.selectType">
+                  <option value="{{type.id}}" ng-repeat="type in repairWorkCon.typeList">{{::type.rkName}}</option>
+                </select>
+              </li>
+
+
+
+
+            </ul>
+        </div>
+         <div class="modal-footer">
+
+           <button type="button" class="btn btn-primary" ng-click="repairWorkCon.saveWork()">添加 </button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+         </div>
+       </div>
+       <!-- /.modal-content -->
+     </div>
+     <!-- /.modal -->
+   </div>
+
+
+</div>
+
+</div>

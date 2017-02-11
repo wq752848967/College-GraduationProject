@@ -1,0 +1,153 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+.table th, .table td {
+	text-align: center;
+}
+.table button {
+	height: 25px;
+	line-height: 25px;
+	padding: 0px;
+	width: 55px;
+}
+
+
+
+#myModalLabel{
+	margin-left: 30px;
+}
+#waDetialPanel ul li{
+	height: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color: white !important;
+}
+
+
+
+
+/*  page  样式    */
+.footer-pages{
+
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+}
+.footer-pages ul{
+
+
+	text-align: center;
+}
+.footer-pages li{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin: 3px;
+
+	border-radius: 3px;
+	border: 1px solid #DDDDDD;
+	display: inline-block;
+
+}
+.footer-pages li:hover{
+		background-color: #478DE4;
+}
+.footer-pages .active{
+	background-color: #478DE4;
+}
+.repair-work-info{
+	border-top: 1px solid #E5E5E5;
+	margin-top: 10px;
+	padding-top: 20px;
+}
+</style>
+
+
+
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">报修订单显示</div>
+  <table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>申请类型</th>
+        <th>申请用户</th>
+        <th>时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="wa in workerAuthenticationCon.waList">
+        <td ng-bind="wa.waNumId"></td>
+        <td ng-bind="wa.waWorkerType"></td>
+        <td ng-bind="wa.waUser"></td>
+        <td ng-bind="wa.waDate|date"></td>
+        <td ng-bind="wa.waValid"> </td>
+        <th ><button class="btn btn-primary" ng-click="workerAuthenticationCon.waDetialShow($index)">详情</button></th>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+  <!-- 弹出详情面板  -->
+  <div class="modal fade" id="waDetialPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+          <h4 class="modal-title" id="myModalLabel" ng-bind="workerAuthenticationCon.curWa.waNumId"></h4>
+
+        </div>
+        <div class="modal-body yahei">
+						<ul>
+							<li>编  &nbsp&nbsp号：<span ng-bind="workerAuthenticationCon.curWa.waNumId"></span></li>
+							<li>申请用户：<span ng-bind="workerAuthenticationCon.curWa.waUser"> </span></li>
+							<li>申请类型：<span ng-bind="workerAuthenticationCon.curWa.waWorkerType"></span></li>
+
+							<li>状&nbsp; &nbsp;&nbsp; &nbsp;态：<span ng-bind="workerAuthenticationCon.curWa.waValid"></span></li>
+							<li>发布时间：<span >{{workerAuthenticationCon.curWa.waDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+							<li>联系方式：<span ng-bind="workerAuthenticationCon.curWa.waPhone"></span></li>
+
+						</ul>
+						<ul class="repair-work-info" >
+							<li>人员真实姓名：<span ng-bind="workerAuthenticationCon.curWa.waReName"></span></li>
+							<li>人员证件号码：<span ng-bind="workerAuthenticationCon.curWa.waReCard"></span></li>
+							<li>人员联系方式：<span ng-bind="workerAuthenticationCon.curWa.waPhone"></span></li>
+							<li>描  &nbsp; &nbsp;  述：<span ng-bind="workerAuthenticationCon.curWa.waDesc"></span><br></li>
+						</ul>
+
+				</div>
+        <div class="modal-footer">
+					<div class="allow-panel" >
+						<button class="btn btn-default" type="button" name="button" ng-click="workerAuthenticationCon.allowWorkerAu()">通过申请</button>
+						<button class="btn btn-primary" type="button" name="button" ng-click="workerAuthenticationCon.refuseWorkerAu()">拒绝申请</button>
+					</div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- panel end -->
+
+
+</div>
+
+</div>
+<div class="footer-pages">
+	<ul>
+		<li  ng-if="workerAuthenticationCon.pageNow!=1" ng-click="workerAuthenticationCon.changePage(1)">《</li>
+		<li ng-class="{true:'active',false:'step'}[(num+1)==workerAuthenticationCon.pageNow]" ng-repeat="num in workerAuthenticationCon.pageNum"
+				ng-click="workerAuthenticationCon.changePage(num+1)">{{num+1}}</li>
+		<li ng-if="workerAuthenticationCon.maxPage!=workerAuthenticationCon.pageNow" ng-click="workerAuthenticationCon.changePage(workerAuthenticationCon.maxPage)">》</li>
+	</ul>
+</div>

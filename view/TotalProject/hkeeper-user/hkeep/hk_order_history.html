@@ -188,6 +188,7 @@ ul
 	bottom: -270px;
 	height: 250px;
 	width: 100%;
+	border: 1px solid #A9A9A9 !important;
 	background-color: white;
 	transition: all 0.3s ease-in-out;
 }
@@ -284,7 +285,7 @@ function changeBack()
     <div id="header_body"onclick="changeBack()"><a href="http://www.baidu.com" ><img src="../images/common/back_white.png"/></a><span id="header_title">填写订单信息</span></div>
   </div>
   <div data-role="content" style="padding:0px;margin:0px;">
-		<button type="button" name="button" ng-click="historyCon.showCommentPanel(1)">显示</button>
+
     <ul>
         <li class="list-li yahei" ng-repeat="item in historyCon.dataList" >
 					<div class="" ng-click="historyCon.historyDetial(item.hwId)">

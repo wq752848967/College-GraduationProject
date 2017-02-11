@@ -19,7 +19,7 @@
 	}
 </script>
 <body>
-<div class="container">
+<div class="container" ng-app="hkeeper-pc" ng-controller="AdminController as adminCon">
 <div class="row">
 <div class="col-md-push-4 col-md-4">
   <div class="login_panel panel panel-default">
@@ -27,10 +27,10 @@
     <div class="panel-body">
       <fieldset>
         <div class="form-group">
-          <input class="form-control" placeholder="User-name" name="userName" type="text" autofocus>
+          <input class="form-control" placeholder="User-name" name="userName" type="text" autofocus ng-model="adminCon.adminName">
         </div>
         <div class="form-group">
-          <input class="form-control" placeholder="Password" name="password" type="password" value="">
+          <input class="form-control" placeholder="Password" name="password" type="password" value="" ng-model="adminCon.adminPsw">
         </div>
         <div class="checkbox">
           <label>
@@ -38,11 +38,17 @@
             Remember Me </label>
         </div>
         <!-- Change this to a button or input when using this as a form -->
-        <input onclick="login()" type="submit" value="登录" class="btn btn-lg btn-success btn-block">
+        <input ng-click="adminCon.login()" type="submit" value="登录" class="btn btn-lg btn-success btn-block">
       </fieldset>
     </div>
   </div>
 </div>
 <div> </div>
 </body>
+<script src="js/jquery.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-ui-router.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="component/Admin/Service/AdminService.js"></script>
+<script type="text/javascript" src="component/Admin/Controller/AdminController.js"></script>
 </html>

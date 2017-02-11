@@ -47,7 +47,9 @@ img {
 	z-index: 100;
 }
 #header_body a img {
-	margin-top: 10px;
+  height: 24px;
+  width: 15px;
+	margin-top: 14px;
 }
 #header_title {
 	position: absolute;
@@ -172,6 +174,13 @@ img {
   padding-bottom: 10px;
   border-bottom:1px solid #D9D9D9;
 }
+.service-info{
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 14px;
+  font-size: 14px;
+
+}
 
 /*  申请列表 item */
   .c-a-list li{
@@ -233,7 +242,111 @@ img {
 	text-align:center;
 	font-size:20px;
 }
+#commentBtn{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  background-color: yellow;
+  color: white;
+  letter-spacing: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+/* commentpanel */
+.commentPanel{
+	position: fixed;
+	bottom: -270px;
+	height: 250px;
+	width: 100%;
+	background-color: white;
+	transition: all 0.3s ease-in-out;
+}
+.showComment{
+	transform: translate(0,-270px);
+}
+.hr-line{
+	height: 1px;
+	width: 100%;
 
+	background-color: #E5E5E5;
+}
+.panelHeader{
+	height:40px;
+	line-height: 40px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #A9A9A9;
+  border-top: 1px solid #A9A9A9;
+}
+.panelHeader span{
+	margin-right: 20px;
+	float: right;
+}
+.starPanel{
+	padding-top: 10px;
+	padding-left: 20px;
+	height: 30px;
+	line-height: 30px;
+}
+.starPanel ul {
+	display: inline-block;
+  padding-left: 0;
+	vertical-align: middle;
+  overflow: hidden;
+ }
+ .starPanel ul li {
+  float: left;
+  list-style: none;
+  width: 27px;
+  height: 27px;
+
+  background: url(../images/common/star.gif)
+ }
+ .starPanel ul li a {
+  display: block;
+  width: 100%;
+  padding-top: 27px;
+  overflow: hidden;
+ }
+ .starPanel ul li.light {
+  background-position: 0 -29px;
+ }
+
+ .starPanel span{
+	 vertical-align: middle;
+ }
+ .panelBody textarea{
+	 width: 90%;
+	 height: 60px;
+	 margin-top: 16px;
+	 padding-left: 5%;
+	 padding-right: 5%;
+	 padding-top: 20px;
+	 border: none;
+	 color: #A9A9A9;
+	 border-top: 1px solid #E5E5E5;
+	 border-bottom: 1px solid #E5E5E5;
+	 letter-spacing: 1px;
+	 font-size: 15px;
+ }
+ .commentSubmit{
+	 margin-left: 5%;
+	 margin-top: 10px;
+	 width: 90%;
+	 height: 45px;
+	 border: none;
+	 outline: none;
+	 color: white;
+	 font-size: 18px;
+	 font-weight: bold;
+	 letter-spacing: 10px;
+	 background-color: #00CC99;
+	 border-radius: 5px;
+ }
 </style>
 <script>
 function changeBack()
@@ -262,7 +375,8 @@ function changeBack()
         <span class="c-i-header">家政日期：</span><span  class="c-i-content" ng-bind="hworksDetialCon.detial.hwDate"></span><br>
         <span class="c-i-header">服务时间：</span><span  class="c-i-content"><span ng-bind="hworksDetialCon.detial.hwTime"></span>小时</span>
     </div>
-    <div class="content-apply">
+    <!--  申请列表  -->
+    <div class="content-apply" ng-show="hworksDetialCon.detial.hwStatusCode==210">
     	<div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;家政申请</div>
         <div class="c-a-amount" >申请总人数：<span ng-bind="hworksDetialCon.detial.hwApplyAmount"></span>人</div>
         <ul class="c-a-list">
@@ -273,18 +387,77 @@ function changeBack()
                     <div class="item-li-info-name">姓名：<span ng-bind="item.name"></span></div>
                     <div class="item-li-info-date">T：<span ng-bind="item.date"></span></div>
                   </li>
-                  <li class="item-li-grade">评分&nbsp <span ng-bind="item.points"></span></li>
+                  <li class="item-li-grade">评分&nbsp; <span ng-bind="item.points"></span></li>
                 </ul>
             </li>
 
         </ul>
     </div>
+    <!--  状态 -->
+    <div class="content-apply"  style="padding-bottom:20px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;订单信息</div>
+        <div  class="service-info">订单状态：<span ng-bind="hworksDetialCon.detial.hwStatusCode"></span></div>
+    </div>
+
+    <!--  服务者列信息 -->
+    <div class="content-apply" ng-show="hworksDetialCon.detial.hwStatusCode>=211" style="padding-bottom:20px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;服务信息</div>
+        <div  class="service-info">接单时间：<span ng-bind="hworksDetialCon.detial.order.orderDate|date"></span></div>
+        <div  class="service-info">服务员工：<span ng-bind="hworksDetialCon.detial.worker.uid"></span></div>
+        <div  class="service-info">员工姓名：<span ng-bind="hworksDetialCon.detial.worker.uname"></span></div>
+        <div  class="service-info">评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分：<span ng-bind="hworksDetialCon.detial.worker.upoints"></span></div>
+
+    </div>
+    <!--  评价信息 -->
+    <div class="content-apply" ng-show="hworksDetialCon.detial.hwStatusCode==213" style="padding-bottom:50px;margin-bottom:50px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;评价信息</div>
+        <div  class="service-info"><span ng-bind="hworksDetialCon.detial.comments.wcContent"></span></div>
+
+
+    </div>
+
 
 
   </div><!--content end-->
 
 
   <div data-role="footer" class="footer">
+    <!-- NOTE:
+        评价面板
+   -->
+    <div class="commentPanel">
+			<div class="panelHeader" ng-click="hworksDetialCon.showCommentPanel(hworksDetialCon.detial.hwId)">
+				 <span>&#215;</span>
+			</div>
+			<div class="hr-line">
+
+			</div>
+			<div class="starPanel">
+				<span>评分：</span>
+				<ul class="star-ul">
+					<li ><a href="javascript:;">1</a></li>
+					<li ><a href="javascript:;">2</a></li>
+					<li ><a href="javascript:;">3</a></li>
+					<li ><a href="javascript:;">4</a></li>
+					<li ><a href="javascript:;">5</a></li>
+				</ul>
+			</div>
+			<div class="panelBody">
+				<textarea ng-model="hworksDetialCon.commentContent" data-role="none" name="name" rows="8" cols="80" placeholder="最多40字符" maxlength="40"></textarea>
+			</div>
+			<button class="commentSubmit" ng-click="hworksDetialCon.submitComment()" data-role="none" type="button" name="button">提交</button>
+		</div>
+   <!-- NOTE:
+
+    评价面板结束
+
+  -->
+
+    <!-- NOTE:
+      评价弹出触发按钮
+   -->
+    <button id="commentBtn" data-role="none" type="button" name="button" ng-show="hworksDetialCon.detial.hwStatusCode==212"
+    ng-click="hworksDetialCon.showCommentPanel(hworksDetialCon.detial.hwId)">评价</button>
 
   </div>
   </div><!--page end-->

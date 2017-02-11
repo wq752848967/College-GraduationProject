@@ -1,0 +1,222 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+.table th, .table td {
+	text-align: center;
+}
+.table button {
+	height: 25px;
+	line-height: 25px;
+	padding: 0px;
+	width: 55px;
+}
+
+
+
+
+#myModalLabel{
+	margin-left: 30px;
+}
+#repairDetialPanel ul li{
+	height: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color: white !important;
+}
+
+/*  button style   */
+.modify-part-btn{
+  width: 100px !important;
+  color: white;
+  font-size: 1vw;
+  border-radius: 3px;
+}
+.delete-part-btn{
+  width: 100px !important;
+  margin-left: 20px;
+  color: white;
+  font-size: 1vw;
+  border-radius: 3px;
+}
+.addPartPanel{
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+.addPartPanel button{
+  padding: 0px !important;
+  width: 180px;
+  height:40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 1.2vw;
+  -ms-font-size: 16px;
+}
+
+/*  page  样式    */
+.footer-pages{
+
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+}
+.footer-pages ul{
+
+
+	text-align: center;
+}
+.footer-pages li{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin: 3px;
+
+	border-radius: 3px;
+	border: 1px solid #DDDDDD;
+	display: inline-block;
+
+}
+.footer-pages li:hover{
+		background-color: #478DE4;
+}
+.footer-pages .active{
+	background-color: #478DE4;
+}
+
+
+
+/*  add panel  style   */
+
+#addPartPanel ul,li{
+	background-color: white;
+}
+#addPartPanel .modal-body{
+	padding-left: 145px;
+	padding-right: 145px;
+}
+#addPartPanel .ap-name-span{
+
+	font-size: 20px;
+}
+#addPartPanel  .ap-name-input{
+	width: 200px;
+	margin-left: 10px;
+}
+#addPartPanel .ap-part-title{
+	padding-top: 20px;
+
+	font-size: 20px;
+}
+#addPartPanel .ap-parts-list{
+	list-style: circle;
+	margin-left: 130px;
+	margin-top: 5px;
+}
+#addPartPanel .ap-parts-list li{
+	height: 30px;
+}
+#addPartPanel .ap-add-div{
+	width: 100%;
+
+	text-align: center;
+}
+#addPartPanel .ap-add-btn{
+	height: 25px;
+	width: 60px;
+	color: white;
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+#addPartPanel .new-part{
+	width: 100%;
+	display: none;
+	text-align: center;
+}
+#addPartPanel .new-part button{
+	color: white;
+	border-radius: 3px;
+}
+</style>
+
+
+
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">报修部位设置</div>
+  <table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="kind  in  repairKindCon.kindList">
+				<td ng-bind="kind.id"></td>
+	      <td ng-bind="kind.rkName"></td>
+	      <td ng-bind="kind.rkDate|date"></td>
+	      <td>
+	        <button class="delete-part-btn bg-red yahei" type="button" name="button" ng-click="repairKindCon.deleteKind($index)">删除</button>
+	      </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+  <!-- 弹出详情面板  -->
+  <div class="modal fade" id="addPartPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+          <h4 class="modal-title" id="myModalLabel" >保修项目显示</h4>
+        </div>
+        <div class="modal-body yahei">
+						<span class="ap-name-span">名称: </span><input class="ap-name-input" type="text" name="" value="" ng-model="repairKindCon.rName"/>
+
+				</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+          <button type="button" class="btn btn-primary" ng-click="repairKindCon.saveAddPart()"> 提交更改 </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- panel end -->
+
+
+</div>
+
+
+
+<div class="addPartPanel">
+  <button class="bg-blue yahei" type="button" name="button" ng-click="repairKindCon.addPanelShow()">
+		<i class="fa fa-plus-square" style="margin-right:15px;"></i>
+		添加
+	</button>
+</div>
+
+
+</div>  <!-- container end -->
+
+<div class="footer-pages">
+	<ul>
+		<li  ng-if="repairListCon.pageNow!=1" ng-click="repairListCon.changePage(1)">《</li>
+		<li ng-class="{true:'active',false:'step'}[(num+1)==repairListCon.pageNow]" ng-repeat="num in repairListCon.pageNum"
+				ng-click="repairListCon.changePage(num+1)">{{num+1}}</li>
+		<li ng-if="repairListCon.maxPage!=repairListCon.pageNow" ng-click="repairListCon.changePage(repairListCon.maxPage)">》</li>
+	</ul>
+</div>
