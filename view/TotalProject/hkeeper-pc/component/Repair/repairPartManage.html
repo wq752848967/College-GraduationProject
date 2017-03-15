@@ -32,14 +32,14 @@
 .modify-part-btn{
   width: 100px !important;
   color: white;
-  font-size: 1vw;
+  font-size: 15px;
   border-radius: 3px;
 }
 .delete-part-btn{
   width: 100px !important;
   margin-left: 20px;
   color: white;
-  font-size: 1vw;
+  font-size: 15px;
   border-radius: 3px;
 }
 .addPartPanel{
@@ -107,6 +107,15 @@
 	width: 200px;
 	margin-left: 10px;
 }
+#addPartPanel .ap-part-class{
+	 margin-top: 11px;
+	 margin-bottom: 11px;
+}
+#addPartPanel .ap-part-class select{
+	width: 150px;
+	margin-left: 18px;
+	font-size: 16px;
+}
 #addPartPanel .ap-part-title{
 	padding-top: 20px;
 
@@ -154,6 +163,7 @@
       <tr>
         <th>编号</th>
         <th>名称</th>
+				<th>类别</th>
         <th>报修部位</th>
 
         <th>操作</th>
@@ -163,6 +173,7 @@
       <tr ng-repeat="part  in  repairPartCon.partList">
 				<td ng-bind="part.rpId"></td>
 	      <td ng-bind="part.rpName"></td>
+				<td ng-bind="part.rpKindCode"></td>
 	      <td ng-bind="part.rpParts"></td>
 	      <td>
 	        <button class="modify-part-btn bg-blue yahei" type="button" name="button" ng-click="repairPartCon.editPartProject($index)">修改</button>
@@ -186,6 +197,12 @@
         </div>
         <div class="modal-body yahei">
 						<span class="ap-name-span">名称: </span><input class="ap-name-input" type="text" name="" value="" ng-model="repairPartCon.pName"/>
+						<div class="ap-part-class">
+							<span class="ap-part-title">种类</span>
+							<select class="" ng-model="repairPartCon.partKind">
+								<option value="{{kind.id}}" ng-repeat="kind in repairPartCon.kindList">{{kind.rkName}}</option>
+							</select>
+						</div>
 						<div class="">
 								<span class="ap-part-title">部位:</span>
 

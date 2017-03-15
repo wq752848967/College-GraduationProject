@@ -23,9 +23,11 @@ angular.module('hkeep_user')
             params:{ 'rId':rId}
             });
       }
-    this.submit = function(title,addr,desc,userId,level,rpId,rpName){
+    this.submit = function(title,addr,desc,userId,level,rpId,rpName,rpKind){
       //返回可级联调用方法体promise
-      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'UId':userId,'RLevel':level,'rpId':rpId,'rpName':rpName};
+      var data = {'RTitle':title,'RAddr':addr,'RDes':desc,
+                  'UId':userId,'RLevel':level,'rpId':rpId,'rpName':rpName,
+                   'rpKind':rpKind};
       var transFn = function(data) {
           return $.param(data);
       };

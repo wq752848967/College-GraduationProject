@@ -1,5 +1,5 @@
 
-angular.module('hkeep_user').controller('SubmitRepairController',['RepairService',function(RepairService){
+angular.module('hkeep_user').controller('SubmitRepairController',['RepairService',"$window",function(RepairService,$window){
      var self = this;
      self.userId =  "USERid";
      self.level = 1;
@@ -8,23 +8,27 @@ angular.module('hkeep_user').controller('SubmitRepairController',['RepairService
      self.desc;
      self.rpId;
      self.rpName;
+     self.rpKind;
      //get param from url
      var url=decodeURI(location.href);
      var temp1 =  url.split("?")[1];
      var temp2Arr = temp1.split("&");
      self.rpId =  temp2Arr[0].split("=")[1];
      self.rpName  = temp2Arr[1].split("=")[1];
-
-
+     self.rpKind =  temp2Arr[2].split("=")[1];
+     console.log("Kind:"+self.rpKind);
 
      self.submitRepair =  function()
      {
            //check params
 
            //user service to submit Repair
-           var promiseResult = RepairService.submit(self.title,self.addr,self.desc,self.userId,self.level,self.rpId,self.rpName);
+           var promiseResult = RepairService.submit(self.title,self.addr,self.desc,self.userId,self.level,self.rpId,self.rpName,self.rpKind);
            promiseResult.success(function(data,status,config,headers){
               console.log("submit ok"+data.message);
+              alert("提交成功");
+              $window.location =  "../index.html";
+
            });
            promiseResult.error(function(data,status,config,headers){
               console.log("submit error"+data.message);
@@ -71,18 +75,19 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
   var curPartClass="";
   var curPartId = "";
   var curPartName = "";
-  
+  var curPartKind = "";
   // init data
   getAllRepairParts();
 
   //define out   interface
-  self.selectPart = function(rpId,index){
+  self.selectPart = function(rpId,index,kind){
     if(curPartClass.length>0){
         $("."+curPartClass+" span").css("background-color","white");
     }
 
     var className = "part-li-"+rpId+"-"+index;
     curPartClass = className;
+    curPartKind = kind;
     $("."+className+" span").css("background-color","#0c9");
     curPartId = rpId;
     curPartName = $("."+className+" .li-partName").text();
@@ -93,20 +98,20 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
     RepairService.setrpId(curPartId);
     RepairService.setPartName(curPartName);
 
-    $window.location.href="repair.html?rpId="+curPartId+"&rpName="+curPartName;
+    $window.location.href="repair.html?rpId="+curPartId+"&rpName="+curPartName+"&rpKind="+curPartKind;
   }
 
   //define inter function
   function getAllRepairParts(){
     var promise = RepairService.getAllRepairParts();
     promise.success(function(data,status,config,headers){
-     
+
       console.log("success RepairService.getAllRepairParts");
       console.log(data.data);
       self.partList = data.data;
     });
     promise.error(function(data,status,config,headers){
-    	
+
       console.log("error RepairService.getAllRepairParts");
     });
   }

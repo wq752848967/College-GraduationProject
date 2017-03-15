@@ -37,7 +37,7 @@ body
 #header_body a img {
 	width: 16px;
 	height:25px;
-	
+
 	margin-top: 15px;
 }
 #header_title {
@@ -183,7 +183,7 @@ function changeBack()
 
        <div id="{{part.part.rpId}}" class="select-body yahei">
          <ul>
-           <li ng-repeat="name in part.partNames" class="part-li-{{part.part.rpId}}-{{$index}}" ng-click="partCon.selectPart(part.part.rpId,$index)">
+           <li ng-repeat="name in part.partNames" class="part-li-{{part.part.rpId}}-{{$index}}" ng-click="partCon.selectPart(part.part.rpId,$index,part.part.rpKindCode)">
 
                 <div class="li-partName" ng-bind="name"></div>  <span></span>
 

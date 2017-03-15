@@ -1,0 +1,90 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+
+ .ul-addOrder  li{
+  background-color: white;
+	margin-bottom: 20px;
+}
+/* NOTE:
+  ul-addOrder 添加面板内部style
+
+ */
+
+ .ul-addOrder{
+   padding-left: 80px;
+   margin-top: 30px;
+ }
+ .ul-addOrder input{
+	width: 180px;
+   margin-left: 20px;
+ }
+ .ul-addOrder select{
+	 width: 180px;
+	 height: 28px;
+   margin-left: 17px;
+ }
+ .ul-addOrder textarea{
+	 width: 280px;
+	 height: 60px;
+	 margin-top: 10px;
+
+ }
+#addButton{
+	 width: 250px;
+	 height: 40px;
+	 margin-left: 100px;
+	 padding-left: 50px;
+	 letter-spacing: 50px;
+	 margin-bottom: 150px;
+ }
+
+
+
+
+</style>
+
+
+
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">新建订单</div>
+    <ul class="ul-addOrder">
+      <li><label for="">手机号码：</label><input type="text" name="" value="" ng-model="addOrderCon.userPhone"></li>
+      <li><label for="">类 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</label>
+			<select class="" name="" ng-change="addOrderCon.getKindByType()" ng-model="addOrderCon.kindType">
+					<option value="0">-----请选择----</option>
+					<option value="1">维修</option>
+					<option value="2">清洁</option>
+					<option value="3">保姆</option>
+					<option value="4">其他</option>
+      </select>
+		</li>
+      <li><label for="">种 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类：</label>
+				<select class="" name="" ng-model="addOrderCon.dTypeCode">
+					<option  ng-repeat="kind in addOrderCon.kindList" value="{{kind.hwkId}}">{{::kind.hwkName}}</option>
+				</select>
+			</li>
+      <li><label for="">名 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</label><input type="text" name="" value="" ng-model="addOrderCon.title"></li>
+			<li><label for="">地 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><input type="text" name="" value="" ng-model="addOrderCon.add"></li>
+			<li><label for="">预约时间：</label><input type="text" name="" value="" ng-model="addOrderCon.date"></li>
+			<li><label for="">服务时长：</label><input type="text" name="" value="" ng-model="addOrderCon.time"></li>
+			<li><label for="">服务金额：</label><input type="text" name="" value="" ng-model="addOrderCon.money"></li>
+			<li><label for="">描 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述：</label><br>
+				<textarea name="name" rows="8" cols="80" ng-model="addOrderCon.desc"></textarea>
+			</li>
+    </ul>
+		<button id="addButton" class="btn btn-primary" type="button" name="button" ng-click="addOrderCon.submit()">新建</button>
+
+
+
+
+
+
+</div>
+
+</div>

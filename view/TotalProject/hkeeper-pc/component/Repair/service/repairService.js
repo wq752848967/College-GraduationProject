@@ -62,9 +62,9 @@ app.service("RepairPartManageService",["$http",function($http){
     });
   };
 
-  this.addPart = function(pName,pParts){
+  this.addPart = function(pName,pKind,pParts){
 
-    var data = {'pName':pName,'pParts':pParts};
+    var data = {'pName':pName,'pKind':pKind,'pParts':pParts};
     var transFn = function(data) {
         return $.param(data);
     };
@@ -77,9 +77,9 @@ app.service("RepairPartManageService",["$http",function($http){
 
 
 
-  this.updatePartProject = function(pId,pName,pParts,pStatus){
+  this.updatePartProject = function(pId,pName,pKind,pParts,pStatus){
 
-    var data = {'pId':pId,'pName':pName,'pParts':pParts,'pStatus':pStatus};
+    var data = {'pId':pId,'pName':pName,'pKind':pKind,'pParts':pParts,'pStatus':pStatus};
     var transFn = function(data) {
         return $.param(data);
     };

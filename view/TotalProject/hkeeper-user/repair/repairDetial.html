@@ -108,10 +108,17 @@
       border-top:1px dashed #7F7F7F;
     }
     </style>
+    <script type="text/javascript">
+    function changeBack()
+    {
+      document.location="./orderList.html";
+    }
+    </script>
   </head>
+
   <body ng-app="hkeep_user" ng-controller="RepairDetialController as repairDetialCon" class="bg-gray">
     <div  class="cheader yahei">
-      <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
+      <div id="header_body"onclick="changeBack()"> <a  data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
 
     </div>
     <div class="detial-body yahei">
@@ -143,7 +150,7 @@
           </div>
           <div class="content-line">
             联系方式:
-            <span ng-bind="repairDetialCon.repair.user.uphone"></span>
+            <span ng-bind="repairDetialCon.repair.worker.uphone"></span>
           </div>
           <div class="content-line">
             接单时间:

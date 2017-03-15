@@ -5,6 +5,11 @@ var app  = angular.module('hkeeper-pc',['ui.router']);
 app.config(function($stateProvider,$urlRouterProvider){
   $urlRouterProvider.when("", "/total");
   $stateProvider
+        .state("addHkOrder", {        //新建订单
+            url: "/addHkOrder",
+            templateUrl: "component/Hwork/AddHkOrder.html",
+            controller:"AddHkOrderController as addOrderCon"
+          })
         .state("hkOrderList", {
             url: "/hkOrderList",
             templateUrl: "component/Hwork/hworkList.html",

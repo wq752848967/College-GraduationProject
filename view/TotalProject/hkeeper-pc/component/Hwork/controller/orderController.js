@@ -266,3 +266,76 @@ app.controller("HkKindController",["WorkKindService",function(WorkKindService){
     $('#addPartPanel').modal('hide');
   }
 }]);
+
+
+app.controller("AddHkOrderController",["WorkKindService","OrderService",function(WorkKindService,OrderService){
+  var self = this;
+
+  //define data
+  self.kindList;
+  self.dTypeCode;
+  self.kindType = 0;
+  self.userPhone;
+  self.title;
+  self.money;
+  self.date;
+  self.time;
+  self.add;
+  self.desc;
+  //init
+
+
+  //outer interface
+  self.getKindByType = function() {
+    if(self.kindType>0){
+        getKindByType(self.kindType);
+    }
+
+  }
+  self.submit =  function(){
+    submitOrder(self.userPhone,self.title,self.money,self.date,self.time,self.add,self.desc,self.kindType,self.dTypeCode);
+  }
+
+  //interface
+  function submitOrder(userPhone,title,money,date,time,add,desc,typeCode,dTypeCode){
+    var  promise = OrderService.submit(userPhone,title,money,date,time,add,desc,typeCode,dTypeCode);
+    promise.success(function(data,status,config,headers){
+      console.log("OrderService.submit: net success");
+      //判断 是否成功
+
+      var result = data.success;
+      if(result){
+        alert("添加成功！");
+      }
+      else{
+        alert("服务器错误，获取种类信息失败，请刷新！"+data.message);
+      }
+
+    });
+    promise.error(function(data,status,config,headers){
+
+      alert("internet error,get data fail!");
+    });
+  }
+  function getKindByType(kindType){
+    var  promise = WorkKindService.getWorkKindByType(kindType);
+    promise.success(function(data,status,config,headers){
+      console.log("WorkKindService.getWorkKindByType: net success");
+      //判断 是否成功
+
+      var result = data.success;
+      if(result){
+        self.kindList =  data.data;
+        console.log(data.data);
+      }
+      else{
+        alert("服务器错误，获取种类信息失败，请刷新！");
+      }
+
+    });
+    promise.error(function(data,status,config,headers){
+
+      alert("internet error,get data fail!");
+    });
+  }
+}]);

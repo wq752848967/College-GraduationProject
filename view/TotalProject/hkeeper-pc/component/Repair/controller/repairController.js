@@ -108,7 +108,8 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
 
 //add part controller
 
-app.controller("RepairPartManageController",["RepairPartManageService",function(RepairPartManageService){
+app.controller("RepairPartManageController",["RepairPartManageService","RepairKindService",
+      function(RepairPartManageService,RepairKindService){
 
   var self = this;
   //define data;
@@ -133,14 +134,20 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     //self.curOrder =  self.workList[index];
     self.pName="";
     self.pPart="";
+    self.partKind="";
     self.addFlag = true;
     self.curParts = [];
+    self.kindList = [];
+    initPartKind();
     $('#addPartPanel').modal('show');
 
   }
   //显示 隐藏 添加新报修项目输入框
   self.addPartInputShow = function(){
+
+
     $(".new-part").toggle();
+
   }
    //添加一个新的报修部位
   self.addPerPart = function(){
@@ -152,7 +159,7 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
 
   //删除 partProject
   self.deletePartProject = function(index){
-    updatePartProject(index,self.partList[index].rpId,self.partList[index].rpName,self.partList[index].rpParts,2);
+    updatePartProject(index,self.partList[index].rpId,self.partList[index].rpName,self.partList[index].rpKindCode,self.partList[index].rpParts,2);
   }
 
   //编辑 partProject
@@ -160,10 +167,11 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     self.pName=self.partList[index].rpName;
     self.addFlag = false;
     self.curIndex = index;
-
+    initPartKind();
     //划分part
     self.curParts = [];
     var partArr = self.partList[index].rpParts.split("、");
+    self.partKind = self.partList[index].rpKindCode;
     self.curParts = partArr;
     $('#addPartPanel').modal('show');
   }
@@ -188,12 +196,13 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
 
       if(self.addFlag){
         //提交数据
-        saveRepairProject(self.pName,addPartList);
+        saveRepairProject(self.pName,self.partKind,addPartList);
 
       }
       else{
         //更新数据
-        updatePartProject(self.curIndex,self.partList[self.curIndex].rpId,self.pName,addPartList,1);
+
+        updatePartProject(self.curIndex,self.partList[self.curIndex].rpId,self.pName,self.partKind,addPartList,1);
       }
 
   }
@@ -215,9 +224,28 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     });
   };
 
+  function initPartKind(){
+      //RepairKindService
 
-  function saveRepairProject(pName,pParts){
-    var  promise = RepairPartManageService.addPart(pName,pParts);
+      var  promise = RepairKindService.getAllKinds();
+      promise.success(function(data,status,config,headers){
+        console.log("RepairKindService.getAllKinds success");
+        //判断 是否成功
+        var result = data.success;
+        if(result){
+            self.kindList = data.data;
+        }
+        else{
+          alert("服务器错误，获取维修类型失败！");
+        }
+        getAllParts();
+      });
+      promise.error(function(data,status,config,headers){
+        alert("internet error,get data fail!");
+      });
+  }
+  function saveRepairProject(pName,pKind,pParts){
+    var  promise = RepairPartManageService.addPart(pName,pKind,pParts);
     promise.success(function(data,status,config,headers){
       console.log("RepairPartManageService.addPart success");
       //判断 是否成功
@@ -237,8 +265,8 @@ app.controller("RepairPartManageController",["RepairPartManageService",function(
     });
   };
 
-  function updatePartProject(index,pId,pName,pParts,pStatus){
-    var  promise = RepairPartManageService.updatePartProject(pId,pName,pParts,pStatus);
+  function updatePartProject(index,pId,pName,pKind,pParts,pStatus){
+    var  promise = RepairPartManageService.updatePartProject(pId,pName,pKind,pParts,pStatus);
     promise.success(function(data,status,config,headers){
       console.log("RepairPartManageService.updatePartProject success");
       //判断 是否成功
