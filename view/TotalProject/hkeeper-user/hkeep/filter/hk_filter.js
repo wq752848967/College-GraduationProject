@@ -2,7 +2,7 @@ app.filter("TypeFilter"function(){
   return function(input){
     var output  =  "";
 
-      switch (input;) {
+      switch (input) {
         case "210":
           output = "申请中";
           break;
@@ -19,6 +19,6 @@ app.filter("TypeFilter"function(){
           output = "错误";
 
       }
-      return input;
+      return output;
   };
 })

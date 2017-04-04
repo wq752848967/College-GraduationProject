@@ -237,3 +237,46 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 	}
 
 }]);
+
+
+app.controller("HwKindController",['WorkKindService','$window',function(WorkKindService,$window){
+
+  var self = this;
+  self.sweapList = [];
+	self.careList = [];
+	self.repairList = [];
+	self.otherList= [];
+  self.index;
+	initKind();
+
+
+	self.selectKind = function(kind,dkind){
+			$window.location.href="./hk_order.html?type="+kind+"&dtype="+dkind;
+	}
+
+	function initKind(){
+		var promise = WorkKindService.getAllWorkKind();
+		promise.success(function(data,status,config,headers){
+
+			var result = data.success;
+			if(result){
+					self.sweapList = data.data.sweapList;
+					self.careList = data.data.careList;
+					self.repairList  = data.data.repairList;
+					self.otherList = data.data.otherList;
+					console.log(data.data);
+			}
+			else{
+					alert("数据错误");
+			}
+
+		});
+		promise.error(function(data,status,config,headers){
+			showCommentPanel(1);
+			alert("网络错误，提交失败");
+		});
+	}
+
+
+
+}]);

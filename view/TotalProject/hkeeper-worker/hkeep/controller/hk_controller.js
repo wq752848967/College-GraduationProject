@@ -42,6 +42,8 @@ app.controller('HworksListController',['HworksService','$window',function(Hworks
 
 
 
+
+
 }]);
 app.controller('HworksDetialController',['HworksService','$window',function(HworksService,$window){
 
@@ -88,13 +90,18 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
               self.addr = data.data['hwAddr'];
       });
 
+      self.collectHkwork   = function(){
+        collectHkwork();
+
+      }
+
       self.applyHwork = function()
       {
         if(viewType==1){
           var promise = HworksService.applyHwork();
           promise.success(function(){
               alert("申请成功");
-              $window.location.href="w_hk_workerList";
+              $window.location.href="w_hk_workerList.html";
           });
           promise.error(function(){
               alert("网络错误，收藏失败");
@@ -112,7 +119,7 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
     	  var promise = HworksService.completeHwork();
           promise.success(function(){
               alert("完成订单成功");
-              $window.location.href="w_hk_workerList";
+              $window.location.href="w_hk_workerList.html";
           });
           promise.error(function(){
               alert("网络错误，完成订单失败");
@@ -121,6 +128,19 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       self.completeHwork   = function(){
     	  completeHwork();
       }
+
+      //完成订单
+      function collectHkwork() {
+    	  var promise = HworksService.collectHkwork();
+          promise.success(function(){
+              alert("收藏订单成功");
+              document.getElementById('w_collect').className +=" div-diable";
+          });
+          promise.error(function(){
+              alert("网络错误，收藏订单失败");
+          });
+      }
+
 
 }]);
 
@@ -152,4 +172,4 @@ app.controller("OrderListController",['HworksService','$window',function(HworksS
   self.historyDetial = function(hwId){
       $window.location.href="w_hk_workerDetial.html?hwId="+hwId+"&type=2";
   }
-}])
+}]);

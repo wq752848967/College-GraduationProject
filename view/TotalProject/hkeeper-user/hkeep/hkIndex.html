@@ -9,7 +9,10 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/jquery.mobile-1.4.5.min.js"></script>
 </head>
-<div data-role="page">
+<body ng-app="hkeep_user"  ng-controller="HwKindController as kwKindCon">
+
+
+<div data-role="page" >
 <style>
 div
 {
@@ -106,13 +109,7 @@ ul
 	text-align:center;
 }
 </style>
-<script>
-    $(document).bind('mobileinit',function(){
-        $.mobile.changePage.defaults.changeHash = false;
-        $.mobile.hashListeningEnabled = false;
-        $.mobile.pushStateEnabled = false;
-    });
-</script>
+
 <script>
 function changeBack()
 {
@@ -120,50 +117,42 @@ function changeBack()
 }
 </script>
 <div data-role="header" class="cheader">
-  <div id="header_body"onclick="changeBack()"><a href="http://www.baidu.com" ><img src="../images/common/back_white.png"/></a><span id="header_title">填写保修信息</span></div>
+  <div id="header_body"onclick="changeBack()"><a href="" ><img src="../images/common/back_white.png"/></a><span id="header_title">填写保修信息</span></div>
 </div>
 <div data-role="content" style="padding:0px;margin:0px;">
 <div class="content_header"><img src="../images/hkeep/hkIndex_header.png"/></div>
 <ul id="content_ul_type" class="yahei">
 <li class="li_type">
   <div class="content_div_type">家庭清洁</div>
-  <ul class="ul_s_type">
-    <li><a href="./hk_order.html?type=201&dtype=251"  data-ajax="false"><img src="../images/hkeep/hk_type11.png"/>
-      <p>日常清洁</p>
-      </a></li>
-    <li><img src="../images/hkeep/hk_type12.png"/>
-      <p>深度清洁</p>
-    </li>
-    <li><img src="../images/hkeep/hk_type13.png"/>
-      <p>擦玻璃</p>
+  <ul class="ul_s_type" ng-repeat="kind in kwKindCon.sweapList"  >
+    <li ng-click="kwKindCon.selectKind(201,kind.hwkType)"><img src="../images/hkeep/hk_type11.png"/>
+      <p>{{kind.hwkName}}</p>
     </li>
   </ul>
 </li>
 <li class="li_type">
   <div class="content_div_type">保姆月嫂</div>
-  <ul class="ul_s_type">
-    <li><img src="../images/hkeep/hk_type21.png"/>
-      <p>保姆</p>
+  <ul class="ul_s_type" ng-repeat="kind in kwKindCon.careList">
+		<li ng-click="kwKindCon.selectKind(202,kind.hwkType)"><img src="../images/hkeep/hk_type21.png"/>
+      <p>{{kind.hwkName}}</p>
     </li>
-    <li><img src="../images/hkeep/hk_type22.png"/>
-      <p>月嫂</p>
-    </li>
-    <li><img src="../images/hkeep/hk_type23.png"/>
-      <p>育儿师</p>
-    </li>
+
   </ul>
 </li>
 <li class="li_type">
   <div class="content_div_type">维修</div>
   <ul class="ul_s_type">
-    <li><img src="../images/hkeep/hk_type31.png"/>
+    <li ng-click="kwKindCon.selectKind(203,kind.hwkType)"><img src="../images/hkeep/hk_type31.png"/>
       <p>维修服务</p>
     </li>
   </ul>
 </li>
 <ul>
 </div>
-</div>
-<body>
+
 </body>
+<script type="text/javascript" src="../js/angular.min.js" ></script>
+<script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript" src="service/hk_service.js"></script>
+<script type="text/javascript" src="controller/hk_controller.js"></script>
 </html>

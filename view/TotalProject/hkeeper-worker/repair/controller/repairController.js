@@ -84,7 +84,7 @@ app.controller("RepairDetialController",["RepairService",function(RepairService)
   var rId;
   //获取类型
   deType
-  var dreg = new RegExp("(^|&)" + "repairType" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+  var dreg = new RegExp("(^|&)" + "deType" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
   var dr = window.location.search.substr(1).match(dreg);  //匹配目标参数
   var deType  =  unescape(dr[2]);
   if(deType==1){
@@ -113,9 +113,10 @@ app.controller("RepairDetialController",["RepairService",function(RepairService)
         console.log(data);
         //判断当前状态对按钮进行禁用
         var rStatus  = data.data.repair.rstatusCode;
-        if(rstatusCode==314||rstatusCode==316){
-            $(".cannot-repair").attr('disabled',true);
-            $(".repair-complete").attr('disabled',true);
+        if(rStatus==314||rStatus==316){
+            document.getElementById('cannot-repair').style.visibility = "hidden"
+            document.getElementById('repair-complete').style.visibility = "hidden"
+
         }
     });
     promise.error(function(data,status,config,headers){
@@ -136,8 +137,8 @@ app.controller("RepairDetialController",["RepairService",function(RepairService)
     promise.success(function(data,status,config,headers){
         console.log("success RepairService.cantNotRepair");
           alert("修改成功");
-          $(".cannot-repair").attr('disabled',true);
-          $(".repair-complete").attr('disabled',true);
+          document.getElementById('cannot-repair').style.visibility = "hidden"
+          document.getElementById('repair-complete').style.visibility = "hidden"
 
     });
     promise.error(function(data,status,config,headers){
@@ -150,8 +151,8 @@ app.controller("RepairDetialController",["RepairService",function(RepairService)
     promise.success(function(data,status,config,headers){
         console.log("success RepairService.cantNotRepair");
         alert("修改成功");
-        $(".cannot-repair").attr('disabled',true);
-        $(".repair-complete").attr('disabled',true);
+        document.getElementById('cannot-repair').style.visibility = "hidden"
+        document.getElementById('repair-complete').style.visibility = "hidden"
     });
     promise.error(function(data,status,config,headers){
       console.log("error RepairService.cantNotRepair");
@@ -164,7 +165,7 @@ app.controller("RepairDetialController",["RepairService",function(RepairService)
 
 
 //   work  订单历史
-app.controller("RepairOrderListController",["RepairService",function(RepairService){
+app.controller("RepairOrderListController",["RepairService","$window",function(RepairService,$window){
   var self = this;
   self.orders = [];
 

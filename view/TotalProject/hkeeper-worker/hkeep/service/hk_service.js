@@ -39,7 +39,13 @@ app.service('HworksService',['$http',function($http){
 
 
 
-
+    //收藏
+    this.collectHkwork = function(){
+      return $http({ url:serverAddress+'/hkCollection/collect',
+              method: 'post',
+              headers: {'Content-Type': 'multipart/form-data'},
+              params:{ 'hwId':this.hwId,'UId':this.userId}});
+    }
     this.getOrderList  = function(){
       return $http({ url:serverAddress+'/hwork/getHworkByOrder',
               method: 'post',

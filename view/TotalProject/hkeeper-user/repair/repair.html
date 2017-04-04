@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>填写保修信息</title>
 <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css" >
+<link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" >
+<link rel="stylesheet" href="../css/font-common.css" >
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/jquery.mobile-1.4.5.min.js"></script>
 
@@ -14,12 +16,12 @@
 <style>
 .page_body
 {
-	background-color: #F4F4F4;
+	background-color: #F9F9F9;
 }
 #header_body {
 	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
 	background-color: #0C9;
-	height: 55px;
+	height:60px;
 	font-weight: 200;
 	font-size: 22px;
 	color: #FFF;
@@ -27,7 +29,7 @@
 }
 #header_body a {
 	float: left;
-	height: 55px;
+	height: 60px;
 	width: 50px;
 	z-index: 100;
 }
@@ -43,25 +45,52 @@
 	text-align: center;
 }
 /*  报修主体  */
+
+
+
+
 .content_body {
 	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
-	background-color: #F4F4F4;
+	background-color: #f4f4f4;
 	padding: 0px;
 	padding-bottom:10px;
 	margin: 0px;
 }
 #repair_info_body {
-	background-color: #FFF;
-	padding-top: 20px;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom:50px;
-	margin-top: 30px;
-	margin-left: 6%;
-	margin-right: 6%;
-	border-radius: 8px;
-	font-size: 20px;
+		margin-top: 1
+		0px;
 }
+#repair_info_body span{
+	margin-left: 10px;
+	font-size: 18px;
+}
+.content_order_ul
+{
+	background-color:#f4f4f4;
+}
+.content_order_ul li
+{
+	width:100%;
+	margin-top:10px;
+	height:50px;
+	line-height:50px;
+	padding-left:10%;
+	padding-right:15%;
+	background-color:white;
+}
+.content_order_ul li input
+{
+	width:70%;
+	height:25px;
+	margin-left:10px;
+
+	font-size:18px;
+	outline:none;
+	border:none;
+}
+
+
+
 .div_input_border {
 	height: 40px;
 	width: 100%;
@@ -83,12 +112,14 @@
 }
 .text_area
 {
-	width: 100%;
-	height:100px;
+	margin-left: 10px;
 	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
 	outline:none;
 	font-size:18px;
-	border:solid 1px #999999;
+	width:80%;
+	height:100px;
+	border:1px solid #CCC;
+	border-radius:10px;
 }
 /*  尾部 提交 确定按钮 */
 #footer_submit
@@ -103,16 +134,7 @@
 }
 
 
-/* 阴影边框效果 */
-.mydiv {
-	height: auto;
-	background: #fff;
-	color: #333;
- filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3);/*ie*/
-	-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
-	-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
-	box-shadow: 2px 2px 10px #909090;/*opera或ie9*/
-}
+
 /*placeholder 字体 */
 
 </style>
@@ -126,19 +148,33 @@ function changeBack()
     <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">填写保修信息</span> </div>
   </div>
   <div data-role="content" class="content_body">
+
+
+
+
     <div id="repair_info_body" class="mydiv">
-      <p>报修项目:</p>
-      <div class="div_input_border"><input data-role="none" placeholder="请输入报修项目" ng-model="submitRCon.title"/></div>
-			<p>报修类型:</p>
-      <div ><u ng-bind="submitRCon.rpName"></u></div>
-			<p>报修地址:</p>
-      <div class="div_input_border"><input data-role="none" placeholder="请输入报修地址" ng-model="submitRCon.addr"/></div>
-      <p>简要描述:</p>
-      <textarea class="text_area" data-role="none" ng-model="submitRCon.desc"></textarea>
+			<ul  class="content_order_ul" style="padding:0px;margin:0px;">
+				<li> <i class="fa fa-bandcamp fa-fw" style="margin-top:10px;margin-left:5px;"></i>
+					  <input class="yahei" data-role="none" placeholder="请输入报修项目" ng-model="submitRCon.title"/>
+				</li>
+				<li> <i class="fa fa-bandcamp fa-fw" style="margin-top:10px;margin-left:5px;"></i>
+					 <span ng-bind="submitRCon.rpName"></span>
+				</li>
+				<li> <i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:10px;"></i>
+	        <input class="yahei" data-role="none" placeholder="请输入报修地址" ng-model="submitRCon.addr"/>
+	      </li>
+				<li style="height:180px;" ><i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:12px;"></i>
+					<span class="yahei" style="color:#999">简要描述:</span></br>
+					<textarea class="text_area" data-role="none" ng-model="submitRCon.desc"></textarea>
+	      </li>
+			</ul>
+
+
+
     </div>
   </div>
   <div data-role="footer" data-position="fixed">
-  	<div id="footer_submit" ng-click="submitRCon.submitRepair()">
+  	<div id="footer_submit" ng-click="submitRCon.submitRepair()" class="yahei">
       提交
     </div>
   </div>

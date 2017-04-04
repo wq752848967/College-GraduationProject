@@ -140,8 +140,8 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
         var rStatus  = data.data.repair.rstatusCode;
         console.log(rStatus);
         self.status = rStatus;
-        if(rStatus==314||rStatus==316){
-            $(".mik-comment").attr('disabled',true);
+        if(rStatus!=314){
+            document.getElementById('mik-comment').style.visibility = "hidden"
         }
     });
     promise.error(function(data,status,config,headers){

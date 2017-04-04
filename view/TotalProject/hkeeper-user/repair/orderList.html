@@ -81,9 +81,9 @@
         }
         .order-list-body .li-info{
 
-          width: 39%;
+          width: 35%;
           vertical-align:top;
-          padding-left: 6%;
+
         }
         .order-list-body .li-info span{
           display: block;
@@ -114,7 +114,7 @@
           vertical-align: top;
         }
         .order-list-body .li-op span{
-          font-size: 15px;
+          font-size: 17px;
         }
         .order-list-body .li-op img{
               width: 15px;
@@ -145,11 +145,11 @@
               </div>
               <div class="li-info">
                 <span class="title yahei" ng-bind="order.rtitle"></span>
-                <span class="type color-gray yahei" ng-bind="order.rtypeCode"></span>
+                <span class="type color-gray yahei" >{{order.rtypeCode|RepairRTypeFilter}}</span>
                 <span class="date color-gray yahei" >{{order.rdate|date:'yyyy-MM-dd h:mm'}}</span>
               </div>
               <div class="li-op">
-                <span class="color-green yahei" ng-bind="order.rstatusCode"></span>
+                <span class="color-green yahei">{{order.rstatusCode|RepairStatusFilter_short}}</span>
                 <img src="../images/common/next.png" alt="">
               </div>
             </li>
@@ -169,4 +169,5 @@
     <script type="text/javascript" src="../app.js"></script>
     <script type="text/javascript" src="service/repair_service.js"></script>
     <script type="text/javascript" src="controller/repair_controller.js"></script>
+    <script type="text/javascript" src="../filter/RepairStatusFilter.js"></script>
 </html>

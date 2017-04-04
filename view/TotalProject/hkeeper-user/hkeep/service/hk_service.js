@@ -77,3 +77,28 @@ app.service('HKeepApplyService',['$http',function($http){
      return  $http.post(serverAddress+'/comment/addComment', data, postCfg);
    }
 }]);
+
+
+// NOTE: hw kind
+app.service("WorkKindService",["$http",function($http){
+
+  this.getAllWorkKind = function(){
+    return   $http({url:serverAddress+'/hworkKind/getAllWorkKind',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+             }});
+  }
+  this.getWorkKindByType = function(kindType){
+    return   $http({url:serverAddress+'/hworkKind/getHkKindByType',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+          'kindType':kindType
+             }});
+  }
+
+
+
+
+}]);

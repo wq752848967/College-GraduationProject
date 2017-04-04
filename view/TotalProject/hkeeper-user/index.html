@@ -70,19 +70,31 @@ img {
 	color : #BBC1CD;
 }
 /* 搜索框 */
+.header_search img{
+  width: 20px;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 15px;
+  position: absolute;
+  left: 0;
+
+}
 .header_search {
-	background-color: #FFF;
-	color: #3BB18F;
-	height: 50px;
-	line-height: 40px;
-	font-size: 18px;
+  font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+	background-color: #00CC99;
+	color:#FFF;
+	height: 58px;
+	line-height: 58px;
+	font-size: 22px;
 	text-align: center;
-	font-weight: normal;
+	font-weight: 100;
+  letter-spacing: 5px;
+  margin-bottom: -2px;
 }
 /* 图片轮播 */
 #content_pic_turn {
 	width: 100%;
-	background-color: #F00
+	background-color: white;
 }
 /*  基本功能选择按钮 */
 #content_select_fun ul {
@@ -113,7 +125,7 @@ img {
 	display: block;
 	margin-top: 13px;
 	text-align: center;
-	font-size: 10px;
+	font-size: 14px;
 }
 /*  广告  */
 #content_ad_title {
@@ -133,17 +145,18 @@ img {
 <div data-role="page">
   <div data-role="header" data-position="fixed">
     <!-- 搜索框 -->
-    <div  class="header_search">家政首页</div>
+
+    <div  class="header_search">  <img src="images/index/location_white.png" alt="">家政首页</div>
   </div>
   <div data-role="content" style="padding:0px;margin:0px; background-color:#F4F5F9">
     <!--图片轮播 -->
     <div id="content_pic_turn" class="slider" data-role="none">
       <ul>
-        <li><a href=""><img src="./images/test/1.png"></a></li>
-        <li><a href=""><img src="./images/test/2.jpg">测试标题一</a></li>
-        <li><a href=""><img src="./images/test/3.jpg">测试标题一</a></li>
-        <li><a href=""><img src="./images/test/4.jpg">测试标题一</a></li>
-        <li><a href=""><img src="./images/test/5.jpg">测试标题一</a></li>
+        <li><a href=""><img src="./images/test/index_ad_01.png"></a></li>
+        <li><a href=""><img src="./images/test/index_ad_02.png">测试标题一</a></li>
+        <li><a href=""><img src="./images/test/index_ad_03.png">测试标题一</a></li>
+        <li><a href=""><img src="./images/test/index_ad_04.jpg">测试标题一</a></li>
+        <li><a href=""><img src="./images/test/index_ad_05.png">测试标题一</a></li>
       </ul>
     </div>
 
@@ -161,7 +174,7 @@ img {
           <div><a href="repair/repairPart.html" data-ajax="false" data-transition="slide"><img src="images/index/up_need.png" /></a></div>
           <span>社区报修</span></li>
         <li>
-          <div><a href="hkeep/hkIndex.html"  data-transition="slide"><img src="images/index/call_service.png" /></a></div>
+          <div><a href="hkeep/hkIndex.html"  data-ajax="false" data-transition="slide"><img src="images/index/call_service.png" /></a></div>
           <span>呼叫服务</span></li>
         <li>
           <div><a href="per/per.html"><img src="images/index/s3.png" /></a></div>
@@ -178,9 +191,9 @@ img {
       <!-- 信息区域 -->
       <div id="content_info">
         <ul data-role="listview" data-inset="true" style="margin-left:20px;margin-right:20px;">
-          <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
-          <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
-          <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
+          <li><h3>暖气停供通知</h3>根据国家暖气供应期限的相关规定与城市热能公司的通知,小区将于3月6日8:00起</li>
+          <li><h3>征收水费</h3>为确保水利工程正常运行管理、维修养护和大修理经费来源,节约用水并使水利工程长期为当地烟农服...</li>
+          <li><h3>征收物业费</h3>物业费催缴通知 关于征收 2015 年物业费的通知尊敬的广大业主: 您好,依据《物业管理条例》、..</li>
           <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
           <li><h3>今天不上班</h3>不上班呢不上班，不上班，那么吃设呢嫩恩</li>
         </ul>
@@ -218,9 +231,9 @@ img {
       display: block;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 5px;
-      height: 35px;
-      width: 35px;
+      margin-bottom: 8px;
+      height: 30px;
+      width: 30px;
     }
   </style>
   <div class="foot-nav" data-role="none" data-position="fixed" data-tap-toggle="false">

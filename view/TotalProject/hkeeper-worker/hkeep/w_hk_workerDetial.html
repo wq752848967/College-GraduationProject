@@ -29,7 +29,9 @@ img {
 	padding: 0px;
 	margin: 0px;
 }
-
+.div-diable{
+  background-color: #A9A9A9 !important;
+}
 /* header */
 #header_body {
 	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
@@ -252,7 +254,7 @@ function changeBack()
 
 
   <div data-role="footer" class="footer">
-     <div id="w_collect" class="yahei" >收藏</div><div id="w_apply" class="yahei" ng-click="hworksDetialCon.applyHwork()" ng-bind="hworksDetialCon.submitText"></div>
+     <div id="w_collect" class="yahei" ng-click="hworksDetialCon.collectHkwork()">收藏</div><div id="w_apply" class="yahei" ng-click="hworksDetialCon.applyHwork()" ng-bind="hworksDetialCon.submitText"></div>
   </div>
   </div><!--page end-->
  <script>

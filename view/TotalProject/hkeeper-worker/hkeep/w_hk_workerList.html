@@ -140,7 +140,9 @@ img {
 /*  list  css  */
 #div_order_list li
 {
-	height:85px;
+	height:105px;
+  padding-top: 10px;
+  padding-left: 20px;
 	margin-bottom:2px;
 	background-color:#FFF;
 }
@@ -209,8 +211,10 @@ function changeBack()
         <div class="popup_header">选项</div>
         <ul class="popup_ul_list">
           <li ng-click="hworksListCon.chengeType(0)">全部</li>
-        	<li ng-click="hworksListCon.chengeType(1)">清洁</li>
-          <li ng-click="hworksListCon.chengeType(2)">报修</li>
+        	<li ng-click="hworksListCon.chengeType(201)">清洁</li>
+          <li ng-click="hworksListCon.chengeType(202)">保姆</li>
+          <li ng-click="hworksListCon.chengeType(203)">报修</li>
+          <li ng-click="hworksListCon.chengeType(204)">其他</li>
         </ul>
     </div>
   </div>
@@ -218,7 +222,7 @@ function changeBack()
   <!--order list-->
     <div id="div_order_list">
     	<ul>
-        	<li ng-repeat="hw in hworksListCon.hwList" ng-click="hworksListCon.showDetial(hw.hwId)" ng-if="(hw.hwDTypeCode==hworksListCon.type) || (hworksListCon.typeAll)">
+        	<li ng-repeat="hw in hworksListCon.hwList" ng-click="hworksListCon.showDetial(hw.hwId)" ng-if="(hw.hwTypeCode==hworksListCon.type) || (hworksListCon.typeAll)">
              <img src="../images/hkeep/w_order_test_png.png"/>
             	<div class="order_info">
                 	<div class="order_info_title" ng-bind="hw.hwTitle"></div>
@@ -236,7 +240,7 @@ function changeBack()
 
   </div><!--page end-->
  <script>
- 
+
  </script>
 
 
