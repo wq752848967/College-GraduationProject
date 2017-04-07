@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>注册</title>
+    <link rel="stylesheet" href="../css/font-common.css">
+    <style media="screen">
+    body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #ECF0EF;
+  }
+  /* header */
+  #header_body {
+    width: 100%;
+    font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+    background-color: #0C9;
+    height: 60px;
+    font-weight: 200;
+    font-size: 22px;
+    color: #FFF;
+    text-align: center;
+  }
+  #header_body a {
+    float: left;
+    height: 60px;
+    width: 50px;
+    z-index: 100;
+  }
+  #header_body a img {
+    height: 24px;
+    width: 15px;
+    margin-top: 17px;
+  }
+  #header_title {
+    position: absolute;
+    float: left;
+    display: block;
+    line-height: 60px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .body{
+    width: 100%;
+  }
+
+
+  #input-header{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #78817E;
+  }
+  /* NOTE: 输入框Input style */
+  .div-input{
+    width: 100%;
+    height:55px;
+    margin-bottom: 30px;
+    border-top: 1px solid #C3C3C3;
+    border-bottom: 1px solid #C3C3C3;
+    background-color: white;
+  }
+  .div-input input{
+    display: inline-block;
+    width: 85%;
+    height: 53px;
+    font-size: 21px;
+    letter-spacing: 4px;
+    padding-left: 15%;
+    outline: none;
+    border: none;
+  }
+  .div-check{
+    width: 50%;
+    display: inline-block;
+    background-color: #ECF0EF;
+  }
+  .div-check input{
+    width: 85%;
+      padding-left: 15%;
+  }
+  .send-check{
+    width: 40%;
+    height: 50px;
+    margin-left: 3%;
+    font-size: 20px;
+    border: none;
+    background-color: #6BD743;
+    border-radius: 5px;
+    color: white;
+    font-weight: normal;
+    letter-spacing: 3px;
+    outline: none;
+    display: inline-block;
+  }
+  .sended-check{
+
+    background-color: #C3C3C3 !important;
+  }
+  .next button{
+    width: 88%;
+    height: 55px;
+    border-radius: 8px;
+    border: none;
+    font-size: 22px;
+    color: white;
+    font-weight: normal;
+    letter-spacing: 3px;
+    background-color: #6BD743;
+    margin-left: 6%;
+  }
+  /*  结果面板   */
+  .result-panel{
+    display: none;
+    position: absolute;
+    z-index: 1003;
+    width: 180px;
+    height: 100px;
+    padding-top: 20px;
+
+
+    text-align: center;
+    border: 1px solid #C3C3C3;
+    border-radius: 10px;
+    background-color: white;
+  }
+
+  .result-panel span{
+    display: inline-block;
+    margin-top: 15px;
+  }
+    </style>
+  </head>
+  <body ng-app="hkeep_worker" ng-controller="RegisterController as registerCon">
+    <div data-role="header" >
+        <div id="header_body"onclick="changeBack()"><a href="#" ><img src="../images/common/back_white.png"/></a><span id="header_title">快速注册</span></div>
+
+      </div>
+      <div >
+          <div class="div-inputs">
+             <span id="input-header" class="yahei">工人注册</span>
+             <div class="div-input">
+               <input class="yahei" oninput="if(value.length>12)value=value.slice(0,12)"  type="tele" name="" value=""
+               placeholder="请输入手机号码" ng-model="registerCon.phone">
+             </div>
+             <div class="div-input">
+               <input class="yahei" maxLength="10" type="password" name="" value="" placeholder="请输入密码" ng-model="registerCon.psw">
+             </div>
+             <div class="div-input div-check">
+               <input type="text" class="yahei" maxLength="4" name="" value="" placeholder="请输入验证码" ng-model="registerCon.checkNum">
+
+             </div>
+             <button id="send-check" class="send-check yahei " type="button" name="button" ng-click="registerCon.sendCheck()">发验证码</button>
+          </div>
+          <div class="next">
+            <button class="yahei" type="button" name="button" ng-click="registerCon.next()">下一步</button>
+          </div>
+      </div>
+      <div class="result-panel">
+          <img src="../images/per/set.png" alt=""/></br>
+          <span>正在注册...</span>
+      </div>
+  
+  </body>
+  <script type="text/javascript" src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/angular.min.js" ></script>
+  <script type="text/javascript" src="../app.js"></script>
+  <script type="text/javascript" src="service/LoginService.js"></script>
+  <script type="text/javascript" src="controller/LoginController.js"></script>
+</html>
