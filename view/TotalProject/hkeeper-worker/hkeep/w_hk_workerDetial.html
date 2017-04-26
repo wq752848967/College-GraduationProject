@@ -91,17 +91,18 @@ img {
 .content-header-info-02
 {
 	color:#999;
-	font-size:14px;
+	font-size:17px;
 	font-weight:normal;
 }
 .content-header-flag
 {
-	height:35px;
+	height:40px;
 	width:80px;
 	margin-top:30px;
 	padding-left:20px;
 	line-height:35px;
 	float:right;
+  font-size: 20px;
 	color:#FFF;
 	border-top-left-radius:17px;
 	border-bottom-left-radius:17px;
@@ -121,9 +122,13 @@ img {
 	padding-bottom:15px;
 	padding-left:35px;
 	padding-right:35px;
-	font-size:14px;
+	font-size:17px;
 	letter-spacing:1px;
 	background-color:#FFF;
+}
+.content-info-tr{
+    margin-top: 8px;
+
 }
 .c-i-header
 {
@@ -170,7 +175,7 @@ img {
 .c-d-body
 {
 	color:#999;
-	font-size:15px;
+	font-size:17px;
 	text-indent:20px;
 	line-height:25px;
 	letter-spacing:1px;
@@ -216,6 +221,41 @@ img {
 	background-color:#25cc5a;
 	vertical-align:middle;
 }
+.content-apply
+{
+	clear:both;
+	margin-top:10px;
+	background-color:#FFF;
+}
+.c-a-header
+{
+	height:30px;
+	font-size:15px;
+	letter-spacing:2px;
+	line-height:30px;
+	border-bottom:1px solid #D9D9D9;
+}
+.c-a-header img
+{
+	height:13px;
+	margin-left:20px;
+	vertical-align:middle;
+}
+.c-a-amount{
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom:1px solid #D9D9D9;
+}
+.service-info{
+  margin-left: 40px;
+  margin-right: 30px;
+  margin-top: 14px;
+  font-size: 17px;
+
+}
 </style>
 <script>
 function changeBack()
@@ -238,22 +278,53 @@ function changeBack()
         <div class="content-header-flag"><span ng-bind="hworksDetialCon.money"></span>元</div>
      </div>
     <div class="content-info">
-    	<span class="c-i-header">发布时间：</span><span class="c-i-content" ng-bind="hworksDetialCon.pubDate"></span><br>
-        <span class="c-i-header">家政地点：</span><span  class="c-i-content" ng-bind="hworksDetialCon.addr"></span><br>
-        <span class="c-i-header">家政细分：</span><span  class="c-i-content" ng-bind="hworksDetialCon.type"></span><br>
-        <span class="c-i-header">家政日期：</span><span  class="c-i-content" ng-bind="hworksDetialCon.date"></span><br>
-        <span class="c-i-header">服务时间：</span><span  class="c-i-content"><span ng-bind="hworksDetialCon.time"></span>小时</span>
+    	  <div class="content-info-tr">
+    	      <span class="c-i-header">发布时间：</span><span class="c-i-content" ng-bind="hworksDetialCon.pubDate|date"></span>
+    	  </div>
+        <div class="content-info-tr">
+    	      <span class="c-i-header">家政状态：</span><span class="c-i-content" ng-bind="hworksDetialCon.hwStatusCode|hworkStatusFilter"></span>
+    	  </div>
+        <div class="content-info-tr">
+          <span class="c-i-header">家政地点：</span><span  class="c-i-content" ng-bind="hworksDetialCon.addr"></span>
+        </div>
+        <div class="content-info-tr">
+            <span class="c-i-header">家政细分：</span><span  class="c-i-content" ng-bind="hworksDetialCon.type"></span>
+        </div>
+        <div class="content-info-tr">
+            <span class="c-i-header">家政日期：</span><span  class="c-i-content" ng-bind="hworksDetialCon.date"></span>
+        </div>
+        <div class="content-info-tr">
+            <span class="c-i-header">服务时间：</span><span  class="c-i-content"><span ng-bind="hworksDetialCon.time"></span>小时</span>
+        </div>
+
+    </div>
+    <div ng-show="hworksDetialCon.hwStatusCode>=211" class="content-info">
+        <div class="content-info-tr">
+            <span class="c-i-header">联系电话：</span><span class="c-i-content" ng-bind="hworksDetialCon.userPhone"></span>
+        </div>
+    </div>
+    <!--  状态 -->
+    <div class="content-apply"  style="padding-bottom:20px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;订单信息</div>
+        <div  class="service-info">订单状态：<span ng-bind="hworksDetialCon.hwStatusCode|hworkStatusFilter"></span></div>
     </div>
     <div class="content-desc">
     	<div class="c-d-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;家政描述</div>
         <div class="c-d-body" ng-bind="hworksDetialCon.desc"></div>
     </div>
+    <div class="content-apply" ng-show="hworksDetialCon.hwStatusCode==213" style="padding-bottom:50px;margin-bottom:50px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;评价信息</div>
+        <div  class="service-info"><span ng-bind="hworksDetialCon.detial.comments.wcContent"></span></div>
+
+
+    </div>
+
 
 
   </div><!--content end-->
 
 
-  <div data-role="footer" class="footer">
+  <div data-role="footer" class="footer" ng-show="hworksDetialCon.detial.hwStatusCode==211">
      <div id="w_collect" class="yahei" ng-click="hworksDetialCon.collectHkwork()">收藏</div><div id="w_apply" class="yahei" ng-click="hworksDetialCon.applyHwork()" ng-bind="hworksDetialCon.submitText"></div>
   </div>
   </div><!--page end-->
@@ -267,6 +338,7 @@ function changeBack()
 
  <script type="text/javascript" src="../js/angular.min.js" ></script>
  <script type="text/javascript" src="../app.js"></script>
+ <script type="text/javascript" src="../filter/hk_filter.js"></script>
  <script type="text/javascript" src="service/hk_service.js"></script>
  <script type="text/javascript" src="controller/hk_controller.js"></script>
 

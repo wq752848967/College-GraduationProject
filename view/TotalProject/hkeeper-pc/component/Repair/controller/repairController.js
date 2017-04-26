@@ -1,3 +1,69 @@
+app.controller("AddRepairController",["AddRepairService",function(AddRepairService){
+  var self  = this;
+  //define data
+  self.userName;
+  self.userPhone;
+  self.title;
+  self.addr;
+  self.desc;
+  self.partList=[];
+  self.partIndex;
+  self.rpId;
+  self.rpKindCode;
+  self.partNames=[];
+  self.partName;
+  self.level = 1;
+  //init data
+
+  getAllRepairParts();
+
+  //outer interface
+  self.chengePart = function(){
+      self.rpId =   self.partList[self.partIndex].part.rpId;
+      self.rpKindCode =   self.partList[self.partIndex].part.rpKindCode;
+      self.partNames =  self.partList[self.partIndex].partNames;
+  }
+  self.submit = function(){
+    //check params
+
+    //user service to submit Repair
+    var promiseResult = AddRepairService.submit(self.title,self.addr,self.desc,self.userPhone,self.userName,self.level,self.rpId,self.partName,self.rpKindCode);
+    promiseResult.success(function(data,status,config,headers){
+       console.log("submit ok"+data.message);
+       alert("提交成功");
+       //$window.location =  "../index.html";
+       self.userName = "";
+       self.userPhone= "";
+       self.title= "";
+       self.addr= "";
+       self.desc= "";
+    });
+    promiseResult.error(function(data,status,config,headers){
+      alert("网络错误，发布失败！");
+       console.log("submit error"+data.message);
+    });
+  }
+
+
+  //inter method
+  function getAllRepairParts(){
+    var promise = AddRepairService.getAllRepairParts();
+    promise.success(function(data,status,config,headers){
+
+      console.log("success RepairService.getAllRepairParts");
+      console.log(data.data);
+      self.partList = data.data;
+    });
+    promise.error(function(data,status,config,headers){
+
+      console.log("error RepairService.getAllRepairParts");
+    });
+  }
+
+
+
+
+}]);
 app.controller("RepairListController",["RepairListService",function(RepairListService){
   var self = this;
 
@@ -9,6 +75,7 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
   self.pageSize = 10;
   self.pageNum =  [];
   self.curRepairService;
+  self.picUrl;
   //init data
   getAllRepairByDate(self.pageNow,self.pageSize);
 
@@ -20,7 +87,15 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
   }
   self.repairDetialShow = function(index)
 	{
-    self.curRepair =  self.repairList[index];
+
+    self.curRepair = self.repairList[index];
+    if((self.curRepair.rpicUrl1==null)||(self.curRepair.rpicUrl1.length==0)){
+
+          self.picUrl = picAddress  +  "rImages/err.png";
+    }
+    else{
+        self.picUrl =  picAddress +  self.curRepair.rpicUrl1;
+    }
     if(self.curRepair.rstatusCode>=313){
       //请求其他数据
       getRepairServiceInfo(self.curRepair.rid,self.curRepair.uid);
@@ -42,7 +117,7 @@ app.controller("RepairListController",["RepairListService",function(RepairListSe
     var promise = RepairListService.getAllRepairByDate(pageNow,pageSize);
     promise.success(function(data,status,config,headers){
       console.log("RepairListController.getAllRepairByDate() success");
-
+      console.log(data.data);
       self.repairList = data.data;
       self.PageNow = data.pageNow;
       self.maxPage = data.pageMax;
@@ -506,7 +581,7 @@ function addWorker(workName,workAcount,workPsw,workType){
       hideAddPanel();
       alert("添加成功");
 
-
+      getAllWorker();
 
     }
     else{
@@ -529,7 +604,7 @@ function getAllWorker(){
     var netResult = data.success;
     if(netResult){
       self.workerList = data.data;
-
+        console.log(data.data);
 
     }
     else{
@@ -584,6 +659,8 @@ app.controller("RepairDispatcherController",["RepairDispatcherService","RepairLi
     self.repairList;
     //init
     getAllRepairByDate(self.pageNow,self.pageSize);
+    getRepairWorkInfo();
+
     //outer interface
     self.changePage = function(pageNow){
       self.pageNow = pageNow;
@@ -595,9 +672,49 @@ app.controller("RepairDispatcherController",["RepairDispatcherService","RepairLi
 		    $('#repairDetialPanel').modal('show');
 
 	   }
+
+     self.stopDispather = function(){
+        updateRepairLevel(self.curRepair.rid,0);
+     }
+     self.restartDispather = function(){
+        updateRepairLevel(self.curRepair.rid,1);
+     }
+     self.changeLevelHeigh = function(){
+        updateRepairLevel(self.curRepair.rid,3);
+     }
+     self.changeLevelMid = function(){
+        updateRepairLevel(self.curRepair.rid,2);
+     }
+     self.changeLevelLow = function(){
+        updateRepairLevel(self.curRepair.rid,1);
+     }
+
+
+
+
+
+
     //inter method
 
-    getRepairWorkInfo();
+    function updateRepairLevel(repairId,level){
+      var  promise = RepairDispatcherService.changeRepairLevel(repairId,level);
+      promise.success(function(data,status,config,headers){
+        console.log("changeRepairLevel net ok");
+        var netResult = data.success;
+        if(netResult){
+          $('#repairDetialPanel').modal('hide');
+          alert("修改成功");
+          getAllRepairByDate(self.pageNow,self.pageSize);
+        }
+        else{
+            alert("changeRepairLevel 服务器错误，失败！");
+        }
+      });
+      promise.error(function(data,status,config,headers){
+        alert("changeRepairLevel:net get data fail!");
+      });
+    }
+
     function getRepairWorkInfo(){
       var  promise = RepairDispatcherService.getRepairWorkInfo();
       promise.success(function(data,status,config,headers){
@@ -605,7 +722,6 @@ app.controller("RepairDispatcherController",["RepairDispatcherService","RepairLi
         var netResult = data.success;
         if(netResult){
             self.workInfoList = data.data;
-
         }
         else{
             alert("getRecentService 服务器错误，失败！");
@@ -615,6 +731,7 @@ app.controller("RepairDispatcherController",["RepairDispatcherService","RepairLi
         alert("getRepairWorkInfo:net get data fail!");
       });
     }
+
   function getAllRepairByDate(pageNow,pageSize){
       var promise = RepairListService.getAllRepairByDate(pageNow,pageSize);
       promise.success(function(data,status,config,headers){
@@ -629,6 +746,7 @@ app.controller("RepairDispatcherController",["RepairDispatcherService","RepairLi
        self.pageNum.push(i);
      }
    });
+
    promise.error(function(data,status,config,headers){
      alert("internet error,get data fail!");
    });

@@ -54,8 +54,7 @@
 
       width: 100%;
       height: 50px;
-      padding-left: 14px;
-      margin-right: 20px;
+
       line-height: 50px;
       border-bottom: 2px solid #0c9;
       background-color: white;
@@ -86,20 +85,34 @@
     }
     .publisher-info{
         padding-top: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 60px;
         border-top: 1px dashed #A9A9A9;
     }
     .finisher-info{
       padding-top: 20px;
+      padding-bottom: 30px;
       border-top: 1px dashed #A9A9A9;
     }
+    .div-r-image{
 
+          width: 60%;
+          height: 200px;
+          margin-top: 30px;
+          margin-left: 20%;
+          margin-bottom: 20px;
+          border: solid 2px #A9A9A9;
+        }
+        .div-r-image img{
+          height: 100%;
+          width: 100%;
+        }
 
 
     /*  button panel   */
     .operate-panel{
       width: 100%;
       position: fixed;
+      padding-bottom: 0px;
       bottom: 0;
     }
     .operate-panel button{
@@ -109,21 +122,29 @@
       outline: none;
       color: white;
       font-size: 18px;
+
     }
-    .cannot-repair{
-      background-color: #FFD700;
+    #cannot-repair{
+      background-color: #FFD700 !important;
        width: 40%;
     }
-    .repair-complete{
+    #repair-complete{
 
-      background-color: #0c9;
+      background-color: #0c9 !important;
       width: 60%;
     }
 
     </style>
   </head>
   <body ng-app="hkeep_worker" ng-controller="RepairDetialController as repairDetialCon" class="bg-gray">
+
     <div  class="cheader yahei">
+      <script>
+      function changeBack()
+      {
+         document.location="../index.html";
+      }
+      </script>
       <div id="header_body"onclick="changeBack()"> <a href="http://www.baidu.com" data-rel="back"><img src="../images/common/back_white.png"/></a><span id="header_title">获取任务信息</span> </div>
 
     </div>
@@ -149,6 +170,12 @@
         <div class="des-span">
             <span  ng-bind="repairDetialCon.repair.repair.rdes"></span>
         </div>
+        <div class="content-line">
+          图&nbsp &nbsp片:</br>
+          <div class="div-r-image">
+             <img ng-src="{{repairDetialCon.picUrl}}" alt="">
+          </div>
+        </div>
         </div>
 
         <div class="publisher-info">
@@ -168,11 +195,11 @@
         <div class="finisher-info" ng-if="(repairDetialCon.repair.repair.rstatusCode==314)||(repairDetialCon.repair.repair.rstatusCode==316)">
           <div class="content-line">
             完成时间:
-            <span  class="margin-left" ng-bind="repairDetialCon.repair.rService.rsFinishDate"></span>
+            <span  class="margin-left" ng-bind="repairDetialCon.repair.rServce.rsFinishDate"></span>
           </div>
           <div class="content-line">
              完成人员:
-            <span class="margin-left" ng-bind="repairDetialCon.repair.worker.nName"></span>
+            <span class="margin-left" ng-bind="repairDetialCon.repair.worker.uname"></span>
           </div>
         </div>
       </div>

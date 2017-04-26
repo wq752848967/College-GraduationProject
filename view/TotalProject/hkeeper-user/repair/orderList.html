@@ -144,7 +144,7 @@
                 <img src="../images/hkeep/w_order_test_png.png" alt="">
               </div>
               <div class="li-info">
-                <span class="title yahei" ng-bind="order.rtitle"></span>
+                <span class="title yahei" >{{order.rtitle|textLengthSet:true:6:' ...'}}</span>
                 <span class="type color-gray yahei" >{{order.rtypeCode|RepairRTypeFilter}}</span>
                 <span class="date color-gray yahei" >{{order.rdate|date:'yyyy-MM-dd h:mm'}}</span>
               </div>
@@ -167,7 +167,10 @@
     </script>
     <script type="text/javascript" src="../js/angular.min.js" ></script>
     <script type="text/javascript" src="../app.js"></script>
+    <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+    <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
     <script type="text/javascript" src="service/repair_service.js"></script>
     <script type="text/javascript" src="controller/repair_controller.js"></script>
     <script type="text/javascript" src="../filter/RepairStatusFilter.js"></script>
+    <script type="text/javascript" src="../filter/textFilter.js"></script>
 </html>

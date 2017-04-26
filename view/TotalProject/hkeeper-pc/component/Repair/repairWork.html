@@ -74,7 +74,9 @@
 	margin-top: 5px;
 
 }
-
+.recent-service-ul li{
+	margin-bottom: 140px;
+}
 
 
 /*  page  样式    */
@@ -187,10 +189,10 @@
         <td ng-bind="worker.user.uid"></td>
         <td ng-bind="worker.user.uname"></td>
         <td ng-bind="worker.user.uphone"></td>
-        <td ng-bind="worker.user.utypeCode"></td>
+        <td ng-bind="worker.user.utypeCode|RepairRTypeFilter"></td>
 				<td ng-bind="worker.worker.rwType"></td>
 				<td ng-bind="worker.user.udate|date"></td>
-        <td ng-bind="worker.user.ustatusCode"> </td>
+        <td ng-bind="worker.user.ustatusCode|UserStstusFilter"> </td>
 				<td ng-bind="worker.worker.tdWorkCount"></td>
         <th ><button class="btn btn-primary" ng-click="repairWorkCon.showWorkPanel($index)">详情</button></th>
       </tr>
@@ -216,7 +218,7 @@
 							<li>帐号：<span ng-bind="repairWorkCon.curworker.user.uphone"></span></li>
 							<li>密码：<span ng-bind="repairWorkCon.curworker.user.upsw"></span></li>
 							<li>创建时间：<span >{{repairWorkCon.curworker.user.udate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
-							<li>状态：<span ng-bind="repairWorkCon.curworker.user.ustatusCode"> </span></li>
+							<li>状态：<span ng-bind="repairWorkCon.curworker.user.ustatusCode|UserStstusFilter"> </span></li>
 							<li>类型：<span ng-bind="repairWorkCon.curworker.user.utypeCode"></span><br></li>
 
 
@@ -229,8 +231,8 @@
 									<span>发布时间：</span>{{service.repairs.rdate|date}} <br>
 									<span>完成时间：</span>{{service.rService.rsFinishDate|date}} <br>
 									<span>名称：</span>{{service.repairs.rpName}} <br>
-									<span>类型：</span>{{service.repairs.rtypeCode}} <br>
-									<span>状态：</span>{{service.rService.rsStatusCode}} <br>
+									<span>类型：</span>{{service.repairs.rtypeCode|RepairRTypeFilter}} <br>
+									<span>状态：</span>{{service.rService.rsStatusCode|RepairStatusFilter}} <br>
 									<span>地址：</span>{{service.repairs.raddr}} <br>
 								</li>
 						</ul>
@@ -267,9 +269,9 @@
          </div>
          <div class="modal-body work-input-body">
             <ul class="work-input-ul">
-              <li><label>帐号：</label><input type="text"></input></li>
-              <li><label>密码：</label><input type="text"></input></li>
-              <li><label>姓名：</label><input type="text"></input></li>
+              <li><label>帐号：</label><input type="text" ng-model="repairWorkCon.acount"></input></li>
+              <li><label>密码：</label><input type="text" ng-model="repairWorkCon.psw"></input></li>
+              <li><label>姓名：</label><input type="text" ng-model="repairWorkCon.name"></input></li>
               <li>
                 <label>类型：</label>
                 <select class="" name="" ng-model="repairWorkCon.selectType">

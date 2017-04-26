@@ -1,4 +1,4 @@
-app.controller('WorkDetialController',['userService',function(userService){
+app.controller('WorkDetialController',['userService',"$window",function(userService,$window){
   //定义数据
   var self = this;
   self.workDetial;
@@ -16,7 +16,7 @@ app.controller('WorkDetialController',['userService',function(userService){
 
   promise.success(function(data,status,config,headers){
       self.workDetial = data.data;
-
+      console.log(data.data);
       console.log("success WorkDetialController.getWorkDetial");
 
   });
@@ -30,6 +30,8 @@ app.controller('WorkDetialController',['userService',function(userService){
   self.useWork = function(){
     var promise = userService.userWork(wId,hwId);
     promise.success(function(data,status,config,headers){
+      alert("选择成功！");
+      $window.location.href="../hkeep/hk_order_Detial.html?hwId="+hwId;
       console.log("success userWork："+data.message);
     });
     promise.error(function(data,status,config,headers){
@@ -59,7 +61,7 @@ app.controller('UserInfoController',['userService',function(userService){
       console.log("success getUserInfo");
       if(data.success){
         self.user = data.data;
-      
+
       }
       else{
         alert("数据错误");

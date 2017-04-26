@@ -1,0 +1,230 @@
+
+<style media="screen">
+
+.container{
+  width: 100%;
+  height: 500px;
+
+}
+table th{
+  text-align: center;
+}
+table td button{
+  height:27px;
+  line-height: 27px !important;
+  padding-top: 0px !important;
+}
+/* NOTE:
+
+    add file panel
+
+ */
+
+ .panel-file{
+
+ }
+ .panel-body{
+   padding-left: 60px;
+   padding-top: 30px;
+ }
+ .model-in{
+   margin-bottom: 30px;
+ }
+ .hw-type{
+   height: 30px;
+   margin-right: 20px;
+   font-size: 16px;
+ }
+ .model-in input{
+   height: 30px;
+   margin-right: 20px;
+ }
+#model-info{
+  display: inline-block;
+  margin-right: 50px;
+}
+#model-add-file-bt{
+
+}
+.dash-line{
+  width: 90%;
+
+  height: 2px;
+  border-top: 1px dashed #000;
+}
+.model-op{
+  margin-top: 30px;
+
+}
+
+/* NOTE: model list panel */
+.panel-list{
+  margin-top: 30px;
+
+}
+
+
+#workerPanel ul li{
+	height: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color: white !important;
+}
+
+
+/* NOTE: page css */
+
+.div-page{
+  width: 100%;
+  text-align: center;
+}
+</style>
+
+<div class="container">
+    <div class="panel-file panel panel-default">
+      <div class="panel-heading">搜索筛选</div>
+      <div class="panel-body">
+          <div class="model-in">
+            <select class="hw-type yahei" name="" ng-model="workerManagerCon.hwType">
+                  <option value="0">全部</option>
+                  <option value="201">清洁类型</option>
+                  <option value="202">保姆类型</option>
+                  <option value="203">维修类型</option>
+                  <option value="204">其他类型</option>
+            </select>
+            <input type="text" name="" value="" placeholder="请输入员工姓名" ng-model="workerManagerCon.wName">
+            <input type="text" name="" value="" placeholder="请输入员工所属公司" ng-model="workerManagerCon.bCompany">
+            <button id="model-add-file-btn"   type="button" class="btn btn-primary"   name="button" ng-click="workerManagerCon.filterSearch()">搜索</button>
+
+          </div>
+          <div class="dash-line">
+          </div>
+          <div class="model-op">
+            <button id=""   type="button" class="btn btn-info"   name="button" ng-click="workerManagerCon.showAllWorker()">显示所有员工</button>
+          </div>
+
+      </div>
+    </div>
+    <div class="panel-list panel panel-default">
+      <div class="panel-heading">员工列表</div>
+
+         <table class="table table-bordered table-hover table-responsive " style="text-align:center">
+           <thead>
+             <tr >
+               <th>ID</th>
+               <th>真实姓名</th>
+               <th>员工类型</th>
+               <th>创建时间</th>
+               <th>所属公司</th>
+               <th>员工状态</th>
+              <th>操作</th>
+             </tr>
+           </thead>
+            <tbody>
+                <tr ng-repeat="work in workerManagerCon.workerList">
+                  <td ng-bind="work.user.uid"</td>
+                  <td ng-bind="work.worker.reName"></td>
+                  <td ng-bind="work.worker.workerType|hworkTypeFilter"></td>
+                  <td ng-bind="work.worker.reDate|date"></td>
+                  <td ng-bind="work.worker.wcompany"></td>
+
+                  <td ng-bind="work.user.ustatusCode|UserStstusFilter"></td>
+                  <td><button class="btn btn-primary" ng-click="workerManagerCon.workerDetialShow($index)">详情操作</button></td>
+                </tr>
+
+            </tbody>
+         </table>
+
+    </div>
+    <div class="div-page">
+      <ul class="pagination">
+      		<li  ng-if="workerManagerCon.pageNow!=1" ng-click="workerManagerCon.changePage(1)"><a href="#">《</a></li>
+      		<li ng-class="{true:'active',false:'step'}[(num+1)==workerManagerCon.pageNow]" ng-repeat="num in workerManagerCon.pageNum"
+      				ng-click="workerManagerCon.changePage(num+1)"><a href="#">{{num+1}}</a></li>
+      		<li ng-if="workerManagerCon.pageMax!=workerManagerCon.pageNow" ng-click="workerManagerCon.changePage(workerManagerCon.pageMax)"><a href="#">》</a></li>
+      	</ul>
+    </div>
+
+
+
+
+    <style media="screen">
+      .li-comment{
+        height: 200px !important;
+        padding-top: 20px;
+        overflow-y:scroll;
+        border-top:dotted  1px #A9A9A9;
+      }
+      .comment-item{
+        display: block;
+        border-bottom: dotted 1px #A9A9A9;
+        margin-bottom: 10px;
+        padding-bottom: 50px !important;
+      }
+      .comment-item .c-u{
+          font-size: 11px !important;
+          margin-bottom: 5px;
+      }
+      .comment-item .c-c{
+
+      }
+    </style>
+    <!-- 弹出详情面板  -->
+    <div class="modal fade" id="workerPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+            <h4 class="modal-title" id="myModalLabel" >员工详情</h4>
+          </div>
+          <div class="modal-body yahei">
+            <ul>
+              <li>编号：<span ng-bind="workerManagerCon.curWorker.user.uid"></span></li>
+              <li>名称：<span ng-bind="workerManagerCon.curWorker.user.uname"></span></li>
+              <li>种类：<span ng-bind="workerManagerCon.curWorker.user.utypeCode|UserTypeFilter"></span></li>
+              <li>状态：<span ng-bind="workerManagerCon.curWorker.user.ustatusCode|UserStstusFilter"></span></li>
+              <li>创建时间：<span >{{workerManagerCon.curWorker.user.udate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
+              <li>状态：<span ng-bind="workerManagerCon.curWorker.user.uphone"></span></li>
+              <li>密码：<span ng-bind="workerManagerCon.curWorker.user.upsw"></span></li>
+              <li>评分：<span ng-bind="workerManagerCon.curWorker.user.upoints"></span></li>
+
+              <li>身份证件：<span ng-bind="workerManagerCon.curWorker.worker.reCard"></span></li>
+              <li>真实姓名：<span ng-bind="workerManagerCon.curWorker.worker.reName"></span></li>
+              <li>家政类型：<span ng-bind="workerManagerCon.curWorker.worker.workerType"></span></li>
+              <li>所属公司：<span ng-bind="workerManagerCon.curWorker.worker.wcompany"> </span></li>
+              <li class="li-comment">
+                  <ul>
+                    <li class="comment-item" ng-repeat="comment in workerManagerCon.workerDetial.comments">
+                      <div class="c-u">
+                        评价用户：{{comment.wuname}}
+                      </div>
+                      <div class="c-c">
+                        {{comment.wcContent}}
+                      </div>
+                    </li>
+
+                  </ul>
+              </li>
+
+
+
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" ng-click="workerManagerCon.nomalUser(workerManagerCon.curWorker.user.uid)">激活 </button>
+            <button type="button" class="btn btn-warning" ng-click="workerManagerCon.prohibitUser(workerManagerCon.curWorker.user.uid)">冻结 </button>
+            <button type="button" class="btn btn-danger" ng-click="workerManagerCon.deleteUser(workerManagerCon.curWorker.user.uid,workerManagerCon.curWorker.worker.id)">删除 </button>
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal -->
+    </div>
+    <!-- panel end -->
+
+
+
+
+</div>

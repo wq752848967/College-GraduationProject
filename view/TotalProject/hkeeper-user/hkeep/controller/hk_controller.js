@@ -1,10 +1,11 @@
 // JavaScript Document
 //初始化操作
-app.controller('submitOrderController',['HKeepService',function(HKeepService){
+app.controller('submitOrderController',['HKeepService','RepairService','userService',function(HKeepService,RepairService,userService){
 	var self = this;
 	//初始化数据
 	self.hwTitle="";
 	self.hwMoney;
+	self.hwPhone;
 	self.hwDate;
 	self.hwTime;
 	self.hwAddr;
@@ -12,23 +13,26 @@ app.controller('submitOrderController',['HKeepService',function(HKeepService){
 	self.hwTypeCode;
 	self.hwDTypeCode;
 	self.hwPubUId = "USERtest";
-
-
+	self.rId = "";
+	self.repair;
 	//获取一下url中的数据
-	var reg = new RegExp("(^|&)" + "type" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-	var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-	var type  =  unescape(r[2]);
-	self.hwTypeCode = type;
-	var dreg = new RegExp("(^|&)" + "dtype" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-	var dr = window.location.search.substr(1).match(dreg);  //匹配目标参数
-	var dtype  =  unescape(dr[2]);
-	self.hwDTypeCode = dtype;
 
+	var url=decodeURI(location.href);
+	var temp1 =  url.split("?")[1];
+	var temp2Arr = temp1.split("&");
+	self.hwTypeCode =  temp2Arr[0].split("=")[1];
+	self.hwDTypeCode =  temp2Arr[1].split("=")[1];
+	self.rId = temp2Arr[2].split("=")[1];
+	if(self.rId!=0){
+		 //get repair
+		 getRepairDetial(self.rId);
+	}
+	initPhone();
 	self.submitHwork = function()
 	{
 
 	    self.hwDate = $("#orderTime").val();
-			var promiseResult = HKeepService.submit(self.hwPubUId,self.hwTitle,self.hwMoney,self.hwDate,	self.hwTime,	self.hwAddr,self.hwDesc,	self.hwTypeCode,self.hwDTypeCode);
+			var promiseResult = HKeepService.submit(self.hwPubUId,self.hwTitle,self.hwMoney,self.hwDate,	self.hwTime,	self.hwAddr,self.hwDesc,	self.hwTypeCode,self.hwDTypeCode,self.hwPhone);
 			promiseResult.success(function(data,status,config,headers){
 					console.log("submit ok");
 					alert("发布成功");
@@ -38,6 +42,32 @@ app.controller('submitOrderController',['HKeepService',function(HKeepService){
 					alert("发布失败");
 					document.location="../index.html";
 			});
+	}
+
+
+	//inter method
+	function getRepairDetial(rId){
+		var promise  =  RepairService.getRepairServiceInfo(rId);
+		promise.success(function(data,status,config,headers){
+				console.log("success RepairService.getRepairServiceInfo");
+				self.repair  = data.data.repair;
+				self.hwTitle = data.data.repair.rtitle;
+				self.hwAddr = data.data.repair.raddr;
+				self.hwDesc = data.data.repair.rdes;
+		});
+		promise.error(function(data,status,config,headers){
+			console.log("error RepairService.getRepairById");
+		});
+	}
+	function initPhone(){
+		//userService
+		var promiseResult = userService.getUserInfo();
+		promiseResult.success(function(data,status,config,headers){
+			self.hwPhone = data.data.uphone;
+		});
+		promiseResult.error(function(data,status,config,headers){
+			 console.log("get user Phone error"+data.message);
+		});
 	}
 }])
 
@@ -102,6 +132,7 @@ app.controller('HworksHistoryController',['HKeepApplyService','$window',function
 			var result = data.success;
 			if(result){
 					alert("提交成功");
+
 			}
 			else{
 					alert("数据错误，提交失败");
@@ -203,6 +234,14 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 			var result = data.success;
 			if(result){
 					alert("提交成功");
+					var promise = HKeepApplyService.getDetial(hwId);
+					promise.success(function(data,status,config,headers){
+							console.log("HKeepApplyService.getdetial success");
+							self.detial = data.data;
+					});
+					promise.error(function(data,status,config,headers){
+							console.log("HKeepApplyService.getdetial error");
+					});
 			}
 			else{
 					alert("数据错误，提交失败");
@@ -247,11 +286,27 @@ app.controller("HwKindController",['WorkKindService','$window',function(WorkKind
 	self.repairList = [];
 	self.otherList= [];
   self.index;
+	var rId = "0";
+	//get source type
+
+  var reg = new RegExp("(^|&)" + "sou" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+  var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+  var sourceType  =  unescape(r[2]);
+  if(sourceType==2){
+    var regId = new RegExp("(^|&)" + "rId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var rer = window.location.search.substr(1).match(regId);  //匹配目标参数
+    rId  =  unescape(rer[2]);
+     console.log(rId);
+  }
+
+
 	initKind();
 
 
 	self.selectKind = function(kind,dkind){
-			$window.location.href="./hk_order.html?type="+kind+"&dtype="+dkind;
+
+			 $window.location.href="./hk_order.html?type="+kind+"&dtype="+dkind+"&rId="+rId;
+
 	}
 
 	function initKind(){

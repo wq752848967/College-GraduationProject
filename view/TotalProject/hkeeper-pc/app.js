@@ -1,5 +1,6 @@
 
 var serverAddress="http://127.0.0.1:8080/HkPlatform-pc";
+var picAddress = "http://127.0.0.1:8080/hkeeper-user/images/repair/";
 var app  = angular.module('hkeeper-pc',['ui.router']);
 
 app.config(function($stateProvider,$urlRouterProvider){
@@ -24,6 +25,16 @@ app.config(function($stateProvider,$urlRouterProvider){
           url:"/workerAuthentication",
           templateUrl:"component/Hwork/workerAuthentication.html",
           controller:"WorkerAuthenticationController as workerAuthenticationCon"
+        })//hworkerManager.html
+        .state("hworkerManager",{     //员工管理
+          url:"/hworkerManager",
+          templateUrl:"component/Hwork/hworkerManager.html",
+          controller:"WorkerManagerController as workerManagerCon"
+        })
+        .state("addRepair",{
+          url:"/addRepair",
+          templateUrl:"component/Repair/addRepair.html",
+          controller:"AddRepairController as addRepairCon"
         })
         .state("repairList",{
           url:"/repairList",

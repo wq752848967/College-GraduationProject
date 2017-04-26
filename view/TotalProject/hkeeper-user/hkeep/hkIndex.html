@@ -105,7 +105,8 @@ ul
 .ul_s_type li
 {
 	width:33%;
-	float:left;
+	float:left !important;
+
 	text-align:center;
 }
 </style>
@@ -124,16 +125,16 @@ function changeBack()
 <ul id="content_ul_type" class="yahei">
 <li class="li_type">
   <div class="content_div_type">家庭清洁</div>
-  <ul class="ul_s_type" ng-repeat="kind in kwKindCon.sweapList"  >
-    <li ng-click="kwKindCon.selectKind(201,kind.hwkType)"><img src="../images/hkeep/hk_type11.png"/>
+  <ul class="ul_s_type"  >
+    <li  ng-repeat="kind in kwKindCon.sweapList" ng-click="kwKindCon.selectKind(201,kind.hwkId)"><img src="../images/hkeep/hk_type11.png"  />
       <p>{{kind.hwkName}}</p>
     </li>
   </ul>
 </li>
 <li class="li_type">
   <div class="content_div_type">保姆月嫂</div>
-  <ul class="ul_s_type" ng-repeat="kind in kwKindCon.careList">
-		<li ng-click="kwKindCon.selectKind(202,kind.hwkType)"><img src="../images/hkeep/hk_type21.png"/>
+  <ul class="ul_s_type" >
+		<li ng-repeat="kind in kwKindCon.careList" g-click="kwKindCon.selectKind(202,kind.hwkId)"><img src="../images/hkeep/hk_type21.png" />
       <p>{{kind.hwkName}}</p>
     </li>
 
@@ -141,9 +142,17 @@ function changeBack()
 </li>
 <li class="li_type">
   <div class="content_div_type">维修</div>
+  <ul class="ul_s_type" >
+    <li ng-repeat="kind in kwKindCon.repairList" ng-click="kwKindCon.selectKind(203,kind.hwkId)"><img src="../images/hkeep/hk_type31.png"/>
+      <p>{{kind.hwkName}}</p>
+    </li>
+  </ul>
+</li>
+<li class="li_type">
+  <div class="content_div_type">其他</div>
   <ul class="ul_s_type">
-    <li ng-click="kwKindCon.selectKind(203,kind.hwkType)"><img src="../images/hkeep/hk_type31.png"/>
-      <p>维修服务</p>
+    <li  ng-repeat="kind in kwKindCon.otherList" ng-click="kwKindCon.selectKind(203,kind.hwkId)"><img src="../images/hkeep/hk_type31.png"/>
+      <p>{{kind.hwkName}}</p>
     </li>
   </ul>
 </li>
@@ -153,6 +162,8 @@ function changeBack()
 </body>
 <script type="text/javascript" src="../js/angular.min.js" ></script>
 <script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
 <script type="text/javascript" src="service/hk_service.js"></script>
 <script type="text/javascript" src="controller/hk_controller.js"></script>
 </html>

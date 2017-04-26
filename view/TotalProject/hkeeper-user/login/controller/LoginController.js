@@ -35,6 +35,9 @@ app.controller("LoginController",["LoginService","$window",function(LoginService
       })
 
     }
+    self.changeRegister = function(){
+      $window.location.href="./registerU.html";
+    }
     self.showWaiting = function(){
       var top = ($(window).height() - $(".result-panel").height())/2;
       var left = ($(window).width() - $(".result-panel").width())/2;

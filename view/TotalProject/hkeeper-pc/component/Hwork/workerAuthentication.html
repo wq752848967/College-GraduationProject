@@ -70,13 +70,14 @@
 
 <div class="container">
 <div class="panel panel-default">
-  <div class="panel-heading">报修订单显示</div>
+  <div class="panel-heading">认证管理显示</div>
   <table class="table table-bordered table-hover table-responsive " style="text-align:center">
     <thead>
       <tr>
         <th>编号</th>
         <th>申请类型</th>
         <th>申请用户</th>
+				<th>所属公司</th>
         <th>时间</th>
         <th>状态</th>
         <th>操作</th>
@@ -87,6 +88,7 @@
         <td ng-bind="wa.waNumId"></td>
         <td ng-bind="wa.waWorkerType"></td>
         <td ng-bind="wa.waUser"></td>
+				<td ng-bind="wa.waCompany"></td>
         <td ng-bind="wa.waDate|date"></td>
         <td ng-bind="wa.waValid"> </td>
         <th ><button class="btn btn-primary" ng-click="workerAuthenticationCon.waDetialShow($index)">详情</button></th>
@@ -112,7 +114,7 @@
 							<li>编  &nbsp&nbsp号：<span ng-bind="workerAuthenticationCon.curWa.waNumId"></span></li>
 							<li>申请用户：<span ng-bind="workerAuthenticationCon.curWa.waUser"> </span></li>
 							<li>申请类型：<span ng-bind="workerAuthenticationCon.curWa.waWorkerType"></span></li>
-
+							<li>所属公司：<span ng-bind="workerAuthenticationCon.curWa.waCompany"></span></li>
 							<li>状&nbsp; &nbsp;&nbsp; &nbsp;态：<span ng-bind="workerAuthenticationCon.curWa.waValid"></span></li>
 							<li>发布时间：<span >{{workerAuthenticationCon.curWa.waDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
 							<li>联系方式：<span ng-bind="workerAuthenticationCon.curWa.waPhone"></span></li>
@@ -128,8 +130,8 @@
 				</div>
         <div class="modal-footer">
 					<div class="allow-panel" >
-						<button class="btn btn-default" type="button" name="button" ng-click="workerAuthenticationCon.allowWorkerAu()">通过申请</button>
-						<button class="btn btn-primary" type="button" name="button" ng-click="workerAuthenticationCon.refuseWorkerAu()">拒绝申请</button>
+						<button class="btn btn-primary" type="button" name="button" ng-click="workerAuthenticationCon.allowWorkerAu()">通过申请</button>
+						<button class="btn btn-default" type="button" name="button" ng-click="workerAuthenticationCon.refuseWorkerAu()">拒绝申请</button>
 					</div>
         </div>
       </div>

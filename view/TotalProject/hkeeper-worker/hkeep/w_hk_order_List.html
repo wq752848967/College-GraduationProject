@@ -181,7 +181,7 @@ ul
 <script type="text/javascript">
 function changeBack()
 {
-  document.location="./hkIndex.html";
+  document.location="../index.html";
 }
 </script>
   <div data-role="header" class="cheader">
@@ -190,7 +190,7 @@ function changeBack()
   <div data-role="content" style="padding:0px;margin:0px;">
     <ul>
         <li class="list-li yahei" ng-repeat="item in orderListCon.dataList" ng-click="orderListCon.historyDetial(item.hwId)">
-        	<div class="list-li-header"><img src="../images/hkeep/w_file.png" /><span class="ll-h-stype" ng-bind="item.hwDTypeCode"></span><span class="ll-h-status" ng-bind="item.hwStatusCode"></span></div>
+        	<div class="list-li-header"><img src="../images/hkeep/w_file.png" /><span class="ll-h-stype" ng-bind="item.hwDTypeCode"></span><span class="ll-h-status" ng-bind="item.hwStatusCode|hworkStatusFilter"></span></div>
             <div class="list-li-body">
             <img src="../images/hkeep/w_order_test_png.png"/>
             	<div class="order_info">
@@ -214,6 +214,8 @@ function changeBack()
 </body>
 <script type="text/javascript" src="../js/angular.min.js" ></script>
 <script type="text/javascript" src="../app.js"></script>
+
+<script type="text/javascript" src="../filter/hk_filter.js"></script>
 <script type="text/javascript" src="service/hk_service.js"></script>
 <script type="text/javascript" src="controller/hk_controller.js"></script>
 </html>

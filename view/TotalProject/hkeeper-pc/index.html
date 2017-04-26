@@ -21,6 +21,9 @@ div {
 #div_framework {
 	height: auto;
 }
+.sidebar{
+	position: absolute;
+}
 </style>
 <script>
 
@@ -45,7 +48,7 @@ div {
   </div>
 </nav>
 <div class="clearfix " style="width:18%;">
-  <aside class="sidebar "  style="width:18%;">
+  <aside class="sidebar"  style="width:18%;">
     <nav class="sidebar-nav" style="border-bottom:6px solid #F8F8F8;">
       <ul class="metismenu" id="menu" style="border-bottom:6px solid #F8F8F8;">
         <li>
@@ -59,11 +62,12 @@ div {
             <li class="pl8"  ui-sref="hkOrderList"><a  href="#">· 订单查看</a></li>
 						<li class="pl8"  ui-sref="workerAuthentication"><a  href="#">· 员工认证</a></li>
 						<li class="pl8"  ui-sref="workKind"><a  href="#">· 家政分类</a></li>
-						<li class="pl8"  ui-sref="workerAuthentication"><a  href="#">· 员工管理</a></li>
+						<li class="pl8"  ui-sref="hworkerManager"><a  href="#">· 员工管理</a></li>
           </ul>
         </li>
         <li> <a href="#" aria-expanded="false"><i class="fa fa-gavel fw" style="padding-right:6px;"></i>报修管理<span class="fa arrow"></a>
           <ul aria-expanded="false">
+						<li><a ui-sref="addRepair">· 新建报修</a></li>
             <li><a ui-sref="repairList">· 报修查看</a></li>
             <li><a ui-sref="repairPartManage">· 维修部位</a></li>
             <li><a ui-sref="repairKind">· 维修类别</a></li>
@@ -128,6 +132,10 @@ $(function () {
 
 </script>
 <script src="app.js"></script>
+
+<script src="filter/RepairStatusFilter.js"></script>
+<script src="filter/hk_filter.js"></script>
+<script src="filter/UserFilter.js"></script>
 
 <script src="component/Admin/Service/AdminService.js"></script>
 <script src="component/Admin/Controller/AdminController.js"></script>

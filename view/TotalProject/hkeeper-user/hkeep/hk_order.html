@@ -86,6 +86,8 @@ ul
 {
 	width:80%;
 	height:100px;
+  padding-left: 20px;
+  padding-top: 10px;
 	border:1px solid #CCC;
 	outline:none;
 	border-radius:10px;
@@ -142,6 +144,11 @@ function changeBack()
       <li> <i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:5px;"></i>
         <input data-role="none" type="text" placeholder="请输入服务地址" class="yahei" ng-model="submitCon.hwAddr"/>
       </li>
+
+      <li> <i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:5px;"></i>
+        <input data-role="none" type="text" placeholder="请输入联系电话" class="yahei" ng-model="submitCon.hwPhone"/>
+      </li>
+
       <li> <i class="fa fa-list fa-fw" style="margin-top:10px;"></i>
         <input  id="orderTime" type="text" placeholder="预约时间" class="yahei" data-role="none"  />
       </li>
@@ -167,7 +174,11 @@ function changeBack()
 </body>
 <script type="text/javascript" src="../js/angular.min.js" ></script>
 <script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
 <script type="text/javascript" src="service/hk_service.js"></script>
+<script type="text/javascript" src="../per/service/perService.js"></script>
+<script type="text/javascript" src="../repair/service/repair_service.js"></script>
 <script type="text/javascript" src="controller/hk_controller.js"></script>
 
 </html>

@@ -85,23 +85,24 @@ img {
 
 .content-header-info-01
 {
-	font-size:17px;
+	font-size:20px;
 	font-weight:bold;
 }
 .content-header-info-02
 {
 	color:#999;
-	font-size:14px;
+	font-size:17px;
 	font-weight:normal;
 }
 .content-header-flag
 {
-	height:35px;
+	height:40px;
 	width:80px;
 	margin-top:30px;
 	padding-left:20px;
 	line-height:35px;
 	float:right;
+  font-size: 20px;
 	color:#FFF;
 	border-top-left-radius:17px;
 	border-bottom-left-radius:17px;
@@ -117,11 +118,11 @@ img {
 .content-info
 {
 	margin-top:10px;
-	padding-top:15px;
+	padding-top:18px;
 	padding-bottom:15px;
 	padding-left:35px;
 	padding-right:35px;
-	font-size:14px;
+	font-size:17px;
 	letter-spacing:1px;
 	background-color:#FFF;
 }
@@ -133,7 +134,7 @@ img {
 }
 .c-i-content
 {
-	height:25px;
+	height:30px;
 	letter-spacing:0px;
 	margin-left:5px;
 	display:inline-block;
@@ -178,7 +179,7 @@ img {
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 14px;
-  font-size: 14px;
+  font-size: 17px;
 
 }
 
@@ -363,17 +364,23 @@ function changeBack()
   	 <div class="content-header">
      	<img src="../images/hkeep/w_order_test_png.png"/>
         <div class="content-header-info">
-        	<p class="content-header-info-01" >测试标题</p>
-            <p class="content-header-info-02">浏览量：<span >12</span></p>
+        	<p class="content-header-info-01" >{{hworksDetialCon.detial.hwTitle}}</p>
+            <p class="content-header-info-02">浏览量：<span >{{hworksDetialCon.detial.hwVisitTime}}</span></p>
         </div>
-        <div class="content-header-flag"><span >12</span>元</div>
+        <div class="content-header-flag"><span >{{hworksDetialCon.detial.hwMoney}}</span>元</div>
      </div>
     <div class="content-info">
-    	<span class="c-i-header">发布时间：</span><span class="c-i-content"  ng-bind="hworksDetialCon.detial.hwPubDate"></span><br>
+    	<span class="c-i-header">发布时间：</span><span class="c-i-content"  ng-bind="hworksDetialCon.detial.hwPubDate|date"></span><br>
         <span class="c-i-header">家政地点：</span><span  class="c-i-content" ng-bind="hworksDetialCon.detial.hwAddr"></span><br>
+        <span class="c-i-header">联系电话：</span><span  class="c-i-content" ng-bind="hworksDetialCon.detial.userPhone"></span><br>
         <span class="c-i-header">家政细分：</span><span  class="c-i-content" ng-bind="hworksDetialCon.detial.hwDTypeCode"></span><br>
         <span class="c-i-header">家政日期：</span><span  class="c-i-content" ng-bind="hworksDetialCon.detial.hwDate"></span><br>
         <span class="c-i-header">服务时间：</span><span  class="c-i-content"><span ng-bind="hworksDetialCon.detial.hwTime"></span>小时</span>
+    </div>
+    <!--  状态 -->
+    <div class="content-apply"  style="padding-bottom:20px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;订单信息</div>
+        <div  class="service-info">订单状态：<span ng-bind="hworksDetialCon.detial.hwStatusCode|hworkStatusFilter"></span></div>
     </div>
     <!--  申请列表  -->
     <div class="content-apply" ng-show="hworksDetialCon.detial.hwStatusCode==210">
@@ -384,8 +391,8 @@ function changeBack()
                 <img class="list-item-logo" src="..\images\common\user_icon_default.png"></img>
                 <ul class="item-list">
                   <li class="item-li-info" ng-click="hworksDetialCon.workDetial(item.userId)">
-                    <div class="item-li-info-name">姓名：<span ng-bind="item.name"></span></div>
-                    <div class="item-li-info-date">T：<span ng-bind="item.date"></span></div>
+                    <div class="item-li-info-name">姓名：<span ng-bind="item.name|textLengthSet:true:6:' ...'"></span></div>
+                    <div class="item-li-info-date">Time：<span ng-bind="item.date|date"></span></div>
                   </li>
                   <li class="item-li-grade">评分&nbsp; <span ng-bind="item.points"></span></li>
                 </ul>
@@ -393,11 +400,7 @@ function changeBack()
 
         </ul>
     </div>
-    <!--  状态 -->
-    <div class="content-apply"  style="padding-bottom:20px;">
-      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;订单信息</div>
-        <div  class="service-info">订单状态：<span ng-bind="hworksDetialCon.detial.hwStatusCode"></span></div>
-    </div>
+
 
     <!--  服务者列信息 -->
     <div class="content-apply" ng-show="hworksDetialCon.detial.hwStatusCode>=211" style="padding-bottom:20px;">
@@ -471,8 +474,12 @@ function changeBack()
 
  <script type="text/javascript" src="../js/angular.min.js" ></script>
  <script type="text/javascript" src="../app.js"></script>
+ <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+ <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
+  <script type="text/javascript" src="filter/hk_filter.js"></script>
  <script type="text/javascript" src="service/hk_service.js"></script>
  <script type="text/javascript" src="controller/hk_controller.js"></script>
+ <script type="text/javascript" src="../filter/textFilter.js"></script>
 
 
 </body>

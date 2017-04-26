@@ -46,6 +46,27 @@ angular.module('hkeep_user')
               });
     };
 
+    this.uploadFile = function(rId,file){
+
+        return $http({
+            method:'POST',
+            url: serverAddress+'/repair/uploadPic',
+            headers: {
+                'Content-Type': undefined
+            },
+            data: {
+                "rId":rId,
+                "file":file
+            },
+            transformRequest: function(data,headersGetter){
+                       var formData = new FormData();
+                              angular.forEach(data, function (value, key) {
+                              formData.append(key, value);
+                       });
+               return formData;
+            }
+          })
+      }
 
 
 

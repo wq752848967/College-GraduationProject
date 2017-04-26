@@ -1,0 +1,79 @@
+
+<style>
+.container{
+	width: 100%;
+	height: 500px;
+
+}
+
+ .ul-addOrder  li{
+  background-color: white;
+	margin-bottom: 20px;
+}
+/* NOTE:
+  ul-addOrder 添加面板内部style
+
+ */
+
+ .ul-addOrder{
+   padding-left: 80px;
+   margin-top: 30px;
+ }
+ .ul-addOrder input{
+	width: 180px;
+   margin-left: 20px;
+ }
+ .ul-addOrder select{
+	 width: 180px;
+	 height: 28px;
+   margin-left: 17px;
+ }
+ .ul-addOrder textarea{
+	 width: 280px;
+	 height: 60px;
+	 margin-top: 10px;
+
+ }
+#addButton{
+	 width: 250px;
+	 height: 40px;
+	 margin-left: 100px;
+	 padding-left: 50px;
+	 letter-spacing: 50px;
+	 margin-bottom: 150px;
+ }
+
+
+
+
+</style>
+
+
+
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">新建订单</div>
+    <ul class="ul-addOrder">
+      <li><label for="">用户姓名：</label><input type="text" name="" value="" ng-model="addRepairCon.userName"></li>
+      <li><label for="">手机号码：</label><input type="text" name="" value="" ng-model="addRepairCon.userPhone"></li>
+      <li><label for="">类 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</label>
+			<select class="" name="" ng-change="addRepairCon.chengePart()" ng-model="addRepairCon.partIndex">
+					<option value="{{$index}}" ng-repeat="part in addRepairCon.partList">{{part.part.rpName}}</option>
+      </select>
+		</li>
+      <li><label for="">种 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类：</label>
+				<select class="" name="" ng-model="addRepairCon.partName">
+					<option  ng-repeat="kind in addRepairCon.partNames" value="{{kind}}">{{kind}}</option>
+				</select>
+			</li>
+      <li><label for="">名 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</label><input type="text" name="" value="" ng-model="addRepairCon.title"></li>
+			<li><label for="">地 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><input type="text" name="" value="" ng-model="addRepairCon.addr"></li>
+			<li><label for="">描 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述：</label><br>
+				<textarea name="name" rows="8" cols="80" ng-model="addRepairCon.desc"></textarea>
+			</li>
+    </ul>
+		<button id="addButton" class="btn btn-primary" type="button" name="button" ng-click="addRepairCon.submit()">新建</button>
+
+</div>
+
+</div>

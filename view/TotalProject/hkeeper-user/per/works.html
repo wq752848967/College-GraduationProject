@@ -29,7 +29,7 @@
           /*  header  */
           #header_body {
           	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
-          	background-color:  #008BFE;
+          	background-color:  #00CC99;
           	height: 50px;
           	font-weight: 200;
           	font-size: 20px;
@@ -60,7 +60,7 @@
           .w-head{
             width: 100%;
             height: 270px;
-            background-color: #008BFE;
+            background-color: #00CC99;
           }
           /*  logo  */
           .w-logo{
@@ -91,8 +91,8 @@
 
 
               color: white;
-              font-size: 15px;
-              font-weight: lighter;
+              font-size: 17px;
+              font-weight: 100;
           }
           .w-info-left{
               width: 50%;
@@ -119,7 +119,7 @@
             margin-right: auto;
 
             border-radius: 25px;
-            background-color: #026FCC;
+            background-color: #00A87E;
             text-align: center;
             line-height: 50px;
             color: white;
@@ -149,18 +149,23 @@
           }
           .c-date{
             float: right;
+            font-size: 15px;
           }
           .c-type{
             margin-left: 10px;
+            font-size: 15px;
           }
           .c-name{
             margin-left: 10px;
+
+            font-size: 15px;
           }
           .comment-body{
             width: 80%;
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
+            padding-left: 20px;
             padding-bottom: 20px;
 
             border-bottom: 1px solid #D1D1D1;
@@ -175,8 +180,9 @@
             height: 60px;
             position: fixed;
             bottom: 0;
-
+            padding-bottom: 30px;
             text-align: center;
+            letter-spacing: 5px;
             line-height: 60px;
             background-color: #F9F9F9;
           }
@@ -187,16 +193,21 @@
             margin-top: 10px;
             margin-left: auto;
             margin-right: auto;
-
             line-height: 40px;
-            border: 1px solid #008BFE;
+            border: 1px solid #00CC99;
             border-radius:20px;
-            color:#008BFE;
+            color:#00CC99;
             font-size: 20px;
             font-weight: 500;
           }
 
       </style>
+      <script>
+      function changeBack()
+      {
+         document.location="../index.html";
+      }
+      </script>
        <div data-role="content" class="no-padding no-margin">
            <div class="w-header">
              <div id="header_body"onclick="changeBack()">
@@ -214,17 +225,17 @@
                   <span class="yahei" ng-bind="workDetialCon.workDetial.user.uname"></span>
               </div>
               <div class="w-head-info" >
-                <div class="w-info-left yahei">业务：<span>家政清洁</span></div>
+                <div class="w-info-left yahei">业务：<span ng-bind="workDetialCon.workDetial.worker.workerType|hworkTypeFilter"></span></div>
 
-                <div class="w-info-right yahei">订单数：<span>20</span> 单</div>
+                <div class="w-info-right yahei">公司：<span ng-bind="workDetialCon.workDetial.worker.wcompany"></span></div>
               </div>
-              <div class="w-points ">评分：<span ng-bind="workDetialCon.workDetial.user.upoints">5.6</span></div>
+              <div class="w-points yahei">评分：<span ng-bind="workDetialCon.workDetial.user.upoints"></span></div>
            </div>
            <div class="w-comments yahei">
              <ul class="no-padding">
                <li class="li-comment" ng-repeat="item in workDetialCon.workDetial.comments">
                   <div class="comment-header">
-                    <img class="u-logo" src="../images/common/user_icon_default.png"/><span class="c-name">匿名用户</span><span class="c-type">类型:家庭保洁<span> <span class="c-date" ng-bind="item.wcDate"></span>
+                    <img class="u-logo" src="../images/common/user_icon_default.png"/><span class="c-name">匿名用户</span><span class="c-type">类型:家庭保洁<span> <span class="c-date" ng-bind="item.wcDate|date"></span>
                   </div>
                   <div class="comment-body" ng-bind="item.wcContent">
 
@@ -232,7 +243,7 @@
                </li>
 
              </ul>
-              <div class="comment-more" ng-click="workDetialCon.useWork()"> <span>Select Me</span></div>
+              <div class="comment-more" ng-click="workDetialCon.useWork()"> <span>选择此员工</span></div>
            </div>
 
        </div>
@@ -240,6 +251,9 @@
 </body>
 <script type="text/javascript" src="../js/angular.min.js" ></script>
 <script type="text/javascript" src="../app.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="../filter/hk_filter.js"></script>
 <script type="text/javascript" src="service/perService.js"></script>
 <script type="text/javascript" src="controller/perController.js"></script>
 </html>

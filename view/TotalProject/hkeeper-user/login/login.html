@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-    
+
     <title>登录</title>
     <link rel="stylesheet" href="../css/font-common.css">
     <style media="screen">
@@ -73,6 +73,14 @@
          background-color: #27D660;
        }
 
+       .op-login{
+         margin-left: 13%;
+         margin-right: 13%;
+         margin-top: 17px;
+         color: #A9A9A9;
+         font-size: 18px;
+       }
+
        /*  结果面板   */
        .result-panel{
          display: none;
@@ -112,6 +120,10 @@
         <div class="submit-panel">
             <button class="submit-button yahei" ng-click="loginCon.login()">登录</button>
         </div>
+        <div class="op-login">
+          <span>忘记密码</span>
+          <span style="float:right;" ng-click="loginCon.changeRegister()">注册账号</span>
+        </div>
 
       </div>
       <div class="login-add-panel">
@@ -131,6 +143,8 @@
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="../js/angular.min.js" ></script>
   <script type="text/javascript" src="../app.js"></script>
+  <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+  <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
   <script type="text/javascript" src="service/LoginService.js"></script>
   <script type="text/javascript" src="controller/LoginController.js"></script>
 </html>

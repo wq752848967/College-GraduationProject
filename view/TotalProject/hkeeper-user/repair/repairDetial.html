@@ -72,6 +72,18 @@
       margin-top: 8px;
 
     }
+    .div-r-image{
+
+      width: 60%;
+      height: 200px;
+      margin-top: 30px;
+      margin-left: 20%;
+      border: solid 2px #A9A9A9;
+    }
+    .div-r-image img{
+      height: 100%;
+      width: 100%;
+    }
 
 
 
@@ -112,11 +124,22 @@
 
 
     #mik-comment{
-      width: 100%;
+        width: 100%;
+        height: 50px !important;
+        font-size: 22px;
+        font-weight: 700;
+        background-color: #FFD700;
+    }
+    #to-hwork{
+      width: 80%;
       height: 50px !important;
       font-size: 22px;
-      font-weight: 700;
-      background-color: #FFD700;
+      font-weight: 600;
+      letter-spacing: 4px;
+      border-radius: 15px;
+      margin-left: 10%;
+      margin-bottom:30px;
+      background-color: #3AD7B0;
     }
     </style>
     <script type="text/javascript">
@@ -153,7 +176,12 @@
           描&nbsp &nbsp述:</br></br>
           <span ng-bind="repairDetialCon.repair.repair.rdes"></span>
         </div>
-
+        <div class="content-line">
+          图&nbsp &nbsp片:</br>
+          <div class="div-r-image">
+             <img ng-src="{{repairDetialCon.picUrl}}" alt=""  err-src="{{repairDetialCon.errPicUrl}}">
+          </div>
+        </div>
         <div class="publisher-info" ng-if="(repairDetialCon.status==314)||(repairDetialCon.status== 313)">
           <div class="content-line">
             维修人员:
@@ -184,14 +212,14 @@
 
           </div>
           <div class="content-line">
-            拒绝时间:
-            <span  ng-bind="repairDetialCon.repair.rServce.rsFinishDate|date"></span>
+             不可维修，已拒绝，暂无描述。
           </div>
 
         </div>
       </div>
       <div class="operate-panel">
-        <button id="mik-comment" type="button" name="button">有问题，联系物业</button>
+        <button id="mik-comment" type="button" name="button" style="display:none;">有问题，联系物业</button>
+        <button id="to-hwork" type="button" name="button" style="display:none;" ng-click="repairDetialCon.changeToHwork()">转接家政解决</button>
       </div>
     </div>
   </body>
@@ -199,6 +227,8 @@
   </script>
   <script type="text/javascript" src="../js/angular.min.js" ></script>
   <script type="text/javascript" src="../app.js"></script>
+  <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+  <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
   <script type="text/javascript" src="service/repair_service.js"></script>
   <script type="text/javascript" src="controller/repair_controller.js"></script>
   <script type="text/javascript" src="../filter/RepairStatusFilter.js"></script>

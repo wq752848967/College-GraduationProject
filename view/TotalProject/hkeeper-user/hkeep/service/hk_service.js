@@ -5,7 +5,7 @@
 
 app.service('HKeepService',['$http',function($http){
 
-    this.submit = function(userId,title,money,date,time,add,desc,typeCode,dTypeCode)
+    this.submit = function(userId,title,money,date,time,add,desc,typeCode,dTypeCode,phone)
     {
 
 
@@ -18,7 +18,8 @@ app.service('HKeepService',['$http',function($http){
          'hwAddr':add,
          'hwDesc':desc,
          'hwTypeCode':typeCode,
-         'hwDTypeCode':dTypeCode};
+         'hwDTypeCode':dTypeCode,
+         'userPhone':phone};
        var transFn = function(data) {
            return $.param(data);
        };

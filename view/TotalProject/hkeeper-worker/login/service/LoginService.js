@@ -20,17 +20,28 @@ app.service("RegisterService",["$http",function($http) {
                   "checkNum":checkNum
                }});
     }
+    //ADD hk worker
+    this.addHkUser = function(phone,psw,checkNum){
+      return   $http({url:serverAddress+'/user/addHkUser',
+       method: 'post',
+       headers: {'Content-Type': 'multipart/form-data'},
+        params:{ 'phone':phone,
+                  'psw':psw,
+                  "checkNum":checkNum
+               }});
+    }
 }]);
 app.service("WaService",["$http",function($http) {
 
-    this.addWa = function(relName,relPhone,workType,cardNum,userId,des){
+    this.addWa = function(relName,relPhone,workType,cardNum,userId,des,company){
       var data = {
                   'relName':relName,
                   'relPhone':relPhone,
                   "workType":workType,
                   "cardNum":cardNum,
                   "userId":userId,
-                  'des':des
+                  'des':des,
+                  'company':company
       };
       var transFn = function(data) {
           return $.param(data);

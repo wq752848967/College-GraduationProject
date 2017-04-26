@@ -111,14 +111,14 @@
             /*    信息面板      */
             .info-panel{
               margin-top: 20px;
-              margin-left: 10px;
-              margin-right: 10px;
+              margin-left: 10%;
+              margin-right: 10%;
               border-top: 2px solid #D1D1D1;
             }
               .info-panel ul{
-                margin-top: 20px;
+                margin-top: 25px;
                 font-weight: lighter;
-                font-size: 15px;
+                font-size: 18px;
               }
               .info-panel ul li img{
                 height: 40px;
@@ -126,10 +126,18 @@
                 vertical-align: middle;
               }
             .info-panel ul li{
-              height: 50px;
+              height: 90px;
               line-height: 50px;
             }
+            .li-left-info{
+              float: left;
+              line-height: 20px !important;
+              margin-left: 10px;
+              display: inline-block;
+            }
             .li-right-info{
+
+              line-height: 20px !important;
               float: right;
               display: inline-block;
             }
@@ -139,7 +147,7 @@
             /*  获取按钮   */
             .get-btn-panel{
               width: 100%;
-              margin-top: 50px;
+              margin-top: 10px;
               text-align: center;
             }
             .get-btn-panel button{
@@ -231,19 +239,58 @@
         <div class="info-panel yahei">
           <ul>
             <li>
-              <img src="../images/hkeep/hk_type31.png" alt=""><span ng-bind="getRepairCon.type_01"></span><span class="info-percentage" ng-bind="getRepairCon.perc_01"></span>
+              <div class="">
+                  <img src="../images/hkeep/hk_type31.png" alt=""><span ng-bind="getRepairCon.type_01"></span>
+              </div>
+              <div class="li-left-info">
+                   完成<span class="info-percentage" ng-bind="getRepairCon.compelet_01"></span>&nbsp件
+              </div>
+
               <div class="li-right-info">
                   剩余<span ng-bind="getRepairCon.leftCount_01"></span> 任务
               </div>
             </li>
+
+
+
             <li>
-              <img src="../images/hkeep/hk_type13.png" alt=""><span ng-bind="getRepairCon.type_02"></span><span class="info-percentage" ng-bind="getRepairCon.perc_02"></span>
+             <div class="">
+                 <img src="../images/hkeep/hk_type13.png" alt=""><span ng-bind="getRepairCon.type_02"></span>
+             </div>
+
+             <div class="li-left-info">
+                  完成<span class="info-percentage" ng-bind="getRepairCon.compelet_02"></span>&nbsp件
+             </div>
               <div class="li-right-info">
                     剩余<span ng-bind="getRepairCon.leftCount_02"></span> 任务
               </div>
             </li>
+
+
+
             <li>
-              <img src="../images/hkeep/hk_type22.png" alt=""><span ng-bind="getRepairCon.type_03"></span><span class="info-percentage" ng-bind="getRepairCon.perc_03"></span>
+              <div class="">
+                <img src="../images/hkeep/hk_type22.png" alt=""><span ng-bind="getRepairCon.type_04"></span>
+              </div>
+              <div class="li-left-info">
+                   完成<span class="info-percentage" ng-bind="getRepairCon.compelet_04"></span>&nbsp件
+              </div>
+
+              <div class="li-right-info">
+                    剩余<span ng-bind="getRepairCon.leftCount_04"></span> 任务
+              </div>
+            </li>
+
+
+
+
+
+            <li>
+              <img src="../images/hkeep/hk_type22.png" alt="">
+              <span ng-bind="getRepairCon.type_03"></span></br>
+             <div class="li-left-info">
+                  完成<span class="info-percentage" ng-bind="getRepairCon.compelet_03"></span>&nbsp件
+             </div>
               <div class="li-right-info">
                     剩余<span ng-bind="getRepairCon.leftCount_03"></span> 任务
               </div>
@@ -257,7 +304,7 @@
 
         <div class="pop-panel">
             <div class="info-head">
-              <span>当前获取任务类型为：</span><span ng-bind="getRepairCon.workType"></span>
+              <span>当前获取任务类型为：</span><span ng-bind="getRepairCon.workType|RepairRTypeFilter"></span>
             </div>
             <div class="op-btns">
               <button class="yahei" type="button" name="button" ng-click="getRepairCon.moveGetPage()">获取</button>
@@ -272,4 +319,5 @@
     <script type="text/javascript" src="../app.js"></script>
     <script type="text/javascript" src="service/repairService.js"></script>
     <script type="text/javascript" src="controller/repairController.js"></script>
+    <script type="text/javascript" src="../filter/RepairStatusFilter.js"></script>
 </html>

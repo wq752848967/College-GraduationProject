@@ -58,7 +58,10 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       self.type;
       self.desc;
       self.addr;
+      self.deital;
       self.submitText;
+      self.userPhone;
+      self.hwStatusCode;
       var reg = new RegExp("(^|&)" + "hwId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
       var r = window.location.search.substr(1).match(reg);  //匹配目标参数
       var hwId  =  unescape(r[2]);
@@ -79,6 +82,9 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       //调用service 获取详情数据
       var primiseResult = HworksService.getDetial(hwId);
       primiseResult.success(function(data,status,config,headers){
+              console.log(data.data);
+              self.hwStatusCode = data.data['hwStatusCode'];
+              self.userPhone = data.data['heUPhone'];
               self.title = data.data['hwTitle'];
               self.money = data.data['hwMoney'];
               self.visitTimes = data.data['hwVisitTime'];
@@ -99,9 +105,24 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       {
         if(viewType==1){
           var promise = HworksService.applyHwork();
-          promise.success(function(){
-              alert("申请成功");
-              $window.location.href="w_hk_workerList.html";
+          promise.success(function(data,status,config,headers){
+            var result = data.success;
+            if(result){
+                alert("申请成功");
+                $window.location.href="w_hk_workerList.html";
+            }
+            else{
+                if(data.message=="140521"){
+                    alert("帐号未被认证，申请失败");
+                }
+                else{
+                    alert("帐号已被冻结，申请失败");
+                }
+            }
+
+
+
+
           });
           promise.error(function(){
               alert("网络错误，收藏失败");

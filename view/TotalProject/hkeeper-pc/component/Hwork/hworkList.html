@@ -74,6 +74,7 @@
         <th>类型</th>
         <th>用户</th>
         <th>订单号</th>
+				<th>名称</th>
         <th>时间</th>
         <th>状态</th>
         <th>操作</th>
@@ -81,11 +82,12 @@
     </thead>
     <tbody>
       <tr ng-repeat="hwork in orderListCon.workList">
-        <td ng-bind="hwork.hwDTypeCode"></td>
+        <td ng-bind="hwork.hwTypeCode|hworkTypeFilter"></td>
         <td ng-bind="hwork.hwPubUId"></td>
         <td ng-bind="hwork.hwId"></td>
-        <td ng-bind="hwork.hwPubDate"></td>
-        <td ng-bind="hwork.hwStatusCode"> </td>
+				<td ng-bind="hwork.hwTitle"></td>
+        <td ng-bind="hwork.hwPubDate|date"></td>
+        <td ng-bind="hwork.hwStatusCode|hworkStatusFilter"> </td>
         <th ><button class="btn btn-primary" ng-click="orderListCon.orderDetialShow($index)">详情</button></th>
       </tr>
 
@@ -106,14 +108,15 @@
         <div class="modal-body yahei">
 						<ul>
 							<li>编号：<span ng-bind="orderListCon.curOrder.hwId"></span></li>
-							<li>类型：<span ng-bind="orderListCon.curOrder.hwTypeCode"></span></li>
+							<li>类型：<span ng-bind="orderListCon.curOrder.hwTypeCode|hworkTypeFilter"></span></li>
 							<li>种类：<span ng-bind="orderListCon.curOrder.hwDTypeCode"></span></li>
-							<li>状态：<span ng-bind="orderListCon.curOrder.hwStatusCode"></span></li>
+							<li>状态：<span >{{orderListCon.curOrder.hwStatusCode|hworkTypeFilter}}</span></li>
 							<li>发布时间：<span >{{orderListCon.curOrder.hwPubDate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
 							<li>服务时间：<span ng-bind="orderListCon.curOrder.hwDate"></span></li>
 							<li>服务时长：<span ng-bind="orderListCon.curOrder.hwTime"></span> 小时</li>
 							<li>服务费用： 合计 ￥<span ng-bind="orderListCon.curOrder.hwMoney"></span></li>
 							<li>地址：<span ng-bind="orderListCon.curOrder.hwAddr"></span></li>
+							<li>联系电话：<span ng-bind="orderListCon.curOrder.heUPhone"></span></li>
 							<li>申请次数：<span ng-bind="orderListCon.curOrder.hwApplyAmount"></span> 次</li>
 							<li>浏览次数：<span ng-bind="orderListCon.curOrder.hwVisitTime"> </span> 次</li>
 							<li>描述：<span ng-bind="orderListCon.curOrder.hwDesc"></span><br></li>

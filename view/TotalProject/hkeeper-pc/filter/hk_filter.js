@@ -22,3 +22,27 @@ app.filter("hworkStatusFilter",function(){
       return output;
   };
 });
+app.filter("hworkTypeFilter",function(){
+  return function(input){
+    var output  =  "";
+
+      switch (input) {
+        case 201:
+         output = "清洁";
+         break;
+       case 202:
+         output = "保姆";
+         break;
+       case 203:
+         output = "维修";
+         break;
+       case 204:
+         output = "已完成";
+           break;
+        default:
+          output = "未知";
+
+      }
+      return output;
+  };
+});

@@ -9,6 +9,8 @@ angular.module('hkeep_user').controller('SubmitRepairController',['RepairService
      self.rpId;
      self.rpName;
      self.rpKind;
+     self.phone;
+     self.picFile;
      //get param from url
      var url=decodeURI(location.href);
      var temp1 =  url.split("?")[1];
@@ -16,8 +18,14 @@ angular.module('hkeep_user').controller('SubmitRepairController',['RepairService
      self.rpId =  temp2Arr[0].split("=")[1];
      self.rpName  = temp2Arr[1].split("=")[1];
      self.rpKind =  temp2Arr[2].split("=")[1];
-     console.log("Kind:"+self.rpKind);
 
+  
+     self.test = function(){
+       console.log(self.picFile);
+     }
+     self.uploadFile =  function(){
+         uploadFile('REPAIR20174231654121311',self.picFile);
+     }
      self.submitRepair =  function()
      {
            //check params
@@ -26,13 +34,29 @@ angular.module('hkeep_user').controller('SubmitRepairController',['RepairService
            var promiseResult = RepairService.submit(self.title,self.addr,self.desc,self.userId,self.level,self.rpId,self.rpName,self.rpKind);
            promiseResult.success(function(data,status,config,headers){
               console.log("submit ok"+data.message);
-              alert("提交成功");
-              $window.location =  "../index.html";
+
+              uploadFile(data.message,self.picFile);
 
            });
            promiseResult.error(function(data,status,config,headers){
               console.log("submit error"+data.message);
            });
+     }
+
+     //inter method
+
+     function uploadFile(rId,file){
+      //  /uploadFile
+      var promiseResult = RepairService.uploadFile(rId,file);
+      promiseResult.success(function(data,status,config,headers){
+         console.log("submit pic ok"+data.message);
+         alert("提交成功");
+         $window.location =  "../index.html";
+
+      });
+      promiseResult.error(function(data,status,config,headers){
+         console.log("submit error"+data.message);
+      });
      }
 }]);
 //   work  订单历史
@@ -76,6 +100,8 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
   var curPartId = "";
   var curPartName = "";
   var curPartKind = "";
+  var rId = "";
+
   // init data
   getAllRepairParts();
 
@@ -98,7 +124,8 @@ app.controller("RepairPartController",["RepairService","$window",function(Repair
     RepairService.setrpId(curPartId);
     RepairService.setPartName(curPartName);
 
-    $window.location.href="repair.html?rpId="+curPartId+"&rpName="+curPartName+"&rpKind="+curPartKind;
+      $window.location.href="repair.html?rpId="+curPartId+"&rpName="+curPartName+"&rpKind="+curPartKind;
+
   }
 
   //define inter function
@@ -123,6 +150,8 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
   var self = this;
   self.repair;
   self.status;
+  self.picUrl;
+  self.errPicUrl;
   var repairType;
   var rId;
   //获取类型
@@ -138,10 +167,20 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
         console.log(data);
         //判断当前状态对按钮进行禁用
         var rStatus  = data.data.repair.rstatusCode;
-        console.log(rStatus);
+        if(data.data.repair.rpicUrl1==null){
+            self.picUrl = picAddress  +  "rImages/err.png";
+        }
+        else{
+            self.picUrl = picAddress + data.data.repair.rpicUrl1;
+        }
+
+        self.errPicUrl = picAddress  +  "rImages/err.png";
         self.status = rStatus;
-        if(rStatus!=314){
-            document.getElementById('mik-comment').style.visibility = "hidden"
+        if(rStatus==314){
+            document.getElementById('mik-comment').style.display = "block"
+        }
+        if((rStatus==315)||(rStatus==316)){
+            document.getElementById('to-hwork').style.display = "block"
         }
     });
     promise.error(function(data,status,config,headers){
@@ -150,13 +189,9 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
 
 
 
-
-
-
-
-
-
   //define out interface
-
+  self.changeToHwork =  function(){
+      $window.location =  "../hkeep/hkIndex.html?sou=2&rId="+rId;
+  }
 
 }]);

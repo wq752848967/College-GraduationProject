@@ -27,8 +27,19 @@
 	margin-right: 30px;
 	background-color: white !important;
 }
-
-
+.r-pic{
+	height: 200px !important;
+	margin-bottom: 20px;
+}
+.div-pic{
+	width: 60%;
+	height: 200px;
+	border: solid 5px #A9A9A9;
+}
+.div-pic img{
+	width: 100%;
+	height: 100%;
+}
 
 
 /*  page  样式    */
@@ -65,6 +76,7 @@
 	margin-top: 10px;
 	padding-top: 20px;
 }
+
 </style>
 
 
@@ -77,6 +89,7 @@
       <tr>
         <th>订单号</th>
         <th>类型</th>
+				<th>名称</th>
         <th>发布用户</th>
         <th>时间</th>
         <th>状态</th>
@@ -86,10 +99,11 @@
     <tbody>
       <tr ng-repeat="repair in repairListCon.repairList">
         <td ng-bind="repair.rid"></td>
-        <td ng-bind="repair.rtypeCode"></td>
+        <td ng-bind="repair.rtypeCode|RepairRTypeFilter"></td>
+				<td ng-bind="repair.rtitle"></td>
         <td ng-bind="repair.uid"></td>
         <td ng-bind="repair.rdate|date"></td>
-        <td ng-bind="repair.rstatusCode"> </td>
+        <td ng-bind="repair.rstatusCode|RepairStatusFilter"> </td>
         <th ><button class="btn btn-primary" ng-click="repairListCon.repairDetialShow($index)">详情</button></th>
       </tr>
 
@@ -112,13 +126,18 @@
 						<ul>
 							<li>编  &nbsp&nbsp号：<span ng-bind="repairListCon.curRepair.rid"></span></li>
 							<li>发布者：<span ng-bind="repairListCon.curRepair.uid"USER12345678121212""> </span></li>
-							<li>类  &nbsp&nbsp型：<span ng-bind="repairListCon.curRepair.rtypeCode"></span></li>
+							<li>类  &nbsp&nbsp型：<span ng-bind="repairListCon.curRepair.rtypeCode|RepairRTypeFilter"></span></li>
 							<li>种  &nbsp&nbsp类：<span ng-bind="repairListCon.curRepair.rpName"></span></li>
-							<li>状  &nbsp&nbsp态：<span ng-bind="repairListCon.curRepair.rstatusCode"></span></li>
+							<li>状  &nbsp&nbsp态：<span ng-bind="repairListCon.curRepair.rstatusCode|RepairStatusFilter"></span></li>
 							<li>发布时间：<span >{{repairListCon.curRepair.rdate|date: 'yyyy-MM-dd HH:mm:ss' }}</span></li>
 							<li>地  &nbsp&nbsp址：<span ng-bind="repairListCon.curRepair.raddr"></span></li>
 							<li>调度等级：<span ng-bind="repairListCon.curRepair.rlevel"></span> 级</li>
 							<li>描  &nbsp&nbsp述：<span ng-bind="repairListCon.curRepair.rdes"></span><br></li>
+							<li class="r-pic"> 图  &nbsp&nbsp片：<br>
+									<div class="div-pic">
+										<img ng-src="{{repairListCon.picUrl}}" alt="">
+									</div>
+							</li>
 						</ul>
 						<ul class="repair-work-info" ng-if="(repairListCon.curRepair.rstatusCode>=313)||(repairListCon.curRepair.rstatusCode==314)">
 							<li>维修人员姓名：<span ng-bind="repairListCon.curRepairService.worker.uname"></span></li>
@@ -128,7 +147,7 @@
 						</ul>
 						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==314">
 							<li>维修完毕</li>
-							<li>维修完成时间：<span ng-bind="repairListCon.curRepairService.rService.rsFinishDate"></span></li>
+							<li>维修完成时间：<span ng-bind="repairListCon.curRepairService.rServce.rsFinishDate|date"></span></li>
 						</ul>
 						<ul class="repair-work-info" ng-if="repairListCon.curRepair.rstatusCode==315">
 							<li>维修完毕   (拒绝维修)</li>
@@ -137,8 +156,8 @@
 				</div>
         <div class="modal-footer">
 					<div class="allow-panel" ng-if="repairListCon.curRepair.rstatusCode==311">
-						<button class="btn btn-default" type="button" name="button" ng-click="repairListCon.refuse()">拒绝维修</button>
 						<button class="btn btn-primary" type="button" name="button" ng-click="repairListCon.allow()">同意维修</button>
+						<button class="btn btn-default" type="button" name="button" ng-click="repairListCon.refuse()">拒绝维修</button>
 					</div>
         </div>
       </div>

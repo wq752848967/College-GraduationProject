@@ -37,12 +37,15 @@ app.service("RepairService",["$http",function($http){
   }
   //更新repair status
   this.finishRepair  =function(rId){
-    return $http({ url:serverAddress+'/repair/finishRepair',
-            method: 'post',
-            headers: {'Content-Type': 'multipart/form-data'},
-            params:{ 'rId':rId}
-            });
-  }
+    console.log(rId);
+    return   $http({url:serverAddress+'/repair/finishRepair',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+                'rId':rId
+             }});
+    }
+
   this.canNotRepair  =function(rId){
     return $http({ url:serverAddress+'/repair/canNotRepair',
             method: 'post',

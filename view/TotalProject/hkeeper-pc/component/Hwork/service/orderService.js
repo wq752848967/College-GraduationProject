@@ -56,13 +56,13 @@ app.service("WaService",["$http",function($http){
     return   $http({url:serverAddress+'/hkworker/allowWorkerAu',
      method: 'post',
      headers: {'Content-Type': 'multipart/form-data'},
-      params:{ userId:wId}});
+      params:{ waId:waId}});
   }
   this.refuseWorkerAu = function(waId){
     return   $http({url:serverAddress+'/hkworker/refuseWorkerAu',
      method: 'post',
      headers: {'Content-Type': 'multipart/form-data'},
-      params:{ userId:wId}});
+      params:{ waId:waId}});
   }
 
 }]);
@@ -107,6 +107,51 @@ app.service("WorkKindService",["$http",function($http){
       params:{
               'kindId':kindId
              }});
+  }
+
+
+
+}]);
+app.service("WorkerManagerService",["$http",function($http){
+  this.getHkWorkersByFilter = function(pageNow,pageSize,isFilter,wName,bCompany,hwType){
+    var data = {
+      'pageNow':pageNow,
+      'pageSize':pageSize,
+      'isFilter':isFilter,
+      'wName':wName,
+      'bCompany':bCompany,
+      'hwType':hwType
+    };
+    var transFn = function(data) {
+        return $.param(data);
+    };
+    var postCfg = {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+              transformRequest: transFn
+          };
+    return  $http.post(serverAddress+'/hkworker/getHkWorkersByFilter', data, postCfg);
+  }
+
+
+  this.deleteHkWorker = function(uId,wId){
+    var data = {
+      'userId':uId,
+      'wId':wId,
+    };
+    var transFn = function(data) {
+        return $.param(data);
+    };
+    var postCfg = {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+              transformRequest: transFn
+          };
+    return  $http.post(serverAddress+'/hkworker/deleteHkWorker', data, postCfg);
+  }
+  this.getWorkDetial = function(wId){
+    return   $http({url:serverAddress+'/user/getworkInfo',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{ userId:wId}});
   }
 
 

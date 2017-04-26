@@ -1,3 +1,28 @@
+app.service("AddRepairService",["$http",function($http){
+  //repair part  sestion
+  this.getAllRepairParts = function(){
+    return $http({ url:serverAddress+'/repairpart/getAllPartsModels',
+            method: 'post',
+            headers: {'Content-Type': 'multipart/form-data'}
+            });
+  };
+  this.submit = function(title,addr,desc,userPhone,userName,level,rpId,rpName,rpKind){
+    //返回可级联调用方法体promise
+    var data = {'RTitle':title,'RAddr':addr,'RDes':desc,'userPhone':userPhone,
+                'userName':userName,'RLevel':level,'rpId':rpId,'rpName':rpName,
+                 'rpKind':rpKind};
+    var transFn = function(data) {
+        return $.param(data);
+    };
+    var postCfg = {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+              transformRequest: transFn
+          };
+  //  return $http({url:serverAddress+'/repair/submitRepair',method: 'post',data,postCfg});
+    return  $http.post(serverAddress+'/repair/submitRepair', data, postCfg);
+  };
+
+}]);
 app.service("RepairListService",["$http",function($http){
 
 
@@ -65,6 +90,7 @@ app.service("RepairPartManageService",["$http",function($http){
   this.addPart = function(pName,pKind,pParts){
 
     var data = {'pName':pName,'pKind':pKind,'pParts':pParts};
+    console.log(pName+" "+pKind+" "+pParts);
     var transFn = function(data) {
         return $.param(data);
     };
@@ -72,13 +98,14 @@ app.service("RepairPartManageService",["$http",function($http){
               headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
               transformRequest: transFn
           };
-    return $http({url:serverAddress+'/repairpart/addPart',method: 'post',data,postCfg});
+      return  $http.post(serverAddress+'/repairpart/addPart', data, postCfg);
+    //return $http({url:serverAddress+'/repairpart/addPart',method: 'post',data,postCfg});
   };
 
 
 
   this.updatePartProject = function(pId,pName,pKind,pParts,pStatus){
-
+  
     var data = {'pId':pId,'pName':pName,'pKind':pKind,'pParts':pParts,'pStatus':pStatus};
     var transFn = function(data) {
         return $.param(data);
@@ -87,7 +114,8 @@ app.service("RepairPartManageService",["$http",function($http){
               headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
               transformRequest: transFn
           };
-    return $http({url:serverAddress+'/repairpart/updatePartsContent',method: 'post',data,postCfg});
+      return  $http.post(serverAddress+'/repairpart/updatePartsContent', data, postCfg);
+    //return $http({url:serverAddress+'/repairpart/updatePartsContent',method: 'post',data,postCfg});
   }
 }])
 
@@ -212,5 +240,25 @@ app.service("RepairDispatcherService",["$http",function($http){
             method: 'post',
             headers: {'Content-Type': 'multipart/form-data'}
             });
+  }
+
+
+  this.changeRepairLevel = function(repairId,level){
+
+
+    var data = {
+                'repairId':repairId,
+                'level':level
+               };
+    var transFn = function(data) {
+        return $.param(data);
+    };
+    var postCfg = {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+              transformRequest: transFn
+          };
+    return  $http.post(serverAddress+'/repair/changeRepairLevel', data, postCfg);
+
+
   }
 }]);

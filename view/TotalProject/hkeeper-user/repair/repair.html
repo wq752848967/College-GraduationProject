@@ -163,10 +163,18 @@ function changeBack()
 				<li> <i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:10px;"></i>
 	        <input class="yahei" data-role="none" placeholder="请输入报修地址" ng-model="submitRCon.addr"/>
 	      </li>
-				<li style="height:180px;" ><i class="fa fa-map-marker fa-lg" style="margin-top:10px;margin-left:12px;"></i>
+				<li style="height:180px;" ><i class="fa fa-pencil-square fa-fw" style="margin-top:10px;margin-left:5px;"></i>
 					<span class="yahei" style="color:#999">简要描述:</span></br>
 					<textarea class="text_area" data-role="none" ng-model="submitRCon.desc"></textarea>
 	      </li>
+				<li> <i class="fa fa-file-image-o fa-fw" style="margin-top:10px;margin-left:10px;"></i>
+	          <span ngf-select ng-model="submitRCon.picFile"> 点击选择图片</span>
+	      </li>
+				<li>
+					  <span ng-bind="submitRCon.picFile.name"></span><br>
+						<img ng-src="submitRCon.picFile" alt="">
+	      </li>
+
 			</ul>
 
 
@@ -181,6 +189,8 @@ function changeBack()
 </div>
 </body>
 <script type="text/javascript" src="../js/angular.min.js" ></script>
+<script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+<script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
 <script type="text/javascript" src="../app.js"></script>
 <script type="text/javascript" src="service/repair_service.js"></script>
 <script type="text/javascript" src="controller/repair_controller.js"></script>

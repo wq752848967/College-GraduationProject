@@ -69,7 +69,7 @@ app.service("AdminService",["$http",function($http){
 
   this.updateAdminStstus = function(adminId,statusType){
     //返回可级联调用方法体promise
-    console.log(adminId);
+  
     var data = {
                 'adminId':adminId,
                 'statusType':statusType

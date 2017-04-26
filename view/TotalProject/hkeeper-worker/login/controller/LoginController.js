@@ -28,6 +28,9 @@ app.controller("LoginController",["LoginService","$window",function(LoginService
       })
 
     }
+    self.changeRegister = function(){
+      $window.location.href="./registerU.html";
+    }
     self.showWaiting = function(){
       var top = ($(window).height() - $(".result-panel").height())/2;
       var left = ($(window).width() - $(".result-panel").width())/2;
@@ -94,7 +97,7 @@ app.controller("RegisterController",["RegisterService","$window",function(Regist
     }
     function addHouseUser(){
       self.showWaiting();
-      var promise = RegisterService.addHouseUser(self.phone,self.psw,self.checkNum);
+      var promise = RegisterService.addHkUser(self.phone,self.psw,self.checkNum);
       promise.success(function(data,status,config,headers){
           var result = data.success;
           if(result==true){
@@ -122,6 +125,7 @@ app.controller("WaController",["WaService","$window",function(WaService,$window)
     self.des;
     self.cardNum;
     self.userId;
+    self.company;
     self.resultInfo = "错误"
     var reg = new RegExp("(^|&)" + "userId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
@@ -149,7 +153,7 @@ app.controller("WaController",["WaService","$window",function(WaService,$window)
 
     function addWa(){
       self.showWaiting();
-      var promise = WaService.addWa(self.relName,self.relPhone,self.workType,self.cardNum,self.userId,self.des);
+      var promise = WaService.addWa(self.relName,self.relPhone,self.workType,self.cardNum,self.userId,self.des,self.company);
       promise.success(function(data,status,config,headers){
           var result = data.success;
           if(result==true){

@@ -124,7 +124,7 @@ app.controller("WorkerAuthenticationController",["WaService",function(WaService)
         waDetialHide();
       if(result){
           alert("通过成功");
-
+          getAllByDate();
       }
       else{
         alert("服务器错误，获取信息失败");
@@ -146,7 +146,7 @@ app.controller("WorkerAuthenticationController",["WaService",function(WaService)
         waDetialHide();
       if(result){
           alert("拒绝成功");
-
+          getAllByDate();
       }
       else{
         alert("服务器错误，获取信息失败");
@@ -335,6 +335,152 @@ app.controller("AddHkOrderController",["WorkKindService","OrderService",function
     });
     promise.error(function(data,status,config,headers){
 
+      alert("internet error,get data fail!");
+    });
+  }
+}]);
+app.controller("WorkerManagerController",["WorkerManagerService","AdminService",function(WorkerManagerService,AdminService){
+  var self = this;
+  self.workerList;
+  self.pageNow = 1;
+  self.pageMax;
+  self.pageNum = [];
+  self.pageSize=10;
+  self.isFilter = 1;
+  self.wName = "";
+  self.bCompany = "";
+  self.hwType=0;
+  self.curWorker;
+  self.workerDetial;
+  var wName;
+  var bCompany;
+  //init data
+  getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,self.wName,self.bCompany,self.hwType);
+
+   //define outer interface
+   self.workerDetialShow  = function(index){
+
+      self.curWorker = self.workerList[index];
+       getWorkerDetial(self.curWorker.user.uid);
+      $('#workerPanel').modal('show')
+   }
+   self.prohibitUser = function(uId){
+     updateUserStatus(uId,2);
+   }
+   self.nomalUser = function(uId){
+     updateUserStatus(uId,1);
+   }
+   self.deleteUser = function(uId,wId){
+     deleteHkWorker(uId,wId);
+   }
+   self.changePage = function(page){
+      self.pageNow = page;
+       getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,wName,bCompany,self.hwType);
+   }
+   self.showAllWorker = function(){
+     self.pageNow = 1;
+     self.isFilter = 1;
+     self.wName = "";
+     self.bCompany = "";
+     self.hwType=0;
+     getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,self.wName,self.bCompany,self.hwType);
+   }
+   self.filterSearch = function(){
+     self.pageNow = 1;
+     self.isFilter = 2;
+     var wName = self.wName;
+     var bCompany = self.bCompany;
+     if(self.wName.length==0){
+       wName = "0";
+     }
+     if(self.bCompany.length==0){
+       bCompany = "0";
+     }
+     getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,wName,bCompany,self.hwType);
+   }
+
+
+
+  //define inter method
+  function getWorkerDetial(uId){
+    var promise = WorkerManagerService.getWorkDetial(uId);
+
+    promise.success(function(data,status,config,headers){
+      self.workerDetial = data.data;
+        console.log(data.data);
+        console.log("success WorkDetialController.getWorkDetial");
+
+    });
+    promise.error(function(data,status,config,headers){
+       console.log("error WorkDetialController.getWorkDetial");
+    });
+  }
+  function deleteHkWorker(uId,wId){
+    var promise  = WorkerManagerService.deleteHkWorker(uId,wId);
+    promise.success(function(data,status,config,headers){
+
+        $('#workerPanel').modal('hide')
+        var login_success = data.success;
+        if(login_success==true){
+            alert("删除成功");
+             getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,wName,bCompany,self.hwType);
+        }
+        else{
+          var fail_msg = data.message;
+          alert("获取失败："+fail_msg);
+        }
+    });
+    promise.error(function(data,status,config,headers){
+        $('#orderDetialPanel').modal('hide')
+        console.log("get admin :net error");
+        alert("获取失败 net error");
+    });
+  }
+  function updateUserStatus(uId,type){
+    var promise  = AdminService.updateAdminStstus(uId,type);
+    promise.success(function(data,status,config,headers){
+
+        $('#workerPanel').modal('hide')
+        var login_success = data.success;
+        if(login_success==true){
+            alert("修改成功");
+             getHkWorkersByFilter(self.pageNow,self.pageSize,self.isFilter,wName,bCompany,self.hwType);
+
+        }
+        else{
+          var fail_msg = data.message;
+          alert("获取失败："+fail_msg);
+        }
+    });
+    promise.error(function(data,status,config,headers){
+        $('#orderDetialPanel').modal('hide')
+        console.log("get admin :net error");
+        alert("获取失败 net error");
+    });
+  }
+  function getHkWorkersByFilter(pageNow,pageSize,isFilter,wName,bCompany,hwType){
+    var  promise = WorkerManagerService.getHkWorkersByFilter(pageNow,pageSize,isFilter,wName,bCompany,hwType);
+    promise.success(function(data,status,config,headers){
+      console.log("WorkerManagerService.getHkWorkersByFilter: net success");
+      //判断 是否成功
+      console.log(data.data);
+      var result = data.success;
+      if(result){
+        self.workerList =  data.data;
+        self.pageNow = data.pageNow;
+        self.pageMax = data.pageMax;
+
+        self.pageNum = [];
+        for(i=0;i<self.pageMax;i++){
+          self.pageNum.push(i);
+        }
+      }
+      else{
+        alert("服务器错误，获取种类信息失败，请重试！");
+      }
+
+    });
+    promise.error(function(data,status,config,headers){
       alert("internet error,get data fail!");
     });
   }
