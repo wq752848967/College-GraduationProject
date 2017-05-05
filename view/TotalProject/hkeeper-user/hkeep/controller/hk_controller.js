@@ -172,6 +172,7 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 
 
 	var self = this;
+	self.psw;
 	self.detial;
 	self.curOrderId;
 	//获取wid
@@ -216,6 +217,16 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 
 
   //定制方法
+	self.showWaiting = function(){
+		var top = ($(window).height() - $(".result-panel").height())/2;
+		var left = ($(window).width() - $(".result-panel").width())/2;
+		var scrollTop = $(document).scrollTop();
+		var scrollLeft = $(document).scrollLeft();
+		$(".result-panel").css( { position : 'absolute', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
+	}
+	self.hideWaiting = function(){
+		  $(".result-panel").hide();
+	}
 	self.workDetial  = function(wId){
 		$window.location.href="../per/works.html?wId="+wId+"&hwId="+hwId;
 	}
@@ -233,15 +244,8 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 			self.commentContent = "";
 			var result = data.success;
 			if(result){
-					alert("提交成功");
-					var promise = HKeepApplyService.getDetial(hwId);
-					promise.success(function(data,status,config,headers){
-							console.log("HKeepApplyService.getdetial success");
-							self.detial = data.data;
-					});
-					promise.error(function(data,status,config,headers){
-							console.log("HKeepApplyService.getdetial error");
-					});
+				  self.showWaiting();
+
 			}
 			else{
 					alert("数据错误，提交失败");
@@ -253,6 +257,31 @@ app.controller('HworksDetialController',['HKeepApplyService','$window',function(
 			alert("网络错误，提交失败");
 		});
 
+	}
+	self.payBill =  function(){
+		var promise = HKeepApplyService.payHwork(hwId,self.psw);
+		promise.success(function(data,status,config,headers){
+			self.hideWaiting();
+			var result = data.success;
+			if(result){
+				self.psw = "";
+				var promise = HKeepApplyService.getDetial(hwId);
+					promise.success(function(data,status,config,headers){
+							console.log("HKeepApplyService.getdetial success");
+							self.detial = data.data;
+					});
+					promise.error(function(data,status,config,headers){
+							console.log("HKeepApplyService.getdetial error");
+					});
+			}else{
+				self.psw = "";
+				alert(data.message);
+			}
+		});
+		promise.error(function(data,status,config,headers){
+				console.log("HKeepApplyService.payHwork error");
+				alert("网络错误支付失败");
+		});
 	}
 
 

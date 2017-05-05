@@ -77,6 +77,23 @@ app.service('HKeepApplyService',['$http',function($http){
 
      return  $http.post(serverAddress+'/comment/addComment', data, postCfg);
    }
+
+   this.payHwork = function(hwId,psw){
+     //返回可级联调用方法体promise
+     var data = {
+       'hwId':hwId,
+       'psw':psw
+      };
+     var transFn = function(data) {
+         return $.param(data);
+     };
+     var postCfg = {
+               headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+               transformRequest: transFn
+           };
+
+     return  $http.post(serverAddress+'/hwork/payHwork', data, postCfg);
+   }
 }]);
 
 

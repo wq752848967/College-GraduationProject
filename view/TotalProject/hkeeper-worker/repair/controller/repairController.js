@@ -147,6 +147,12 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
         console.log("success RepairService.getRepair");
         self.repair  = data.data;
         rId = self.repair.repair.rid;
+        if(data.data.repair.rpicUrl1==null){
+            self.picUrl = picAddress  +  "rImages/err.png";
+        }
+        else{
+            self.picUrl = picAddress + data.data.repair.rpicUrl1;
+        }
         console.log(data);
     });
     promise.error(function(data,status,config,headers){
@@ -205,7 +211,7 @@ app.controller("RepairDetialController",["RepairService","$window",function(Repa
     });
   }
   self.cantNotRepair = function(){
-    var promise  =  RepairService.cantNotRepair(rId);
+    var promise  =  RepairService.canNotRepair(rId);
     promise.success(function(data,status,config,headers){
         console.log("success RepairService.cantNotRepair");
         alert("修改成功");

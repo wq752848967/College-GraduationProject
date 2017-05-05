@@ -249,7 +249,7 @@ img {
   bottom: 0px;
   height: 50px;
   width: 100%;
-  background-color: yellow;
+  background-color: #00CC99;
   color: white;
   letter-spacing: 5px;
   font-size: 20px;
@@ -462,7 +462,66 @@ function changeBack()
     <button id="commentBtn" data-role="none" type="button" name="button" ng-show="hworksDetialCon.detial.hwStatusCode==212"
     ng-click="hworksDetialCon.showCommentPanel(hworksDetialCon.detial.hwId)">评价</button>
 
+    <button id="commentBtn" data-role="none" type="button" name="button" ng-show="hworksDetialCon.detial.hwStatusCode==213"
+    ng-click="hworksDetialCon.showWaiting()">支付</button>
   </div>
+
+  <style media="screen">
+  .result-panel{
+    display: none;
+    position: absolute;
+    z-index: 1003;
+    width: 300px;
+    height: 150px;
+    padding-top: 20px;
+
+
+    text-align: center;
+    border: 1px solid #C3C3C3;
+    border-radius: 10px;
+    background-color: white;
+  }
+  .panel-header{
+    padding-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-bottom: 1px solid #C3C3C3;
+  }
+  .panel-body input{
+    width: 215px;
+    margin-top: 10px;
+    height: 30px;
+    font-size: 20px !important;
+    outline: none;
+  }
+  .panel-body button{
+    width: 215px;
+    height: 38px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 14px;
+    background: #00CC99;
+    border-radius: 5px;
+  }
+  </style>
+  <!-- NOTE:  支付密码 -->
+  <div class="result-panel">
+    <div class="panel-header">
+        请输入支付密码：
+    </div>
+    <div class="panel-body">
+      <input data-role="none" type="password" maxLength="12" name="" ng-model="hworksDetialCon.psw" value="">
+      <div class="">
+          <button type="button" data-role="none" ng-click="hworksDetialCon.payBill()" name="button">确定</button>
+      </div>
+    </div>
+  </div>
+
+
+
   </div><!--page end-->
  <script>
  	function test()
@@ -476,11 +535,11 @@ function changeBack()
  <script type="text/javascript" src="../app.js"></script>
  <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
  <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
-  <script type="text/javascript" src="filter/hk_filter.js"></script>
+
  <script type="text/javascript" src="service/hk_service.js"></script>
  <script type="text/javascript" src="controller/hk_controller.js"></script>
  <script type="text/javascript" src="../filter/textFilter.js"></script>
-
+  <script type="text/javascript" src="filter/hk_filter.js"></script>
 
 </body>
 </html>

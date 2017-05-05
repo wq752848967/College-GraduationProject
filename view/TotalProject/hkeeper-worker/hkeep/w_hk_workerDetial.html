@@ -20,6 +20,10 @@ body div {
 
 	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
 }
+a{
+  color: white !important;
+  text-decoration: none;
+}
 ul {
 	padding: 0px;
 	margin: 0px;
@@ -224,6 +228,7 @@ img {
 .content-apply
 {
 	clear:both;
+  margin-bottom: 50px;
 	margin-top:10px;
 	background-color:#FFF;
 }
@@ -255,6 +260,20 @@ img {
   margin-top: 14px;
   font-size: 17px;
 
+}
+#commentBtn{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  background-color: #00CC99;
+  color: white;
+  letter-spacing: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  outline: none;
 }
 </style>
 <script>
@@ -298,23 +317,29 @@ function changeBack()
         </div>
 
     </div>
-    <div ng-show="hworksDetialCon.hwStatusCode>=211" class="content-info">
-        <div class="content-info-tr">
-            <span class="c-i-header">联系电话：</span><span class="c-i-content" ng-bind="hworksDetialCon.userPhone"></span>
-        </div>
+    <div class="content-desc">
+      <div class="c-d-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;家政描述</div>
+        <div class="c-d-body" ng-bind="hworksDetialCon.desc"></div>
+    </div>
+
+    <div ng-show="hworksDetialCon.hwStatusCode>=211" class="content-apply"  class="content-info" style="padding-bottom:20px;">
+      <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;发布者信息</div>
+      <div class="content-info-tr" style="padding-top:20px;">
+          <span class="service-info">发 布 人&nbsp;：</span><span class="c-i-content" ng-bind="hworksDetialCon.hwPubUId"></span>
+      </div>
+      <div class="content-info-tr">
+          <span class="service-info">联系电话：</span><span class="c-i-content" ng-bind="hworksDetialCon.userPhone"></span>
+      </div>
     </div>
     <!--  状态 -->
     <div class="content-apply"  style="padding-bottom:20px;">
       <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;订单信息</div>
         <div  class="service-info">订单状态：<span ng-bind="hworksDetialCon.hwStatusCode|hworkStatusFilter"></span></div>
     </div>
-    <div class="content-desc">
-    	<div class="c-d-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;家政描述</div>
-        <div class="c-d-body" ng-bind="hworksDetialCon.desc"></div>
-    </div>
+
     <div class="content-apply" ng-show="hworksDetialCon.hwStatusCode==213" style="padding-bottom:50px;margin-bottom:50px;">
       <div class="c-a-header"><img src="../images/hkeep/w_file.png"/>&nbsp;&nbsp;评价信息</div>
-        <div  class="service-info"><span ng-bind="hworksDetialCon.detial.comments.wcContent"></span></div>
+        <div  class="service-info"><span ng-bind="hworksDetialCon.detial.wcContent"></span></div>
 
 
     </div>
@@ -323,8 +348,11 @@ function changeBack()
 
   </div><!--content end-->
 
+  <button id="commentBtn" data-role="none" type="button" name="button" ng-show="hworksDetialCon.hwStatusCode==213"
+  ><a href="tel:18463116116">雇主未支付、联系物业</a></button>
 
-  <div data-role="footer" class="footer" ng-show="hworksDetialCon.detial.hwStatusCode==211">
+
+  <div data-role="footer" class="footer" ng-show="hworksDetialCon.hwStatusCode<212">
      <div id="w_collect" class="yahei" ng-click="hworksDetialCon.collectHkwork()">收藏</div><div id="w_apply" class="yahei" ng-click="hworksDetialCon.applyHwork()" ng-bind="hworksDetialCon.submitText"></div>
   </div>
   </div><!--page end-->
@@ -337,6 +365,8 @@ function changeBack()
 
 
  <script type="text/javascript" src="../js/angular.min.js" ></script>
+ <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+ <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
  <script type="text/javascript" src="../app.js"></script>
  <script type="text/javascript" src="../filter/hk_filter.js"></script>
  <script type="text/javascript" src="service/hk_service.js"></script>

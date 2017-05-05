@@ -45,17 +45,19 @@ app.controller("RegisterController",["RegisterService","$window",function(Regist
     wait = 60;
     self.waitText = "发验证码";
     self.phone;
+    self.uname;
     self.psw;
     self.checkNum;
     self.resultInfo = "错误"
 
 
     self.next  = function(){
-     addHouseUser();
+      self.showWaiting();
+      checkSms(self.checkNum,self.phone);
     }
     self.sendCheck = function(){
       btnObject = document.getElementsByClassName('send-check');
-
+      sendCheckSms(self.phone);
       sendCheck(btnObject);
     }
     self.showWaiting = function(){
@@ -95,9 +97,40 @@ app.controller("RegisterController",["RegisterService","$window",function(Regist
           1000)
       }
     }
+
+    // send sms
+    function sendCheckSms(phone_Num)
+  {
+
+         AV.Cloud.requestSmsCode({
+           mobilePhoneNumber: phone_Num,
+           name: '贤得家家政',
+           op: '短信验证',
+           ttl: 1
+        }).then(function(){
+           //hideLoader();
+           //addCookie("secondsremained",60,60);//添加cookie记录,有效时间60s
+           //settime();//开始倒计时
+
+
+    }, function(err){
+         alert("发送失败");
+    });
+  }
+    function checkSms(s_check_Num,b_phone_Num){
+      AV.Cloud.verifySmsCode(s_check_Num, b_phone_Num).then(function(){
+            addHouseUser();
+      }, function(err){
+         self.hideWaiting();
+         alert("验证错误，请稍后再试");
+      });
+    }
+
+
+
     function addHouseUser(){
       self.showWaiting();
-      var promise = RegisterService.addHkUser(self.phone,self.psw,self.checkNum);
+      var promise = RegisterService.addHkUser(self.phone,self.uname,self.psw,self.checkNum);
       promise.success(function(data,status,config,headers){
           var result = data.success;
           if(result==true){

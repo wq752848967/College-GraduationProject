@@ -2,6 +2,7 @@
 var serverAddress="http://127.0.0.1:8080/HkPlatform";
 
 var picAddress="http://127.0.0.1:8080/hkeeper-user/images/repair/"
+var picTotalAddress="http://127.0.0.1:8080/hkeeper-user/images/"
 //test ip
 //var serverAddress = "http://192.168.191.1:8080/HkPlatform";
 

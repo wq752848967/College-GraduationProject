@@ -120,14 +120,19 @@
 							<li>申请次数：<span ng-bind="orderListCon.curOrder.hwApplyAmount"></span> 次</li>
 							<li>浏览次数：<span ng-bind="orderListCon.curOrder.hwVisitTime"> </span> 次</li>
 							<li>描述：<span ng-bind="orderListCon.curOrder.hwDesc"></span><br></li>
-
+							<li style="padding-top:10px; border-top:1px dashed #A9A9A9;" ng-show="orderListCon.curOrder.hwStatusCode>=211">接单员工：<span ng-bind="orderListCon.worker.uid"></li>
+							<li style="padding-top:10px" ng-show="orderListCon.curOrder.hwStatusCode>=211">员工姓名：<span ng-bind="orderListCon.worker.uname"></li>
+						  <li style="padding-top:10px;margin-bottom:10px;" ng-show="orderListCon.curOrder.hwStatusCode>=211">接单时间：<span ng-bind="orderListCon.curDetial.orderDate|date"></li>
+						  <li style="padding-top:10px;border-top:1px dashed #A9A9A9;" ng-show="orderListCon.curOrder.hwStatusCode>=212">完成时间：<span ng-bind="orderListCon.curDetial.orderFinishDate|date"></li>
 
 
 						</ul>
 				</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+
           <button type="button" class="btn btn-primary"> 提交更改 </button>
+					<button ng-show="orderListCon.curOrder.hwStatusCode==213"  ng-click="orderListCon.payBill()" type="button" class="btn btn-success"> 打款 </button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
         </div>
       </div>
       <!-- /.modal-content -->

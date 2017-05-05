@@ -3,6 +3,8 @@ app.controller("OrderListController",["OrderService",function(OrderService){
 
   //define date
   self.curOrder;
+  self.worker;
+  self.curDetial;
   self.workList = [];
   self.pageNow  = 1;
   self.maxPage  = 1;
@@ -20,11 +22,25 @@ getHworkListByStatusAndDate(self.pageNow,self.pageSize);
   self.orderDetialShow = function(index)
 	{
     self.curOrder =  self.workList[index];
-
+    getOrderByHwId(self.curOrder.hwId);
 		$('#orderDetialPanel').modal('show')
 
 	}
-
+  self.payBill = function(){
+    var promise = OrderService.payHwork(self.curOrder.hwId);
+    promise.success(function(data,status,config,headers){
+        var flag = data.success;
+        if(flag){
+            alert("打款成功");
+            getHworkListByStatusAndDate(self.pageNow,self.pageSize);
+        }else{
+          alert("服务器错误，打款失败："+data.message);
+        }
+    });
+    promise.error(function(data,status,config,headers){
+      alert("internet error,get data fail!");
+    });
+  }
 
 
   //define inter function
@@ -46,6 +62,18 @@ getHworkListByStatusAndDate(self.pageNow,self.pageSize);
       alert("internet error,get data fail!");
     });
 
+  }
+  function getOrderByHwId(hwId){
+    var promise = OrderService.getOrderByHwId(hwId);
+    promise.success(function(data,status,config,headers){
+      console.log("OrderListController.getOrderByHwId() success");
+      self.curDetial = data.data;
+      self.worker = data.worker;
+      console.log(data.data);
+    });
+    promise.error(function(data,status,config,headers){
+      alert("internet error,get data fail!");
+    });
   }
 }]);
 

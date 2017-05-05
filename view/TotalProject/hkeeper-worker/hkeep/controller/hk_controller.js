@@ -58,10 +58,11 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       self.type;
       self.desc;
       self.addr;
-      self.deital;
+      self.detial;
       self.submitText;
       self.userPhone;
       self.hwStatusCode;
+      self.hwPubUId;
       var reg = new RegExp("(^|&)" + "hwId" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
       var r = window.location.search.substr(1).match(reg);  //匹配目标参数
       var hwId  =  unescape(r[2]);
@@ -83,8 +84,9 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
       var primiseResult = HworksService.getDetial(hwId);
       primiseResult.success(function(data,status,config,headers){
               console.log(data.data);
+              self.hwPubUId = data.data['hwPubUId'];
               self.hwStatusCode = data.data['hwStatusCode'];
-              self.userPhone = data.data['heUPhone'];
+              self.userPhone = data.data['userPhone'];
               self.title = data.data['hwTitle'];
               self.money = data.data['hwMoney'];
               self.visitTimes = data.data['hwVisitTime'];
@@ -94,6 +96,7 @@ app.controller('HworksDetialController',['HworksService','$window',function(Hwor
               self.type = data.data['hwDTypeCode'];
               self.desc = data.data['hwDesc'];
               self.addr = data.data['hwAddr'];
+              self.detial = data.data['comments'];
       });
 
       self.collectHkwork   = function(){

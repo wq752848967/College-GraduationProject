@@ -189,8 +189,8 @@
         <td ng-bind="worker.user.uid"></td>
         <td ng-bind="worker.user.uname"></td>
         <td ng-bind="worker.user.uphone"></td>
-        <td ng-bind="worker.user.utypeCode|RepairRTypeFilter"></td>
-				<td ng-bind="worker.worker.rwType"></td>
+        <td ng-bind="worker.user.utypeCode|UserTypeFilter"></td>
+				<td ng-bind="worker.worker.rwType|RepairRTypeFilter"></td>
 				<td ng-bind="worker.user.udate|date"></td>
         <td ng-bind="worker.user.ustatusCode|UserStstusFilter"> </td>
 				<td ng-bind="worker.worker.tdWorkCount"></td>

@@ -9,10 +9,33 @@ app.service("OrderService",["$http",function($http){
                 'pageSize':pageSize
              }});
   }
+  this.getOrderByHwId = function(hwId){
+    return   $http({url:serverAddress+'/orders/getOrderByHwId',
+     method: 'post',
+     headers: {'Content-Type': 'multipart/form-data'},
+      params:{
+                'hwId':hwId
+             }});
+  }
+  this.payHwork = function(hwId){
+    //返回可级联调用方法体promise
+    var data = {
+      'hwId':hwId
+
+     };
+    var transFn = function(data) {
+        return $.param(data);
+    };
+    var postCfg = {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+              transformRequest: transFn
+          };
+
+    return  $http.post(serverAddress+'/hwork/payHwork', data, postCfg);
+  }
   this.submit = function(userPhone,title,money,date,time,add,desc,typeCode,dTypeCode)
   {
-      console.log(userPhone);
-      console.log(title);
+
 
 
      //返回可级联调用方法体promise

@@ -16,7 +16,7 @@ app.service('HworksService',['$http',function($http){
 
         var curHwork;
         this.hwId = hwId;
-        return $http({ url:serverAddress+'/hwork/getHworkById',
+        return $http({ url:serverAddress+'/hworkapply/getApplyHworkDetial',
                 method: 'post',
                 headers: {'Content-Type': 'multipart/form-data'},
                 params:{ 'hwId':hwId}});

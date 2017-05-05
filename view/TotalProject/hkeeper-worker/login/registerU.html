@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>注册</title>
     <link rel="stylesheet" href="../css/font-common.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="https://cdn1.lncld.net/static/js/av-mini-0.6.1.js"></script>
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
     <style media="screen">
     body{
     margin: 0px;
@@ -135,6 +138,15 @@
     margin-top: 15px;
   }
     </style>
+    <script type="text/javascript">
+    $(function(){
+         InitAV();
+    });
+     function InitAV()
+     {
+        AV.initialize("Ufj3UvOTLVJ8qItR1LOaOHOR", "TkiiXaWKO8RNqtRxvrd3YHyq");
+      }
+    </script>
   </head>
   <body ng-app="hkeep_worker" ng-controller="RegisterController as registerCon">
     <div data-role="header" >
@@ -149,10 +161,14 @@
                placeholder="请输入手机号码" ng-model="registerCon.phone">
              </div>
              <div class="div-input">
+               <input class="yahei" oninput="if(value.length>12)value=value.slice(0,12)"  type="text" name="" value=""
+               placeholder="请输入昵称" ng-model="registerCon.uname">
+             </div>
+             <div class="div-input">
                <input class="yahei" maxLength="10" type="password" name="" value="" placeholder="请输入密码" ng-model="registerCon.psw">
              </div>
              <div class="div-input div-check">
-               <input type="text" class="yahei" maxLength="4" name="" value="" placeholder="请输入验证码" ng-model="registerCon.checkNum">
+               <input type="text" class="yahei" maxLength="6" name="" value="" placeholder="请输入验证码" ng-model="registerCon.checkNum">
 
              </div>
              <button id="send-check" class="send-check yahei " type="button" name="button" ng-click="registerCon.sendCheck()">发验证码</button>
@@ -165,10 +181,12 @@
           <img src="../images/per/set.png" alt=""/></br>
           <span>正在注册...</span>
       </div>
-  
+
   </body>
-  <script type="text/javascript" src="../js/jquery.min.js"></script>
+
   <script type="text/javascript" src="../js/angular.min.js" ></script>
+  <script type="text/javascript"  src="../js/ng-file-upload.min.js"></script>
+  <script type="text/javascript"  src="../js/ng-file-upload-shim.min.js"></script>
   <script type="text/javascript" src="../app.js"></script>
   <script type="text/javascript" src="service/LoginService.js"></script>
   <script type="text/javascript" src="controller/LoginController.js"></script>

@@ -25,6 +25,10 @@
 
 	 background-color:#F4F4F4;
    }
+   #content_body{
+       overflow-y:scroll;
+       padding-bottom: 100px;
+   }
    #header_back
    {
 	   width:100%;
@@ -75,6 +79,7 @@
 	/*  设置  li  */
 	.content_body ul
 	{
+    overflow-y:scroll;
 		margin:0px;
 		margin-top:30px;
 		padding:0px;
@@ -125,37 +130,42 @@
              <img src="../images/per/per_back.png"/>
         </div>
         <div id="header_logo">
-             <img src="../images/per/per_logo.png"/>
+             <img ng-src="{{userCon.picUrl}}"/>
         </div>
         <div id="per_info">
-        	<p ng-bind="::userCon.user.uname"></p>
+        	<p ng-bind="::userCon.user.user.uname"></p>
             <p>用户等级</p>
         </div>
-        <div id="per_account">
+        <div id="per_account" ng-click="userCon.editInfo()">
         	<div class="weight_1"></div>
-            <p>账户管理 ></p>
+            <p>修改账户></p>
         </div>
         <div id="content_body">
             <ul>
             	<li class="content_body_li">
                 	<div class="ext_img"><img src="../images/per/set_per.png"/></div>
                     <div class="ext_1">个人信息</div>
-                    <div class="ext_2">{{::userCon.user.uid}}</div>
+                    <div class="ext_2">{{::userCon.user.user.uname}}</div>
+                </li>
+                <li class="content_body_li" ng-click="userCon.changeToWallet()">
+                	<div class="ext_img"><img src="../images/per/set_wallet.png"/></div>
+                    <div class="ext_1">账户余额</div>
+                    <div class="ext_2">￥ {{::userCon.user.wallet.ubalance}} 元</div>
                 </li>
                 <li class="content_body_li">
                 	<div class="ext_img"><img src="../images/per/set_phone.png"/></div>
                     <div class="ext_1">电话号码</div>
-                    <div class="ext_2">{{::userCon.user.uphone}}</div>
+                    <div class="ext_2">{{::userCon.user.user.uphone}}</div>
                 </li>
                 <li class="content_body_li">
                 	<div class="ext_img"><img src="../images/per/set_email.png"/></div>
                     <div class="ext_1">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱&nbsp;</div>
-                    <div class="ext_2">752848967@qq.com</div>
+                    <div class="ext_2">{{::userCon.user.user.uemail}}</div>
                 </li>
                 <li class="content_body_li">
                 	<div class="ext_img"><img src="../images/per/set_home.png"/></div>
                     <div class="ext_1">住户地址</div>
-                     <div class="ext_2">金福花园 #2 204</div>
+                     <div class="ext_2">{{::userCon.user.user.uaddr}}</div>
                 </li>
                 <li class="content_body_li mt_10">
                 	<div class="ext_img"><img src="../images/per/set_r_his.png"/></div>
@@ -165,6 +175,7 @@
                 	<div class="ext_img"><img src="../images/per/set_collection.png"/></div>
                     <div class="ext_1">收  藏</div>
                 </li>
+
             </ul>
         </div>
     </div>
@@ -216,7 +227,7 @@
       <li><a href="../index.html" data-ajax="false"><img src="../images/index/home.png" >首页</a></li>
       <li><a href="../hkeep/hk_order_history.html" data-ajax="false"><img src="../images/index/menu2.png" >订单</a></li>
       <li><a href="../repair/orderList.html" data-ajax="false"><img src="../images/index/repair2.png" >报修</a></li>
-      <li><a href="per/per.html" data-ajax="false"><img src="../images/index/per2.png" >个人</a></li>
+      <li><a href="#" data-ajax="false"><img src="../images/index/per2.png" >个人</a></li>
     </ul>
   </div>
  </div>

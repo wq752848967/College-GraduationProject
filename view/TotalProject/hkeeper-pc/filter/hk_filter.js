@@ -15,6 +15,9 @@ app.filter("hworkStatusFilter",function(){
          case 213:
          output = "已完成";
            break;
+      case 214:
+           output = "已付款";
+             break;
         default:
           output = "错误";
 

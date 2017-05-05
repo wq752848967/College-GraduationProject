@@ -12,9 +12,12 @@ app.filter("hworkStatusFilter",function(){
        case 212:
          output = "待评价";
          break;
-         case 213:
-         output = "已完成";
-           break;
+      case 213:
+        output = "已完成1";
+        break;
+      case 214:
+        output = "已支付";
+          break;
         default:
           output = "错误";
 
@@ -22,6 +25,7 @@ app.filter("hworkStatusFilter",function(){
       return output;
   };
 });
+
 app.filter("hworkTypeFilter",function(){
   return function(input){
     var output  =  "";

@@ -46,7 +46,7 @@ app.service("RepairService",["$http",function($http){
              }});
     }
 
-  this.canNotRepair  =function(rId){
+  this.canNotRepair  = function(rId){
     return $http({ url:serverAddress+'/repair/canNotRepair',
             method: 'post',
             headers: {'Content-Type': 'multipart/form-data'},
